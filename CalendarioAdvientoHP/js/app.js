@@ -41,7 +41,7 @@ async function init() {
   }
 }
 function bindNavigation() {
-  $(".nav-button, .castle-nav").forEach(button => button.addEventListener("click", () => showView(button.dataset.view)));
+  document.querySelectorAll(".nav-button, .castle-nav").forEach(button => button.addEventListener("click", () => showView(button.dataset.view)));
   $("#enter-calendar").addEventListener("click", () => showView("calendar"));
   $("#back-calendar").addEventListener("click", () => showView("calendar"));
   $("#open-letter").addEventListener("click", () => $("#letter-dialog").showModal());
