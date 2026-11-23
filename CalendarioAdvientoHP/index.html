@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111d29">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Adviento">
+  <title>Diciembre para Cintia</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="192x192" href="./fotos/icono-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./fotos/icono-192.png">
+  <link rel="stylesheet" href="./estilos.css">
+  <link rel="stylesheet" href="./experiencias.css">
+  <link rel="stylesheet" href="./acabado.css">
+  <script defer src="./escape-room.js"></script>
+  <script defer src="./calendario-publicado.js"></script>
+  <script defer src="./recursos-reto.js"></script>
+  <script defer src="./retos-avanzados.js"></script>
+  <script defer src="./mecanismos.js"></script>
+  <script defer src="./experiencias.js"></script>
+  <script defer src="./cerradura-transmisiones.js"></script>
+  <script defer src="./vista-reto.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <main>
+    <section id="portada" aria-labelledby="dedicatoria">
+      <button id="abrir" type="button">Abrir caja</button>
+    </section>
+
+    <section id="calendario" aria-labelledby="titulo-calendario" hidden>
+      <header class="introduccion">
+        <h1 id="titulo-calendario" tabindex="-1">Calendario<br> <em>de Adviento</em></h1>
+      </header>
+
+      <div class="escena">
+        <div class="luna" aria-hidden="true"></div>
+        <div class="casa">
+          <div class="tejado" aria-hidden="true">
+            <span class="chimenea"></span>
+            <div class="fronton"><span></span></div>
+          </div>
+          <div class="fachada">
+            <span class="guirnalda-casa" aria-hidden="true"></span>
+            <div id="puertas" class="puertas" role="group" aria-label="Puertas del calendario"></div>
+          </div>
+          <div class="escalones" aria-hidden="true"></div>
+        </div>
+        <div class="abeto abeto-izquierdo" aria-hidden="true"></div>
+        <div class="abeto abeto-derecho" aria-hidden="true"></div>
+        <div class="suelo" aria-hidden="true"></div>
+      </div>
+      <button class="boton" id="abrir-cuaderno" type="button" aria-haspopup="dialog">Cuaderno</button>
+      <button class="repetir-introduccion" id="repetir-introduccion" type="button">Volver a abrir la caja</button>
+    </section>
+  </main>
+
+  <dialog id="sorpresa" aria-labelledby="titulo">
+    <span class="limite-foco" id="inicio-tarjeta" tabindex="0"></span>
+    <form class="barra-tarjeta" method="dialog">
+      <p id="dia" class="fecha"></p>
+      <button class="cerrar" aria-label="Cerrar sorpresa" autofocus>×</button>
+    </form>
+    <h2 id="titulo"></h2>
+    <div id="contenido"></div>
+    <span class="limite-foco" id="fin-tarjeta" tabindex="0"></span>
+  </dialog>
+
+  <dialog id="cuaderno" aria-labelledby="titulo-cuaderno">
+    <span class="limite-foco" tabindex="0"></span>
+    <form class="barra-tarjeta" method="dialog">
+      <span class="fecha">Evidencias ganadas</span>
+      <button class="cerrar" aria-label="Cerrar cuaderno" autofocus>×</button>
+    </form>
+    <h2 id="titulo-cuaderno">Cuaderno</h2>
+    <div id="tarjetas-cuaderno"></div>
+    <span class="limite-foco" tabindex="0"></span>
+  </dialog>
+</body>
+</html>

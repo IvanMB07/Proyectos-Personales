@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Editor de Andrea · Diciembre para Cintia</title>
+  <link rel="stylesheet" href="./estilos.css">
+  <link rel="stylesheet" href="./experiencias.css">
+  <link rel="stylesheet" href="./acabado.css">
+  <link rel="stylesheet" href="./editor.css">
+  <script defer src="./escape-room.js"></script>
+  <script defer src="./calendario-publicado.js"></script>
+  <script defer src="./recursos-reto.js"></script>
+  <script defer src="./campana-prueba.js"></script>
+  <script defer src="./campana-3946.js"></script>
+  <script defer src="./retos-avanzados.js"></script>
+  <script defer src="./mecanismos.js"></script>
+  <script defer src="./experiencias.js"></script>
+  <script defer src="./cerradura-transmisiones.js"></script>
+  <script defer src="./campana-mecanismos.js"></script>
+  <script defer src="./vista-reto.js"></script>
+  <script defer src="./editor.js"></script>
+</head>
+<body class="pagina-editor">
+  <main class="editor">
+    <header class="cabecera-editor">
+      <p class="fecha">Diciembre para Cintia</p>
+      <h1>Editor de Andrea</h1>
+      <p>Prepara tus capítulos en este equipo. El calendario de Cintia usa su propia versión.</p>
+    </header>
+    <p id="solo-local" hidden>Abre el archivo editor.html desde la carpeta del calendario en tu equipo.</p>
+    <div id="editor-local" hidden>
+      <section class="panel-editor">
+        <h2 id="espacio-activo">Mis borradores</h2>
+        <div class="acciones-editor">
+          <button class="control-reto principal" type="button" id="cargar-historia">Cargar historia del huevo · campaña actual</button>
+          <button class="control-reto" type="button" id="actualizar-retos-41314">Actualizar días 4, 13 y 14 al nuevo diseño</button>
+          <button class="control-reto principal" type="button" id="cargar-campana">Cargar escape room de prueba</button>
+          <button class="control-reto principal" type="button" id="cargar-3946">Cargar campaña 3946 · versión 2</button>
+          <button class="control-reto principal" type="button" id="cargar-mecanismos">Cargar campaña de mecanismos · versión 3</button>
+          <button class="control-reto principal" type="button" id="cargar-caja">Cargar La caja de Adviento · versión 4</button>
+          <button class="control-reto principal" type="button" id="cargar-transmisiones">Cargar cerradura de transmisiones · versión 5</button>
+          <button class="control-reto" type="button" id="actualizar-dia-8">Aplicar cuadro eléctrico al día 8</button>
+          <button class="control-reto" type="button" id="volver-borradores" hidden>Volver a mis borradores</button>
+          <button class="control-reto" type="button" id="copiar-dia-uno" hidden>Usar una copia de mi día 1</button>
+        </div>
+        <label id="selector-copias" hidden>Respaldos importados <select id="copias"></select></label>
+      </section>
+      <section class="panel-editor" id="experiencias-editor">
+        <h2>La caja y el habitante</h2>
+        <p>Estas pruebas usan el borrador abierto y guardan su avance por separado del calendario de Cintia.</p>
+        <form id="formulario-experiencias">
+          <fieldset>
+            <legend>La búsqueda del huevo</legend>
+            <label><input type="checkbox" name="historiaActiva"> Mostrar la historia al entrar por primera vez</label>
+            <label>Título de la introducción <input name="historiaTitulo"></label>
+            <label>Texto de la introducción <textarea name="historiaTexto" rows="9"></textarea></label>
+            <p class="ayuda">Separa los párrafos con una línea en blanco. La introducción puede releerse sin borrar los retos.</p>
+            <label>Botón de la introducción <input name="historiaBoton"></label>
+            <label>Revelación tras confirmar el paquete <textarea name="revelacion" rows="2"></textarea></label>
+          </fieldset>
+          <label><input type="checkbox" name="introduccion"> Mostrar la caja al entrar por primera vez</label>
+          <label><input type="checkbox" name="final"> Activar el habitante después del reto del día 24</label>
+          <label>Texto de la nota <textarea name="nota" rows="2"></textarea></label>
+          <label>Pista del escondite <textarea name="pista" rows="2"></textarea></label>
+          <label>Código de confirmación del paquete <input name="codigo" required></label>
+          <label>Mensaje final <input name="mensaje"></label>
+          <label><input type="checkbox" name="permitirNombre"> Permitir poner nombre a la criatura</label>
+          <button class="control-reto" type="submit">Guardar configuración y borrador</button>
+        </form>
+        <div class="acciones-editor">
+          <button class="control-reto" type="button" id="probar-introduccion">Probar introducción</button>
+          <button class="control-reto" type="button" id="probar-dia-1">Probar día 1</button>
+          <label>Inicio del final <select id="inicio-final"><option value="antes">Antes de introducir la combinación</option><option value="despues">Justo después de acertarla</option><option value="paquete">Confirmación del paquete</option></select></label>
+          <button class="control-reto" type="button" id="probar-final">Probar final del día 24</button>
+          <button class="control-reto" type="button" id="reiniciar-experiencia">Reiniciar previsualización</button>
+          <label><input type="checkbox" id="reducir-movimiento-pruebas"> Reducir movimiento en las pruebas</label>
+        </div>
+      </section>
+      <nav class="dias-editor" aria-label="Elegir capítulo">
+        <div id="dias-editor"></div>
+        <p id="resumen-capitulos"></p>
+      </nav>
+      <section class="panel-editor" id="edicion">
+        <form id="formulario-editor">
+          <div class="encabezado-panel">
+            <h2 id="dia-editor"></h2>
+            <label class="marcar-listo"><input type="checkbox" name="listo"> Marcar como listo</label>
+          </div>
+          <label>Título <input name="titulo"></label>
+          <label>Instrucciones <textarea name="instrucciones" rows="3"></textarea></label>
+          <div class="columnas">
+            <label>Tipo de prueba <select name="tipo"></select></label>
+            <label>Pregunta (opcional) <input name="pregunta"></label>
+          </div>
+          <div data-tipo="escrita">
+            <label>Respuestas válidas, una por línea <textarea name="respuestas" rows="3"></textarea></label>
+            <p class="ayuda">Los códigos conservan los ceros iniciales. Se admiten variaciones de tildes, mayúsculas y espacios.</p>
+          </div>
+          <div data-tipo="opciones" hidden>
+            <label>Opciones, una por línea <textarea name="opciones" rows="3"></textarea></label>
+            <label>Opción correcta <select name="correcta"></select></label>
+          </div>
+          <div data-tipo="ordenar" hidden>
+            <label>Piezas en el orden correcto, una por línea <textarea name="orden" rows="4"></textarea></label>
+          </div>
+          <div data-tipo="combinacion" hidden>
+            <label>Combinación válida <input name="combinacion" spellcheck="false"></label>
+          </div>
+          <div id="configuracion-especial" hidden>
+            <div id="parametros-juego"></div>
+            <label>Configuración del juego (JSON) <textarea name="configuracion" rows="12" spellcheck="false"></textarea></label>
+            <p class="ayuda">Edita las fichas, filas, movimientos, palabra o frase, fallos, valores lunares, agujeros o fotogramas. Las posiciones iniciales del ahorcado empiezan en 0. Los agujeros y soluciones de nonograma usan 1 y 0. Las pistas del nonograma se generan al previsualizar.</p>
+            <label>Respuestas válidas para este juego, una por línea <textarea id="respuestas-especiales" rows="2"></textarea></label>
+          </div>
+          <label>Normalización de la respuesta <select name="normalizacion"><option value="">Texto habitual</option><option value="frase">Ignorar también puntuación</option></select></label>
+          <details class="detalle-editor">
+            <summary>Material de apoyo</summary>
+            <label>Dibujo del reto <select name="recursoTipo"></select></label>
+            <label id="campo-recurso">Datos del dibujo <textarea name="recursoDatos" rows="4" aria-describedby="ayuda-recurso"></textarea><span class="ayuda" id="ayuda-recurso"></span></label>
+            <label>Texto de apoyo <textarea name="apoyo" rows="3"></textarea></label>
+            <div class="columnas">
+              <label>Ruta de la imagen <input name="imagen" placeholder="./medios/foto.jpg"></label>
+              <label>Descripción de la imagen <input name="alt"></label>
+            </div>
+            <label>Ruta del audio <input name="audio" placeholder="./medios/nota.mp3"></label>
+            <label>Transcripción desplegable <textarea name="transcripcion" rows="2"></textarea></label>
+            <p class="ayuda">Copia tus archivos en una carpeta junto a index.html. Escribe rutas relativas como las del ejemplo.</p>
+          </details>
+          <details class="detalle-editor">
+            <summary>Pistas y evidencias</summary>
+            <label>Pistas, una por línea <textarea name="pistas" rows="4"></textarea></label>
+            <p class="ayuda">Se revelan en orden. Usa la última línea para una pista más explícita.</p>
+            <div class="columnas">
+              <label>Título de la evidencia que se gana <input name="evidenciaTitulo"></label>
+              <label>Qué dice la evidencia <textarea name="evidenciaTexto" rows="2"></textarea></label>
+            </div>
+            <label>Dibujo del cuaderno <select name="evidenciaDibujo"></select></label>
+            <label id="campo-evidencia">Datos del dibujo del cuaderno <textarea name="evidenciaDatos" rows="3" aria-describedby="ayuda-evidencia"></textarea><span class="ayuda" id="ayuda-evidencia"></span></label>
+            <fieldset class="dependencias">
+              <legend>Evidencias que se consultan en este reto</legend>
+              <div id="lista-evidencias"></div>
+            </fieldset>
+          </details>
+          <label>Mensaje de acierto <textarea name="acierto" rows="2"></textarea></label>
+          <details class="detalle-editor">
+            <summary>Historia de este día</summary>
+            <label>Contexto previo (en las instrucciones) <textarea name="contexto" rows="2"></textarea></label>
+            <label>Transición al resolver <textarea name="transicion" rows="3"></textarea></label>
+            <label>Título del descubrimiento importante (opcional) <input name="descubrimientoTitulo"></label>
+            <label>Nota del descubrimiento (opcional) <textarea name="descubrimientoTexto" rows="4"></textarea></label>
+            <p class="ayuda">La transición sustituye al mensaje de acierto; la llave y la evidencia se presentan una sola vez. El cuaderno guarda la transición y la nota, en orden por día.</p>
+          </details>
+          <label id="campo-premio" hidden>Premio o escondite <textarea name="premio" rows="3"></textarea></label>
+          <ul id="avisos-dia" class="avisos"></ul>
+          <div class="acciones-editor">
+            <button class="control-reto principal" type="submit">Guardar borrador</button>
+            <button class="control-reto" type="button" id="previsualizar">Previsualizar día</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel-editor" id="pruebas">
+        <h2>Probar la historia</h2>
+        <p>Abre la casa con una fecha simulada y un cuaderno de prueba.</p>
+        <form id="formulario-prueba" class="acciones-editor">
+          <label>Fecha simulada <input id="fecha-prueba" type="date" value="2026-12-01" required></label>
+          <button class="control-reto principal" type="submit">Jugar campaña</button>
+          <button class="control-reto" type="button" id="reiniciar-prueba">Reiniciar progreso de prueba</button>
+        </form>
+        <iframe id="casa-prueba" title="Calendario en modo de prueba" hidden></iframe>
+      </section>
+
+      <section class="panel-editor">
+        <h2>Respaldo y publicación</h2>
+        <p>El respaldo guarda textos y rutas. Lleva contigo la carpeta de archivos multimedia.</p>
+        <div class="acciones-editor">
+          <button class="control-reto" type="button" id="exportar">Exportar respaldo</button>
+          <button class="control-reto" type="button" id="importar">Importar respaldo como copia</button>
+          <input id="archivo-respaldo" type="file" accept=".json,application/json" hidden>
+          <button class="control-reto principal" type="button" id="preparar">Preparar versión para Cintia</button>
+        </div>
+        <details class="detalle-editor" id="revision-publicacion">
+          <summary>Revisar capítulos y dependencias</summary>
+          <ul id="avisos-publicacion" class="avisos"></ul>
+        </details>
+        <details class="detalle-editor">
+          <summary>Respaldo en texto</summary>
+          <p>También puedes copiar el respaldo o pegar uno para importarlo como copia.</p>
+          <button class="control-reto" type="button" id="ver-respaldo">Mostrar respaldo actual</button>
+          <label>Contenido del respaldo <textarea id="texto-respaldo" rows="6" spellcheck="false"></textarea></label>
+          <button class="control-reto" type="button" id="importar-texto">Importar este texto como copia</button>
+        </details>
+      </section>
+
+      <p id="estado-editor" class="estado-editor" role="status"></p>
+
+      <dialog id="vista-previa" aria-labelledby="titulo-vista">
+        <form class="barra-tarjeta" method="dialog">
+          <span class="fecha" id="dia-vista"></span>
+          <button class="cerrar" aria-label="Cerrar vista previa" autofocus>×</button>
+        </form>
+        <h2 id="titulo-vista"></h2>
+        <div id="contenido-vista"></div>
+      </dialog>
+    </div>
+  </main>
+</body>
+</html>
