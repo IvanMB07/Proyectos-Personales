@@ -27,3 +27,40 @@ body:has(.castle-calendar:not(.hidden)) .brand{font-size:9px}body:has(.castle-ca
 body:has(.castle-calendar:not(.hidden)) .castle-calendar{height:calc(100svh - 52px)}
 @media(max-width:600px){.castle-calendar{height:calc(100svh - 52px);min-height:540px}.hogwarts-art{height:92%;width:112%;max-width:none;bottom:1%}.castle-door-grid{top:27%;width:82%;height:51%;gap:5px;padding:4px}.day-door{border-radius:40% 40% 4px 4px / 24% 24% 4px 4px}.day-door .door-number{width:clamp(23px,7vw,31px);font-size:clamp(12px,3.8vw,16px)}.day-door .door-symbol{right:3px;top:3px}.castle-calendar-top{top:8px;width:88%}.castle-title{font-size:8px;letter-spacing:2px}.castle-nav{width:30px;height:30px}.castle-calendar-bottom{bottom:9px;width:82%;font-size:8px}body:has(.castle-calendar:not(.hidden)) .topbar{height:44px}body:has(.castle-calendar:not(.hidden)) .brand{display:none}body:has(.castle-calendar:not(.hidden)) .topbar{justify-content:center}body:has(.castle-calendar:not(.hidden)) .top-nav{width:100%;justify-content:center}body:has(.castle-calendar:not(.hidden)) .top-nav .nav-button{padding:7px 15px}body:has(.castle-calendar:not(.hidden)) .castle-calendar{height:calc(100svh - 44px)}}
 @media(max-height:650px) and (max-width:600px){.castle-door-grid{top:23%;height:58%}.hogwarts-art{height:100%}}
+
+/* Ajuste del calendario original: fachada de castillo navideño, no una nueva web */
+body.calendar-active{overflow:hidden;background:#101b20}
+body.calendar-active .topbar,body.calendar-active .site-footer{display:none}
+body.calendar-active .app-shell{max-width:none;padding:0}
+body.calendar-active .castle-calendar{height:100svh;min-height:560px;width:100%;padding:0;overflow:hidden;background:radial-gradient(ellipse at 50% 18%,#33465a 0,#1a2c3b 44%,#101b22 100%);position:relative}
+.castle-sky{background:radial-gradient(ellipse at 50% 85%,rgba(199,164,106,.16),transparent 45%)}
+.castle-sky:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#e7d8b4 1px,transparent 1.5px);background-size:71px 83px;opacity:.24}
+.castle-moon{right:12%;top:7%;width:clamp(42px,8vw,78px);background:radial-gradient(circle at 35% 30%,#fff8dd,#d7c69d 60%,#8e8a7d);box-shadow:0 0 42px rgba(240,218,166,.28)}
+.castle-stars{left:10%;top:11%;font-size:13px;letter-spacing:8px;color:#e5d1a5}
+.hogwarts-art{height:91%;width:min(100%,680px);bottom:0;filter:drop-shadow(0 14px 22px rgba(0,0,0,.6))}
+.castle-calendar-top{top:14px;pointer-events:none}
+.castle-title{font-size:9px;letter-spacing:3px;color:#e4d0a8}
+.castle-door-grid{top:31%;width:min(76%,440px);height:54%;gap:clamp(5px,1vw,10px);padding:5px}
+.day-door{min-height:0;padding:0;border:2px solid #a88d61;border-radius:48% 48% 3px 3px / 35% 35% 3px 3px;background:linear-gradient(145deg,#344b4b,#132b2c 70%);box-shadow:inset 0 0 0 2px #1a2928,inset 0 0 0 4px rgba(215,185,128,.34),0 3px 5px #071014;display:grid;place-items:center;color:#f2dfb7;overflow:hidden}
+.day-door:before{inset:9% 8% 0;border:1px solid rgba(224,202,156,.3);border-bottom:0;border-radius:50% 50% 0 0}
+.day-door:after{left:50%;top:10%;bottom:0;width:2px;background:rgba(207,189,148,.19);box-shadow:-20px 0 0 rgba(207,189,148,.08),20px 0 0 rgba(207,189,148,.08)}
+.day-door .door-number{width:clamp(24px,4vw,34px);aspect-ratio:1;display:grid;place-items:center;background:linear-gradient(145deg,#263d39,#152724);border:1px solid #c2a575;box-shadow:0 2px 4px #000a;font:600 clamp(13px,2.3vw,19px) var(--serif);color:#f4e3bd}
+.day-door .door-label{display:none}
+.day-door .door-symbol{right:4px;top:3px;color:#e2c78f;font-size:10px}
+.day-door.locked{opacity:.84;filter:saturate(.55)}
+.day-door:not(.locked){background:linear-gradient(145deg,#496052,#203c32 70%);border-color:#d1b47e;box-shadow:inset 0 0 0 2px #1a2928,inset 0 0 0 4px rgba(225,194,133,.45),0 3px 6px #071014,0 0 12px rgba(226,185,111,.18)}
+.day-door.completed{background:linear-gradient(145deg,#7a754c,#344b34);border-color:#e0d29b}
+.castle-calendar-bottom{bottom:max(10px,env(safe-area-inset-bottom));width:min(78%,440px);gap:12px;color:#e5d0a7}
+.castle-nav{width:36px;height:36px;border:1px solid rgba(219,194,146,.55);border-radius:50%;background:rgba(16,29,31,.88);color:#e9d3a5;font-size:17px;box-shadow:0 2px 8px #0008}
+.castle-progress{height:3px;background:rgba(231,213,178,.25)}
+.castle-progress i{background:#e6c78c;box-shadow:0 0 7px #e6c78c}
+@media(max-width:600px){
+ body.calendar-active .castle-calendar{height:100svh;min-height:560px}
+ .hogwarts-art{height:91%;width:120%;max-width:none;bottom:0}
+ .castle-door-grid{top:32%;width:80%;height:53%;gap:5px;padding:3px}
+ .day-door{border-width:1.5px;border-radius:46% 46% 3px 3px / 30% 30% 3px 3px}
+ .day-door .door-number{width:clamp(22px,6.2vw,29px);font-size:clamp(12px,3.5vw,16px)}
+ .castle-calendar-bottom{width:84%;gap:9px}
+ .castle-nav{width:33px;height:33px}
+}
+@media(max-height:700px) and (max-width:600px){.castle-door-grid{top:29%;height:56%}.hogwarts-art{height:100%}}

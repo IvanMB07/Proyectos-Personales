@@ -55,6 +55,7 @@ function bindNavigation() {
   $("#sound-toggle").addEventListener("click", () => showToast("El sonido ambiental se añadirá en una próxima versión."));
 }
 function showView(name) {
+  document.body.classList.toggle("calendar-active", name === "calendar");
   const ids = {calendar:"calendar-view",journal:"journal-view",editor:"editor-view"};
   ["home-view","calendar-view","day-view","journal-view","editor-view"].forEach(id => $("#"+id).classList.add("hidden"));
   if (name === "home") $("#home-view").classList.remove("hidden");

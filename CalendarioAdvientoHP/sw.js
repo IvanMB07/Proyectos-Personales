@@ -1,4 +1,4 @@
-const CACHE_NAME = "cuarto-campeon-v2";
+const CACHE_NAME = "cuarto-campeon-v3";
 const CORE = ["./","./index.html","./css/styles.css","./js/app.js","./data/days.json","./manifest.json","./assets/icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)));
