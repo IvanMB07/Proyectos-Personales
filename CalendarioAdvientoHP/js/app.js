@@ -33,14 +33,15 @@ async function init() {
       navigator.serviceWorker.register("./sw.js").catch(() => {});
     }
     if (location.hash === "#editor") showView("editor");
-    else if (location.hash === "#calendar") showView("calendar");
+    else if (location.hash === "#home") showView("home");
+    else showView("calendar");
   } catch (error) {
     console.error(error);
     showToast("No se ha podido cargar el calendario.");
   }
 }
 function bindNavigation() {
-  $$(".nav-button").forEach(button => button.addEventListener("click", () => showView(button.dataset.view)));
+  $(".nav-button, .castle-nav").forEach(button => button.addEventListener("click", () => showView(button.dataset.view)));
   $("#enter-calendar").addEventListener("click", () => showView("calendar"));
   $("#back-calendar").addEventListener("click", () => showView("calendar"));
   $("#open-letter").addEventListener("click", () => $("#letter-dialog").showModal());

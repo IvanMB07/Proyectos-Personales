@@ -49,14 +49,26 @@
       <div class="hero-bottom"><span>DESLIZA PARA DESCUBRIR</span><span class="scroll-mark">↓</span><span class="hero-bottom-rule"></span></div>
     </section>
 
-    <section id="calendar-view" class="view content-view hidden">
-      <div class="section-heading">
-        <div><p class="eyebrow">EL TORNEO DE LOS TRES MAGOS</p><h2>El calendario <em>encantado</em></h2><p class="section-description">Veinticuatro puertas. Una historia que solo tú puedes completar.</p></div>
-        <div class="progress-card"><span class="progress-label">TU PROGRESO</span><strong id="progress-count">0 <small>/ 24</small></strong><div class="progress-track"><span id="progress-bar"></span></div></div>
+    <section id="calendar-view" class="view castle-calendar hidden">
+      <div class="castle-sky" aria-hidden="true"><span class="castle-moon"></span><span class="castle-stars">✦　·　✧　　 ✦　·　✧</span>
+        <svg class="hogwarts-art" viewBox="0 0 420 720" role="img" aria-label="Castillo de Hogwarts iluminado en una noche de invierno">
+          <defs><linearGradient id="stone" x2="1"><stop stop-color="#222b35"/><stop offset=".48" stop-color="#46505a"/><stop offset="1" stop-color="#202a34"/></linearGradient><linearGradient id="roof" x2="0" y2="1"><stop stop-color="#34404b"/><stop offset="1" stop-color="#151d27"/></linearGradient><linearGradient id="windowlight" x2="0" y2="1"><stop stop-color="#f5d99b"/><stop offset="1" stop-color="#a76f3e"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="12"/></filter></defs>
+          <ellipse cx="210" cy="645" rx="190" ry="23" fill="#d9d4c5" opacity=".12"/><path d="M20 620L44 500 66 475 84 510 110 430 132 472 154 410 180 465 210 390 238 465 270 420 292 475 324 430 350 500 380 470 402 620Z" fill="#1b2730"/>
+          <path d="M42 630V290L82 250V170L112 145 142 170V250L165 220V130L205 95 245 130V220L270 190V150L302 125 334 150V245L378 290V630Z" fill="url(#stone)" stroke="#a48d69" stroke-width="2"/>
+          <path d="M42 300L82 250 112 250 165 220 205 190 245 220 270 190 302 245 334 245 378 300" fill="none" stroke="#c4ad82" stroke-width="5"/>
+          <path d="M73 255V178L112 135 151 178V255M160 228V137L205 82 250 137V228M265 205V155L302 111 339 155V255" fill="url(#roof)" stroke="#b7a17b" stroke-width="3"/>
+          <path d="M94 136L112 112 130 136M183 105L205 68 227 105M285 129L302 94 320 129" fill="#26323d" stroke="#b7a17b" stroke-width="2"/>
+          <path d="M50 310H370V630H50Z" fill="url(#stone)" opacity=".45"/>
+          <g fill="#19232d" stroke="#b79c6e" stroke-width="2"><path d="M93 285Q112 260 131 285V335H93Z"/><path d="M183 245Q205 215 227 245V300H183Z"/><path d="M291 280Q307 255 323 280V330H291Z"/><path d="M69 390Q85 370 101 390V430H69Z"/><path d="M319 390Q335 370 351 390V430H319Z"/></g>
+          <g fill="url(#windowlight)"><path d="M102 292Q112 279 122 292V328H102Z"/><path d="M192 252Q205 237 218 252V292H192Z"/><path d="M299 287Q307 275 315 287V323H299Z"/><path d="M76 396Q85 384 94 396V423H76Z"/><path d="M326 396Q335 384 344 396V423H326Z"/></g>
+          <g fill="#d9c59c" opacity=".35"><path d="M42 350H378M42 455H378M42 555H378" stroke="#d9c59c" stroke-width="2"/><path d="M60 300V620M360 300V620" stroke="#d9c59c" stroke-width="2"/></g>
+          <path d="M28 630H392L370 650H50Z" fill="#a28b68"/><path d="M16 650H404L382 662H38Z" fill="#d1c3a3" opacity=".65"/>
+          <g fill="#f0d59c" opacity=".7" filter="url(#glow)"><circle cx="112" cy="308" r="13"/><circle cx="205" cy="268" r="15"/><circle cx="307" cy="302" r="13"/></g><g fill="#f5e4bd"><circle cx="38" cy="190" r="1.5"/><circle cx="356" cy="160" r="2"/><circle cx="275" cy="75" r="1.5"/><circle cx="120" cy="80" r="1.2"/></g>
+        </svg>
       </div>
-      <div class="calendar-intro"><span class="intro-seal">✦</span><p>El Cáliz ha hablado. Cada día descubrirás una nueva parte del misterio.</p><span class="intro-rule"></span></div>
-      <div id="calendar-grid" class="calendar-grid" aria-label="Días del calendario de Adviento"></div>
-      <p class="calendar-footnote"><span>✧</span> Algunas puertas aún duermen. Regresa cuando llegue su momento.</p>
+      <div class="castle-calendar-top"><button class="castle-nav" data-view="journal" aria-label="Abrir cuaderno">✧</button><span class="castle-title">DICIEMBRE EN HOGWARTS</span><button class="castle-nav" data-view="editor" aria-label="Abrir editor">☷</button></div>
+      <div class="castle-door-grid" id="calendar-grid" aria-label="Las 24 ventanas del calendario de Adviento"></div>
+      <div class="castle-calendar-bottom"><span>✦</span><span id="progress-count">0 / 24</span><span class="castle-progress"><i id="progress-bar"></i></span></div>
     </section>
 
     <section id="day-view" class="view content-view hidden">
