@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11151d">
+  <meta name="description" content="Una aventura de Adviento en Hogwarts.">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/styles.css">
+  <title>El cuarto campeón · Calendario de Adviento</title>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Volver al inicio"><span class="brand-mark">✦</span><span>HOGWARTS <small>ARCHIVOS DEL CÁLIZ</small></span></a>
+    <nav class="top-nav" aria-label="Navegación principal">
+      <button class="nav-button active" data-view="calendar">Calendario</button>
+      <button class="nav-button" data-view="journal">Cuaderno</button>
+      <button class="nav-button" data-view="editor">Editor</button>
+    </nav>
+    <button class="icon-button" id="sound-toggle" aria-label="Activar o desactivar sonido" title="Sonido">♫</button>
+  </header>
+
+  <main id="app" class="app-shell">
+    <section id="home-view" class="view hero-view">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> CURSO 1994–1995 · DICIEMBRE</p>
+        <p class="hero-kicker">Una historia extraordinaria te está esperando</p>
+        <h1>El cuarto<br><em>campeón</em></h1>
+        <p class="hero-lead">El Cáliz ha elegido a tres campeones. Esta noche, una cuarta llama ha despertado… y lleva tu nombre.</p>
+        <div class="hero-actions">
+          <button class="primary-button" id="enter-calendar">Entrar en Hogwarts <span>↗</span></button>
+          <button class="text-button" id="open-letter">Leer la carta del Cronista</button>
+        </div>
+        <div class="hero-meta"><span class="meta-dot"></span> UNA AVENTURA PARA ANDYCANDY <span class="meta-separator">·</span> 24 DÍAS</div>
+      </div>
+      <div class="hero-art" aria-label="Ilustración decorativa del castillo de Hogwarts">
+        <div class="moon"></div><div class="starfield">✦　 ·　 ✧　　 ·　✦</div>
+        <div class="castle-glow"></div>
+        <div class="castle">
+          <div class="tower tower-left"><i></i></div><div class="tower tower-mid"><i></i></div><div class="tower tower-right"><i></i></div>
+          <div class="castle-main"><span></span><span></span><span></span><span></span></div>
+          <div class="castle-wing"></div>
+        </div>
+        <div class="snowline"></div>
+        <div class="art-caption"><span>✧</span> EL CASTILLO GUARDA UN SECRETO</div>
+      </div>
+      <div class="hero-bottom"><span>DESLIZA PARA DESCUBRIR</span><span class="scroll-mark">↓</span><span class="hero-bottom-rule"></span></div>
+    </section>
+
+    <section id="calendar-view" class="view content-view hidden">
+      <div class="section-heading">
+        <div><p class="eyebrow">EL TORNEO DE LOS TRES MAGOS</p><h2>El calendario <em>encantado</em></h2><p class="section-description">Veinticuatro puertas. Una historia que solo tú puedes completar.</p></div>
+        <div class="progress-card"><span class="progress-label">TU PROGRESO</span><strong id="progress-count">0 <small>/ 24</small></strong><div class="progress-track"><span id="progress-bar"></span></div></div>
+      </div>
+      <div class="calendar-intro"><span class="intro-seal">✦</span><p>El Cáliz ha hablado. Cada día descubrirás una nueva parte del misterio.</p><span class="intro-rule"></span></div>
+      <div id="calendar-grid" class="calendar-grid" aria-label="Días del calendario de Adviento"></div>
+      <p class="calendar-footnote"><span>✧</span> Algunas puertas aún duermen. Regresa cuando llegue su momento.</p>
+    </section>
+
+    <section id="day-view" class="view content-view hidden">
+      <button class="back-link" id="back-calendar">← Volver al calendario</button>
+      <article class="day-paper">
+        <div class="day-topline"><span id="day-act">EL CÁLIZ DE FUEGO</span><span id="day-date">1 DICIEMBRE</span></div>
+        <div class="day-number" id="day-number">01</div>
+        <p class="eyebrow" id="day-kicker">UNA NUEVA LLAMA</p>
+        <h2 id="day-title">La cuarta llama</h2>
+        <p class="day-story" id="day-story"></p>
+        <div id="day-challenge" class="challenge-panel"></div>
+        <div id="day-reward" class="reward-line hidden"></div>
+      </article>
+    </section>
+
+    <section id="journal-view" class="view content-view hidden">
+      <div class="section-heading"><div><p class="eyebrow">TUS DESCUBRIMIENTOS</p><h2>Cuaderno <em>mágico</em></h2><p class="section-description">Todo lo que encuentres durante tu aventura quedará aquí.</p></div></div>
+      <div class="journal-layout">
+        <div class="journal-card"><span class="journal-icon">♜</span><p class="eyebrow">INVENTARIO</p><h3>Objetos encontrados</h3><div id="inventory-list" class="inventory-list"></div></div>
+        <div class="journal-card"><span class="journal-icon">✧</span><p class="eyebrow">MEMORIA DEL CÁLIZ</p><h3>Tu recorrido</h3><div id="journal-progress" class="journal-progress"></div></div>
+      </div>
+    </section>
+
+    <section id="editor-view" class="view content-view hidden">
+      <div class="section-heading"><div><p class="eyebrow">TALLER DEL CRONISTA</p><h2>Editor de <em>historia</em></h2><p class="section-description">Prepara el contenido y exporta los cambios para publicarlos en GitHub.</p></div><span class="editor-stamp">MODO<br>CREADOR</span></div>
+      <div class="editor-warning"><strong>Nota del taller:</strong> los cambios de este editor se guardan en este navegador. Para publicarlos en la web, exporta el JSON y actualiza el archivo del proyecto en GitHub.</div>
+      <div class="editor-layout">
+        <aside class="editor-day-list"><h3>Los 24 días</h3><div id="editor-days"></div><div class="editor-actions"><button class="secondary-button" id="export-data">Exportar JSON ↓</button><label class="secondary-button file-button">Importar JSON ↑<input type="file" id="import-data" accept="application/json"></label><button class="quiet-button" id="reset-editor">Descartar cambios locales</button></div></aside>
+        <form id="day-form" class="editor-form">
+          <div class="form-top"><span class="eyebrow">CONTENIDO DEL DÍA</span><span id="editor-save-state" class="save-state">Sin cambios</span></div>
+          <label>Número del día<input id="edit-number" type="text" disabled></label>
+          <label>Título<input id="edit-title" maxlength="70" required></label>
+          <label>Frase breve<input id="edit-kicker" maxlength="90"></label>
+          <label>Acto / ubicación<input id="edit-act" maxlength="70"></label>
+          <label>Relato<textarea id="edit-story" rows="5"></textarea></label>
+          <label>Tipo de reto<select id="edit-type"><option value="story">Narrativa</option><option value="puzzle">Acertijo</option><option value="coloring">Coloreado</option><option value="memory">Recuerdo</option><option value="game">Minijuego</option></select></label>
+          <label>Estado<select id="edit-status"><option value="draft">Borrador</option><option value="ready">Preparado</option></select></label>
+          <div class="form-actions"><button class="primary-button" type="submit">Guardar día</button><button class="text-button" type="button" id="preview-day">Vista previa ↗</button></div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="site-footer"><span>✦</span> EL CUARTO CAMPEÓN <span class="footer-divider">·</span> UN SECRETO AGUARDA EN HOGWARTS</footer>
+  </main>
+
+  <dialog id="letter-dialog" class="letter-dialog">
+    <button class="dialog-close" id="close-letter" aria-label="Cerrar">×</button>
+    <div class="letter-seal">✦</div><p class="eyebrow">UNA NOTA DEL CRONISTA</p><h2>Antes de comenzar…</h2>
+    <p>Hay algo que debes saber, campeona.</p>
+    <p>Tu progreso, los objetos que encuentres y los recuerdos que descubras quedarán guardados en este dispositivo y en este navegador. Si cambias de dispositivo o borras los datos del navegador, el castillo podría olvidar tus avances.</p>
+    <p>Guarda bien tus recuerdos. Algunos son más frágiles de lo que parecen.</p>
+    <p>Ahora sí, AndyCandy… el Cáliz te está esperando.</p>
+    <p class="letter-signature">— El Cronista</p>
+    <button class="primary-button" id="accept-letter">Lo recordaré</button>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./js/app.js" defer></script>
+</body>
+</html>
