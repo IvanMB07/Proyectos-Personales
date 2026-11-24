@@ -146,11 +146,6 @@
     guardar(claveEspacio, espacio);
 
     porId('espacio-activo').textContent = nombres.get(id);
-    porId('cargar-campana').hidden = id === 'campana';
-    porId('cargar-3946').hidden = id === 'campana3946';
-    porId('cargar-mecanismos').hidden=id==='mecanismos';
-    porId('cargar-caja').hidden=id==='caja';
-    porId('cargar-transmisiones').hidden=id==='transmisiones';
     mostrarExperienciaConfig();
     porId('volver-borradores').hidden = id === 'original';
     const original = (abiertos.get('original')?.datos ?? leerBorrador('original')).capitulos[0];
