@@ -115,3 +115,152 @@ dialog::backdrop { background:#081810d6; }
   .rotulo-caja { top:1rem; }.saltar-introduccion { bottom:.4rem; }
 }
 @media(prefers-reduced-motion:reduce) { .entrada-caja *, .escena * { will-change:auto !important; } }
+
+
+/* Hogwarts en invierno: arquitectura de piedra, torres y ventanales góticos. */
+:root {
+  --noche:#101b2a;
+  --verde:#243b38;
+  --ambar:#e8bd78;
+  --marfil:#eee5d2;
+  --laton:#b69a69;
+}
+body {
+  background:
+    radial-gradient(ellipse at 50% 24%,#52627655,transparent 52%),
+    linear-gradient(160deg,#1b2b40 0%,#101b2a 68%,#0a1420 100%);
+}
+#calendario { color:#eee7d8; }
+.introduccion h1 { text-shadow:0 3px 18px #050d18a8; }
+.introduccion em { color:#d9bd8c; }
+.escena {
+  width:min(100%,43rem);
+  padding:2.2rem clamp(1.3rem,7vw,3.5rem) 2rem;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 18%,#f8e8c8 0 1px,transparent 1.8px),
+    radial-gradient(circle at 83% 10%,#f8e8c8 0 1px,transparent 1.8px),
+    radial-gradient(circle at 67% 31%,#f8e8c8 0 1px,transparent 1.8px),
+    radial-gradient(ellipse at 50% 72%,#9ba9b522,transparent 65%);
+}
+.casa {
+  position:relative;
+  isolation:isolate;
+  padding-top:1.1rem;
+  filter:drop-shadow(0 16px 17px #020812a8);
+}
+/* Dos torres laterales que enmarcan el cuerpo central del castillo. */
+.casa::before,.casa::after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:1.2rem;
+  width:clamp(2.8rem,12vw,5.3rem);
+  height:clamp(12rem,42vw,17rem);
+  border:1px solid #9a927f;
+  background:
+    linear-gradient(90deg,#182638 0 9%,transparent 10% 85%,#111e2c 94%),
+    repeating-linear-gradient(0deg,transparent 0 2.2rem,#172538 2.25rem 2.38rem),
+    linear-gradient(90deg,#6c7070,#a5a092 22%,#777b7b 70%,#414e5c);
+  box-shadow:inset 0 0 0 4px #293747,inset 0 0 0 5px #c0ae8b,0 0 0 2px #172334;
+}
+.casa::before {
+  left:clamp(-1.1rem,-2vw,-.35rem);
+  clip-path:polygon(0 15%,18% 15%,18% 8%,31% 8%,31% 0,69% 0,69% 8%,82% 8%,82% 15%,100% 15%,100% 100%,0 100%);
+}
+.casa::after {
+  right:clamp(-1.1rem,-2vw,-.35rem);
+  clip-path:polygon(0 15%,18% 15%,18% 8%,31% 8%,31% 0,69% 0,69% 8%,82% 8%,82% 15%,100% 15%,100% 100%,0 100%);
+}
+.tejado {
+  height:clamp(6.5rem,23vw,10.5rem);
+  margin-inline:-.35rem;
+}
+.fronton {
+  background:linear-gradient(90deg,#596675,#c0b8a6 48%,#697481);
+  clip-path:polygon(50% 0,100% 90%,100% 100%,0 100%,0 90%);
+}
+.fronton::before {
+  inset:.55rem .8rem .25rem;
+  background:linear-gradient(90deg,#4c5968,#9b9b91 48%,#536171);
+}
+.fronton::after {
+  inset:1rem 1.7rem .55rem;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 2.3rem,#17233766 2.35rem 2.45rem),
+    repeating-linear-gradient(0deg,transparent 0 1.8rem,#17233777 1.85rem 1.95rem),
+    linear-gradient(135deg,#26394f,#18283c);
+}
+.fronton span {
+  border-color:#b9a477;
+  background:
+    linear-gradient(0deg,transparent 47%,#b49a69 48% 53%,transparent 54%),
+    linear-gradient(90deg,transparent 47%,#b49a69 48% 53%,transparent 54%),
+    radial-gradient(circle at 50% 45%,#f8d99b,#9e7746 72%,#29394a);
+  box-shadow:0 0 0 4px #26394b,0 0 0 6px #b49a69,0 0 25px #f1c77c66;
+}
+.fachada {
+  border:1px solid #9e9a8c;
+  border-top:5px solid #c7bda8;
+  border-bottom:8px solid #7c7568;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 2.2rem,#18273a55 2.25rem 2.34rem),
+    repeating-linear-gradient(0deg,transparent 0 2.4rem,#18273a66 2.45rem 2.55rem),
+    linear-gradient(100deg,#687481,#a09e93 48%,#566576);
+  box-shadow:inset 0 0 0 5px #3c4a59,inset 0 0 0 6px #c1aa7c,0 9px 22px #0208128c;
+}
+.fachada::before,.fachada::after {
+  width:.42rem;
+  background:linear-gradient(90deg,#4c5661,#c4b79b,#626b73);
+}
+.guirnalda-casa {
+  top:-7px;
+  height:15px;
+  border-bottom:4px solid #244633;
+  background:
+    radial-gradient(circle at 9% 75%,#f5d995 0 2px,transparent 3px),
+    radial-gradient(circle at 29% 100%,#bd4e3c 0 2px,transparent 3px),
+    radial-gradient(circle at 50% 100%,#f5d995 0 2px,transparent 3px),
+    radial-gradient(circle at 71% 100%,#bd4e3c 0 2px,transparent 3px),
+    radial-gradient(circle at 91% 75%,#f5d995 0 2px,transparent 3px);
+}
+.ventana {
+  border-radius:50% 50% 3px 3px;
+  border:2px solid #c0a878;
+  background:#15273a;
+  box-shadow:inset 0 0 0 2px #35465a,0 3px 5px #07111fba;
+}
+.ventana .hojas span {
+  border-color:#8c7957;
+  background:
+    linear-gradient(90deg,transparent 47%,#d6c49b55 48% 52%,transparent 53%),
+    linear-gradient(0deg,transparent 47%,#d6c49b55 48% 52%,transparent 53%),
+    radial-gradient(ellipse at 50% 65%,#263d55,#101d30);
+}
+.ventana .numero { background:#1d3044; border-color:#b9a477; }
+.ventana[data-estado='destacada'],.ventana[data-estado='abierta'] {
+  --cristal:#f5ce86;
+  --cristal-borde:#9b6639;
+  --borde:#f4d79e;
+  box-shadow:0 0 17px #edc47a80,0 4px 7px #050b14,inset 0 0 0 2px #8d714b;
+}
+.ventana.portal {
+  border-radius:48% 48% 3px 3px / 34% 34% 3px 3px;
+  border:4px double #c3a875;
+  background:#17283b;
+  box-shadow:0 0 0 3px #273a50,0 0 0 5px #a88e61,0 0 25px #e6bb7350;
+}
+.abeto { filter:drop-shadow(0 4px 5px #050d17); }
+.suelo {
+  height:1.7rem;
+  background:linear-gradient(#d7d5c9,#87929a 55%,#4b5a68);
+  box-shadow:0 .35rem 0 #35485a,0 .9rem 2rem #050c16;
+}
+.luna { box-shadow:0 0 35px #d9d0b080; }
+#abrir-cuaderno {
+  border-color:#b69b6b;
+  background:linear-gradient(135deg,#293f55,#17283b);
+}
+@media(min-width:54rem) {
+  .casa::before,.casa::after { top:1.2rem; height:17rem; }
+}
