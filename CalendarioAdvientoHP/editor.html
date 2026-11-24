@@ -48,32 +48,32 @@
         <label id="selector-copias" hidden>Respaldos importados <select id="copias"></select></label>
       </section>
       <section class="panel-editor" id="experiencias-editor">
-        <h2>La caja y el habitante</h2>
-        <p>Estas pruebas usan el borrador abierto y guardan su avance por separado del calendario de Cintia.</p>
+        <h2>Historia y desenlace</h2>
+        <p>Configura los textos de la introducción y del desenlace. Estos ajustes pertenecen al borrador abierto y no modifican por sí solos la versión pública.</p>
         <form id="formulario-experiencias">
           <fieldset>
-            <legend>La búsqueda del huevo</legend>
-            <label><input type="checkbox" name="historiaActiva"> Mostrar la historia al entrar por primera vez</label>
-            <label>Título de la introducción <input name="historiaTitulo"></label>
-            <label>Texto de la introducción <textarea name="historiaTexto" rows="9"></textarea></label>
-            <p class="ayuda">Separa los párrafos con una línea en blanco. La introducción puede releerse sin borrar los retos.</p>
-            <label>Botón de la introducción <input name="historiaBoton"></label>
-            <label>Revelación tras confirmar el paquete <textarea name="revelacion" rows="2"></textarea></label>
+            <legend>Historia complementaria (opcional)</legend>
+            <label><input type="checkbox" name="historiaActiva"> Mostrar una escena narrativa adicional al entrar por primera vez</label>
+            <label>Título de la historia <input name="historiaTitulo"></label>
+            <label>Texto de la historia <textarea name="historiaTexto" rows="9"></textarea></label>
+            <p class="ayuda">Separa los párrafos con una línea en blanco. Esta escena es independiente de la carta de Hogwarts.</p>
+            <label>Texto del botón para continuar <input name="historiaBoton"></label>
+            <label>Revelación al completar la confirmación final <textarea name="revelacion" rows="2"></textarea></label>
           </fieldset>
-          <label><input type="checkbox" name="introduccion"> Mostrar la caja al entrar por primera vez</label>
-          <label><input type="checkbox" name="final"> Activar el habitante después del reto del día 24</label>
-          <label>Texto de la nota <textarea name="nota" rows="2"></textarea></label>
-          <label>Pista del escondite <textarea name="pista" rows="2"></textarea></label>
-          <label>Código de confirmación del paquete <input name="codigo" required></label>
-          <label>Mensaje final <input name="mensaje"></label>
-          <label><input type="checkbox" name="permitirNombre"> Permitir poner nombre a la criatura</label>
+          <label><input type="checkbox" name="introduccion"> Mostrar la carta de Hogwarts al entrar por primera vez</label>
+          <label><input type="checkbox" name="final"> Activar la escena de desenlace después del reto del día 24</label>
+          <label>Texto de la nota del desenlace <textarea name="nota" rows="2"></textarea></label>
+          <label>Pista para encontrar el elemento final <textarea name="pista" rows="2"></textarea></label>
+          <label>Código para desbloquear el desenlace <input name="codigo" required></label>
+          <label>Mensaje después de desbloquear el desenlace <input name="mensaje"></label>
+          <label><input type="checkbox" name="permitirNombre"> Permitir asignar un nombre al personaje del desenlace</label>
           <button class="control-reto" type="submit">Guardar configuración y borrador</button>
         </form>
         <div class="acciones-editor">
-          <button class="control-reto" type="button" id="probar-introduccion">Probar introducción</button>
+          <button class="control-reto" type="button" id="probar-introduccion">Probar carta de Hogwarts</button>
           <button class="control-reto" type="button" id="probar-dia-1">Probar día 1</button>
-          <label>Inicio del final <select id="inicio-final"><option value="antes">Antes de introducir la combinación</option><option value="despues">Justo después de acertarla</option><option value="paquete">Confirmación del paquete</option></select></label>
-          <button class="control-reto" type="button" id="probar-final">Probar final del día 24</button>
+          <label>Momento de inicio del desenlace <select id="inicio-final"><option value="antes">Antes de introducir el código</option><option value="despues">Justo después de acertar el código</option><option value="paquete">Al confirmar el elemento final</option></select></label>
+          <button class="control-reto" type="button" id="probar-final">Probar desenlace del día 24</button>
           <button class="control-reto" type="button" id="reiniciar-experiencia">Reiniciar previsualización</button>
           <label><input type="checkbox" id="reducir-movimiento-pruebas"> Reducir movimiento en las pruebas</label>
         </div>
