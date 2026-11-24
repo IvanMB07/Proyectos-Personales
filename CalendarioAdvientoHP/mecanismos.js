@@ -534,13 +534,12 @@
       };
 
     }else if(tipo==='engranajes'){
-      const tapa=el('div','','tapa-espejo');tapa.append(ER.recursos.svg('espejo'),el('span','Compartimento del espejo'));
       const esquema=esquemaEngranajes(c);
       const embrague=boton('Embrague',()=>actuar(actual=>({...actual,embrague:!actual.embrague})));
       controles.append(boton('Girar −',()=>actuar(actual=>M.girarEngranajes(c,actual,-1))),
         boton('Girar +',()=>actuar(actual=>M.girarEngranajes(c,actual,1))),embrague);
       const estado=el('p');
-      pantalla.append(tapa,esquema.dibujo,
+      pantalla.append(esquema.dibujo,
         el('p','Haz coincidir la raya roja móvil con la muesca fija roja de su propia rueda. Al coincidir, forman una línea continua y aparece «Alineada».'),
         el('p','El embrague conecta el núcleo marcado de la tercera rueda con su corona dentada. Al liberarlo, la corona sigue girando y el núcleo conserva su marca.'),estado);
       dibujar=()=>{
