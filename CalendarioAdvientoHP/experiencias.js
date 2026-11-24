@@ -137,85 +137,47 @@
   }
 
   function introduccion(portada,calendario,config,{vista=false,guardar=()=>{},terminar=()=>{}}={}){
-    const escena=calendario.querySelector('.escena'),ancla=document.createComment('casa del calendario');escena.before(ancla);
-    let timer,animaciones=[],fase='cerrada';
-    portada.replaceChildren();portada.className='entrada-caja';
-    const rotulo=el('p','LA CASA DE LOS MECANISMOS','rotulo-caja');
-    const perspectiva=el('div','','perspectiva-caja'),caja=el('div','','caja-adviento'),interior=el('div','','interior-caja');
-    const tapa=el('div','','tapa-caja'),fuera=el('div','','tapa-exterior'),dentro=el('div','','tapa-interior');
-    const placa=el('div','','placa-cintia'),nombre=el('h1','Cintia');nombre.id='dedicatoria';
-    placa.append(el('span','PARA','placa-para'),nombre);fuera.append(el('div','','ornamento-caja'),placa);
-    dentro.append(el('span','XXIV','sello-interior'));tapa.append(fuera,dentro,el('div','','canto-tapa'));
-    const bisagras=el('div','','bisagras-caja');bisagras.setAttribute('aria-hidden','true');bisagras.append(el('i'),el('i'));
-    const luz=el('div','','luz-interior');luz.setAttribute('aria-hidden','true');
-    interior.append(luz,escena);caja.append(el('div','','costado-caja costado-frontal'),el('div','','costado-caja costado-derecho'),interior,tapa,bisagras);
-    perspectiva.append(caja);
-    const cierre=btn('Abrir',abrir);cierre.className='cierre-metalico';cierre.setAttribute('aria-label','Abrir el cierre de la caja');
-    cierre.append(el('span','','pasador-cierre'),el('span','ABRIR','etiqueta-cierre'));caja.append(cierre);
-    const saltar=btn('Saltar apertura',()=>finalizar(true));saltar.classList.add('saltar-introduccion');
-    const estado=el('p','','estado-entrada');estado.setAttribute('role','status');portada.append(rotulo,perspectiva,estado,saltar);
-    function cancelar(){clearTimeout(timer);for(const a of animaciones)a.cancel();animaciones=[];}
+    const escena=calendario.querySelector('.escena'),ancla=document.createComment('castillo del calendario');
+    escena.before(ancla);let fase='cerrada',timer;
+    portada.replaceChildren();portada.className='entrada-caja carta-hogwarts';
+    const rotulo=el('p','CORREO ESPECIAL · COLEGIO HOGWARTS','rotulo-caja');
+    const sobre=el('article','','sobre-hogwarts');
+    const cabecera=el('p','HOGWARTS · ESCUELA DE MAGIA Y HECHICERÍA','membrete-hogwarts');
+    const escudo=el('div','✦','escudo-hogwarts');escudo.setAttribute('aria-hidden','true');
+    const fecha=el('p','HOGWARTS, 1 DE DICIEMBRE DE 2026','fecha-carta');
+    const para=el('p','PARA: ANDREA','destinatario-carta');
+    const titulo=el('h1','Una invitación especial','titulo-carta');
+    const texto=el('div','','texto-carta');
+    for(const p of ['Querida Andrea:','Tenemos el placer de comunicarte que has sido convocada a Hogwarts para vivir un diciembre extraordinario.','Este año, el Cáliz de Fuego ha señalado a una cuarta campeona. Tu nombre ha aparecido donde nadie esperaba encontrarlo y, desde este momento, formas parte de una historia llena de pruebas, secretos y decisiones.','A lo largo de los próximos días descubrirás pistas, superarás desafíos y conocerás qué misterio se esconde tras esta inesperada elección.','Prepara tu varita. El castillo te espera.'])texto.append(el('p',p));
+    const firma=el('p','Atentamente,\nEl equipo de selección de Hogwarts','firma-carta');
+    const sello=el('div','H','sello-hogwarts');sello.setAttribute('aria-label','Sello de Hogwarts');
+    sobre.append(cabecera,escudo,fecha,para,titulo,texto,firma,sello);
+    const accion=btn('Aceptar la invitación',abrir);accion.className='abrir-carta';
+    const editor=el('a','Modo edición','enlace-editor');editor.href='./editor.html';
+    const saltar=btn('Entrar directamente al castillo',()=>finalizar(true));saltar.className='saltar-introduccion';
+    const estado=el('p','','estado-entrada');estado.setAttribute('role','status');
+    portada.append(rotulo,sobre,accion,editor,estado,saltar);
     function devolver(){escena.style.cssText='';ancla.after(escena);escena.inert=false;calendario.hidden=false;calendario.inert=false;}
-    function encajar(){
-      if(portada.hidden||!interior.contains(escena))return;
-      const escala=Math.min(interior.clientWidth/escena.offsetWidth,interior.clientHeight/escena.offsetHeight)*.92;
-      escena.style.transform='translate(-50%,-50%) scale('+escala+')';
-    }
-    const observador=new ResizeObserver(encajar);observador.observe(interior);
-    function colocar(){
-      cancelar();devolver();portada.style.cssText='';
-      const ancho=escena.getBoundingClientRect().width;
-      portada.hidden=false;calendario.hidden=true;calendario.inert=true;interior.append(escena);escena.inert=true;
-      escena.style.cssText='position:absolute;left:50%;top:50%;margin:0;width:'+ancho+'px';
-      encajar();fase='cerrada';portada.dataset.fase=fase;cierre.disabled=false;estado.textContent='';
-    }
-    function ocultar(){
-      cancelar();devolver();portada.hidden=true;portada.style.cssText='';escena.style.zIndex='';
-      fase='terminada';portada.dataset.fase=fase;guardar();terminar();
-    }
+    function colocar(){clearTimeout(timer);devolver();portada.hidden=false;portada.style.cssText='';calendario.hidden=true;calendario.inert=true;fase='cerrada';portada.dataset.fase=fase;accion.disabled=false;estado.textContent='';}
+    function ocultar(){devolver();portada.hidden=true;portada.style.cssText='';fase='terminada';portada.dataset.fase=fase;guardar();terminar();}
     function finalizar(inmediato=false){
       if(fase==='terminada')return;
-      if(inmediato||reducido()){ocultar();return;}
-      if(fase==='enlace')return;
-      const desde=escena.getBoundingClientRect();
-      // El último fotograma tiene la casa frontal: el mismo nodo enlaza sin giro ni salto de escala.
-      devolver();calendario.inert=true;fase='enlace';portada.dataset.fase=fase;
-      portada.style.cssText='position:fixed;inset:0;z-index:20;pointer-events:none';escena.style.zIndex='21';
-      const hasta=escena.getBoundingClientRect();
-      const acercar=escena.animate([{transformOrigin:'0 0',transform:'translate('+(desde.left-hasta.left)+'px,'+(desde.top-hasta.top)+'px) scale('+(desde.width/hasta.width)+','+(desde.height/hasta.height)+')'},{transformOrigin:'0 0',transform:'none'}],{duration:700,easing:'cubic-bezier(.2,.65,.25,1)',fill:'both'});
-      const fundido=portada.animate([{opacity:1},{opacity:0}],{duration:620,easing:'ease-in',fill:'both'});
-      animaciones.push(acercar,fundido);clearTimeout(timer);timer=setTimeout(ocultar,740);
-      acercar.finished.then(()=>{if(fase==='enlace')ocultar();},()=>{});
+      if(inmediato||window.matchMedia('(prefers-reduced-motion: reduce)').matches){ocultar();return;}
+      if(fase==='abriendo')return;
+      fase='abriendo';portada.dataset.fase=fase;accion.disabled=true;estado.textContent='La invitación ha sido aceptada…';
+      sobre.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:'translateY(-18px) rotate(-1deg) scale(.98)',opacity:0}],{duration:420,easing:'ease-in',fill:'forwards'});
+      timer=setTimeout(()=>{
+        const desde=sobre.getBoundingClientRect();devolver();calendario.inert=true;
+        portada.style.cssText='position:fixed;inset:0;z-index:20;pointer-events:none';
+        const hasta=escena.getBoundingClientRect();escena.style.zIndex='21';
+        escena.animate([{transformOrigin:'0 0',transform:'translate('+(desde.left-hasta.left)+'px,'+(desde.top-hasta.top)+'px) scale('+(desde.width/hasta.width)+','+(desde.height/hasta.height)+')'},{transformOrigin:'0 0',transform:'none'}],{duration:650,easing:'cubic-bezier(.2,.65,.25,1)',fill:'both'});
+        portada.animate([{opacity:1},{opacity:0}],{duration:620,fill:'forwards'});timer=setTimeout(ocultar,660);
+      },430);
     }
-    function secuencia(){
-      const opciones={duration:1800,fill:'both',easing:'linear'};
-      animaciones=[
-        rotulo.animate([{opacity:1,offset:0},{opacity:0,offset:.2},{opacity:0,offset:1}],opciones),
-        cierre.animate([{transform:'translateZ(12px) rotateX(0deg)',offset:0},{transform:'translateZ(12px) rotateX(0deg)',offset:.05},{transform:'translateY(22px) translateZ(12px) rotateX(-65deg)',offset:.18},{transform:'translateY(22px) translateZ(12px) rotateX(-65deg)',offset:1}],opciones),
-        tapa.animate([{transform:'translateZ(5px) rotateX(0deg)',offset:0},{transform:'translateZ(5px) rotateX(0deg)',offset:.12},{transform:'translateZ(5px) rotateX(112deg)',offset:.91},{transform:'translateZ(5px) rotateX(112deg)',offset:1}],{...opciones,easing:'cubic-bezier(.3,.1,.2,1)'}),
-        caja.animate([{transform:'translateY(0) rotateX(22deg) rotateY(-12deg) rotateZ(-2deg)',offset:0},{transform:'translateY(0) rotateX(22deg) rotateY(-12deg) rotateZ(-2deg)',offset:.15},{transform:'translateY(85px) rotateX(10deg) rotateY(-4deg) rotateZ(-1deg) scale(.82)',offset:.5},{transform:'translateY(65px) rotateX(3deg) rotateY(0deg) rotateZ(0deg) scale(.9)',offset:.78},{transform:'translateY(42px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1)',offset:1}],opciones),
-        luz.animate([{opacity:.15,offset:0},{opacity:.15,offset:.2},{opacity:1,offset:.65},{opacity:1,offset:1}],opciones)
-      ];
-    }
-    function abrir(){
-      if(fase==='inspeccion')colocar();
-      if(fase!=='cerrada')return;
-      fase='abriendo';portada.dataset.fase=fase;cierre.disabled=true;estado.textContent='El cierre se libera.';
-      guardar(); // Si se recarga a mitad de la apertura, continúa en la casa y su historia.
-      if(reducido()){
-        animaciones=[perspectiva.animate([{opacity:1},{opacity:0}],{duration:180,fill:'both'})];timer=setTimeout(()=>finalizar(true),200);
-      }else{secuencia();timer=setTimeout(()=>finalizar(),1800);}
-    }
-    function revisar(ms){
-      colocar();fase='inspeccion';portada.dataset.fase=fase;secuencia();
-      for(const a of animaciones){a.pause();a.currentTime=Math.max(0,Math.min(1800,ms));}
-      estado.textContent='Apertura en pausa. Toca el cierre para reproducirla.';
-    }
-    function interrumpir(){if(document.hidden&&['abriendo','enlace'].includes(fase))finalizar(true);}
-    document.addEventListener('visibilitychange',interrumpir);
-    function repetir(){colocar();cierre.focus({preventScroll:true});}
-    if(vista||config.introduccion===false)finalizar(true);else colocar();
-    return {repetir,revisar,reproducir:()=>{colocar();abrir();},limpiar:()=>{cancelar();observador.disconnect();document.removeEventListener('visibilitychange',interrumpir);devolver();portada.style.cssText='';ancla.remove();}};
+    function abrir(){if(fase!=='cerrada')return;finalizar();}
+    function repetir(){colocar();accion.focus({preventScroll:true});}
+    if(vista||config.introduccion===false){portada.hidden=true;calendario.hidden=false;terminar();}else colocar();
+    return {repetir,revisar:colocar,reproducir:()=>{colocar();abrir();},limpiar:()=>{clearTimeout(timer);devolver();ancla.remove();portada.style.cssText='';}};
   }
   function historia(config,{guardar=()=>{},terminar=()=>{}}={}){
     const dialogo=el('dialog','','historia-entrada');

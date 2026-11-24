@@ -3,10 +3,7 @@
 
   const ER = window.EscapeRoom;
   const porId = id => document.getElementById(id);
-  if (!ER.local()) {
-    porId('solo-local').hidden = false;
-    return;
-  }
+  // El editor también funciona en la web; los cambios se guardan en este navegador.
 
   const prefijo = 'adviento-editor-2026-';
   const claveEspacio = prefijo + 'espacio';

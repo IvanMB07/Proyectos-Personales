@@ -80,3 +80,5 @@ body.pagina-editor { background: linear-gradient(140deg, #213743, #122029 65%); 
 .estado-editor:empty { display: none; }
 #casa-prueba { margin-top: .75rem; width: 100%; height: min(75svh, 51rem); min-height: 420px; border: 1px solid #826f57; border-radius: 4px; background: #152330; }
 #contenido-vista { display: grid; gap: .75rem; }
+
+body.pagina-editor{background:radial-gradient(ellipse at 50% 0,#344b62 0,transparent 55%),linear-gradient(155deg,#17283b,#0c1725 80%)}.cabecera-editor .fecha{letter-spacing:.2em;color:#e6c98e}.panel-editor{border-color:#bca477;background:linear-gradient(145deg,#f8f0df,#e7d7b8);box-shadow:0 12px 32px #030b1680}#dias-editor button{border-color:#9c8968;background:#24374b;color:#f5e9d1}#dias-editor button[data-estado="listo"]{background:#385542}.control-reto{border:1px solid #b99b68}
