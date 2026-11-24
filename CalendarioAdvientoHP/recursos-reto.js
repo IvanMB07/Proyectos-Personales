@@ -4,6 +4,7 @@
   const ER = window.EscapeRoom;
   const tipos = {
     reflejo: ['Nota reflejada', 'Texto original. Se refleja horizontalmente con las formas de las letras.'],
+    'referencia-digitos': ['Referencia de las diez cifras', 'Lámina de consulta de los diez números representados mediante siete segmentos.'],
     reloj: ['Reloj de medianoche', ''],
     '': ['Sin dibujo', ''],
     conversacion: ['Conversación de papel', 'Primera línea: fecha. Después, un mensaje por línea.'],
@@ -208,7 +209,29 @@
     const datos = texto.split(/\r?\n/).map(linea => linea.trim()).filter(Boolean);
     const padre = nodo('section', '', `recurso-reto recurso-${tipo}`);
 
-    if (tipo === 'reflejo') {
+    if (tipo === 'referencia-digitos') {
+      const segmentos = {
+        a: 'M18 10h28', b: 'M48 13v18', c: 'M48 36v18',
+        d: 'M18 57h28', e: 'M15 36v18', f: 'M15 13v18', g: 'M18 33h28'
+      };
+      const referencia = nodo('div', '', 'cifras-referencia');
+      M.digitos.forEach((activos, numero) => {
+        const figura = nodo('figure');
+        const dibujo = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        dibujo.setAttribute('viewBox', '0 0 64 68');
+        dibujo.classList.add('segmentos-reto');
+        dibujo.setAttribute('aria-hidden', 'true');
+        for (const [id, forma] of Object.entries(segmentos)) {
+          const trazo = document.createElementNS(dibujo.namespaceURI, 'path');
+          trazo.setAttribute('d', forma);
+          if (activos.includes(id)) trazo.classList.add('encendido');
+          dibujo.append(trazo);
+        }
+        figura.append(dibujo, nodo('figcaption', String(numero)));
+        referencia.append(figura);
+      });
+      padre.append(referencia);
+    } else if (tipo === 'reflejo') {
       padre.append(svg('espejo'));
       const nota = nodo('p', texto, 'nota-reflejada');
       nota.setAttribute('aria-label', 'Nota con letras reflejadas horizontalmente. Puedes utilizar un espejo para leerla.');

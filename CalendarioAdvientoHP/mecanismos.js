@@ -444,14 +444,10 @@
         diagnostico.append(segmentos('',v.averiados),el('p','Averiados: '+v.averiados.split('').join(', ')));
         ficha.append(diagnostico);panel.append(ficha);
       });
-      const leyenda=el('details');leyenda.append(el('summary','Referencia de las diez cifras'));
-      const ejemplos=el('div','','cifras-referencia');
-      M.digitos.forEach((seg,n)=>{const figura=el('figure');figura.append(segmentos(seg),el('figcaption',String(n)));ejemplos.append(figura);});
-      leyenda.append(ejemplos);
       const etiqueta=el('label','Código de cuatro cifras');
       const entrada=el('input');entrada.type='text';entrada.inputMode='numeric';entrada.maxLength=4;entrada.value=s.codigo??'';
       entrada.addEventListener('input',()=>{s.codigo=entrada.value;persistir();});etiqueta.append(entrada);
-      pantalla.append(panel,leyenda,etiqueta);
+      pantalla.append(panel,etiqueta);
       controles.append(boton('Comprobar código',()=>{
         if(!M.completa(tipo,c,s)){aviso.textContent='El código todavía no coincide.';return;}
         completar();
