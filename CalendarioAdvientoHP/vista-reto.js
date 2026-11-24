@@ -195,7 +195,7 @@
         portal.append(elemento('span'), elemento('span'));
         resultado.prepend(portal);
       }
-            const acierto = mensajeAcierto(reto.acierto, opciones.mensajeLlave);
+      const acierto = mensajeAcierto(reto.acierto, opciones.mensajeLlave);
       if (reto.transicion) resultado.append(elemento('p', reto.transicion, 'transicion-historia'));
       else if (acierto) {
         resultado.append(elemento('p', acierto));
