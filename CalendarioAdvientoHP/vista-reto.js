@@ -195,16 +195,7 @@
         portal.append(elemento('span'), elemento('span'));
         resultado.prepend(portal);
       }
-      if(['diagnostico','engranajes'].includes(reto.tipo)){
-        resultado.classList.add('compartimento-abierto');
-        const compartimento=elemento('div','','compartimento-espejo');
-        const tapa=elemento('div','','tapa-compartimento');
-        tapa.setAttribute('aria-hidden','true');
-        tapa.append(ER.recursos.svg('caja'));
-        compartimento.append(tapa,elemento('p','Compartimento del pedestal'));
-        resultado.prepend(compartimento);
-      }
-      const acierto = mensajeAcierto(reto.acierto, opciones.mensajeLlave);
+            const acierto = mensajeAcierto(reto.acierto, opciones.mensajeLlave);
       if (reto.transicion) resultado.append(elemento('p', reto.transicion, 'transicion-historia'));
       else if (acierto) {
         resultado.append(elemento('p', acierto));
