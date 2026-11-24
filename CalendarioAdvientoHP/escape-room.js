@@ -64,15 +64,15 @@
         historiaActiva: datos.experiencia?.historiaActiva === true,
         historiaTitulo: texto(datos.experiencia?.historiaTitulo),
         historiaTexto: texto(datos.experiencia?.historiaTexto),
-        historiaBoton: texto(datos.experiencia?.historiaBoton) || 'Examinar la casa',
+        historiaBoton: texto(datos.experiencia?.historiaBoton) || 'Comenzar la investigación',
         revelacion: texto(datos.experiencia?.revelacion),
         introduccion: datos.experiencia?.introduccion !== false,
         final: datos.experiencia?.final === true,
-        nota: texto(datos.experiencia?.nota) || 'Alguien acaba de llegar a la casa. Te está esperando fuera de esta pantalla.',
-        pista: texto(datos.experiencia?.pista) || 'Busca el paquete bajo la manta del sofá',
-        codigo: texto(datos.experiencia?.codigo) || 'NACIMIENTO',
-        mensaje: texto(datos.experiencia?.mensaje) || 'Misión 25: que llegue vivo a Nochevieja',
-        permitirNombre: datos.experiencia?.permitirNombre !== false
+        nota: texto(datos.experiencia?.nota),
+        pista: texto(datos.experiencia?.pista),
+        codigo: texto(datos.experiencia?.codigo) || 'HOGWARTS',
+        mensaje: texto(datos.experiencia?.mensaje),
+        permitirNombre: datos.experiencia?.permitirNombre === true
       }
     };
   }

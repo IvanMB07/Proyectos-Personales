@@ -22,12 +22,7 @@
   const restauradas = leer(claveCopias);
   const copias = Array.isArray(restauradas) ? restauradas.filter(copia =>
     typeof copia?.id === 'string' && /^copia-[a-z0-9-]+$/.test(copia.id) && typeof copia.nombre === 'string') : [];
-  const nombres = new Map([['original', 'Mis borradores'], ['campana', 'Escape room de prueba'],
-    ['campana3946', 'Campaña 3946 · versión 2'],
-    ['mecanismos', 'Campaña de mecanismos · versión 3'],
-    ['caja', 'La caja de Adviento · versión 4'],
-    ['transmisiones', 'Cerradura de transmisiones · versión 5'],
-    ['historia', 'La búsqueda del huevo · campaña actual'],
+  const nombres = new Map([['original', 'Mi calendario de Andrea'],
     ...copias.map(copia => [copia.id, copia.nombre])]);
   const abiertos = new Map();
   let espacio = leer(claveEspacio);
@@ -96,53 +91,22 @@
   }
 
   function leerBorrador(id = espacio) {
-    try { return ER.calendario(leer(clave('borrador', id))); }
-    catch {
-      if(id==='historia')return ER.calendario(window.CALENDARIO_PUBLICADO);
-      if(id==='transmisiones')return ER.cerradura4.campana(abiertos.get('caja')?.datos??leer(clave('borrador','caja'))??window.CALENDARIO_PUBLICADO);
-      if(id==='caja')return ER.experiencias.campana(abiertos.get('mecanismos')?.datos??leer(clave('borrador','mecanismos'))??window.CAMPANA_MECANISMOS);
-      if(id==='mecanismos'){
-        const nueva=ER.calendario(window.CAMPANA_MECANISMOS);
-        const previa=abiertos.get('campana3946')?.datos??leer(clave('borrador','campana3946'));
-        if(previa){
-          const base=ER.calendario(previa);
-          const sustituidos=new Set([4,6,7,11,12,14,17,21]);
-          const dependencias=new Map([16,18,23,24].map(dia=>[dia,[...nueva.capitulos[dia-1].dependencias]]));
-          for(const dia of ER.dias)if(!sustituidos.has(dia))nueva.capitulos[dia-1]=structuredClone(base.capitulos[dia-1]);
-          for(const [dia,referencias]of dependencias)nueva.capitulos[dia-1].dependencias=referencias;
-          nueva.capitulos[23].combinacion='3946';
-        }
-        const publicada=ER.calendario(window.CALENDARIO_PUBLICADO);
-        nueva.capitulos[0]=structuredClone(publicada.capitulos[0]);
-        for(const anterior of ['campana3946','original','campana']){
-          const guardada=abiertos.get(anterior)?.datos??leer(clave('borrador',anterior));
-          if(!guardada)continue;
-          nueva.capitulos[0]=structuredClone(ER.calendario(guardada).capitulos[0]);break;
-        }
-        return nueva;
-      }
-      if (id === 'campana3946') {
-        const nueva = ER.calendario(window.CAMPANA_3946);
-        for (const anterior of ['original', 'campana']) {
-          const previa = abiertos.get(anterior)?.datos ?? leer(clave('borrador', anterior));
-          if (!previa) continue;
-          const personal = ER.calendario(previa).capitulos[0];
-          const ejemplo = ER.capitulo(anterior === 'campana'
-            ? window.CAMPANA_PRUEBA.capitulos[0] : window.CALENDARIO_PUBLICADO.capitulos[0]);
-          if (JSON.stringify(personal) !== JSON.stringify(ejemplo)) {
-            nueva.capitulos[0] = structuredClone(personal);
-            break;
-          }
-        }
-        return nueva;
-      }
-      if (id === 'campana') return ER.calendario(window.CAMPANA_PRUEBA);
-      const demo = ER.calendario(window.CALENDARIO_PUBLICADO);
-      if (demo.partida === 'demo-2026') {
-        for (const dia of ER.dias.slice(3, 23)) demo.capitulos[dia - 1].listo = false;
-      }
-      return { ...demo, partida: 'cintia-2026' };
+    const guardado = leer(clave('borrador', id));
+    if (guardado) {
+      try { return ER.calendario(guardado); } catch { /* Se inicia un espacio limpio. */ }
     }
+    if (id !== 'original') throw new Error('No se encontró el respaldo seleccionado.');
+    return ER.calendario({
+      esquema: 1,
+      partida: 'hogwarts-andrea-2026',
+      capitulos: Array.from({length:24},()=>({})),
+      experiencia: {
+        historiaActiva: false, historiaTitulo: '', historiaTexto: '',
+        historiaBoton: 'Comenzar la investigación', revelacion: '',
+        introduccion: true, final: true, nota: '', pista: '',
+        codigo: 'HOGWARTS', mensaje: '', permitirNombre: false
+      }
+    });
   }
 
   function guardar(clave, valor) {
@@ -187,7 +151,6 @@
     porId('cargar-mecanismos').hidden=id==='mecanismos';
     porId('cargar-caja').hidden=id==='caja';
     porId('cargar-transmisiones').hidden=id==='transmisiones';
-    porId('cargar-historia').hidden=id==='historia';
     mostrarExperienciaConfig();
     porId('volver-borradores').hidden = id === 'original';
     const original = (abiertos.get('original')?.datos ?? leerBorrador('original')).capitulos[0];
@@ -515,82 +478,6 @@
       : 'El navegador bloqueó el guardado. Exporta un respaldo para conservar los cambios.');
   });
 
-  porId('cargar-historia').addEventListener('click',()=>{
-    elegirEspacio('historia');
-    if(!leer(clave('borrador')))guardar(clave('borrador'),datos);
-    anunciar('Historia actual cargada en su propio borrador. Tus otros borradores siguen disponibles.');
-  });
-  porId('actualizar-retos-41314').addEventListener('click',()=>{
-    guardarDia();
-    for(const numero of [4,13,14])datos.capitulos[numero-1]=ER.capitulo(window.CALENDARIO_PUBLICADO.capitulos[numero-1]);
-    hayCambios=true;hayRespaldo=false;mostrarDia();
-    anunciar('Días 4, 13 y 14 actualizados en este borrador. Los demás capítulos se conservan. Guarda el borrador para mantenerlos.');
-  });
-
-  porId('cargar-campana').addEventListener('click', () => {
-    elegirEspacio('campana');
-    anunciar('Campaña de prueba cargada en un espacio separado.');
-  });
-  porId('cargar-3946').addEventListener('click', () => {
-    elegirEspacio('campana3946');
-    if (!leer(clave('borrador'))) guardar(clave('borrador'), datos);
-    anunciar('Campaña 3946 cargada como una versión nueva. El día 1 conserva tu reto personal si ya estaba guardado.');
-  });
-  porId('cargar-mecanismos').addEventListener('click',()=>{
-    elegirEspacio('mecanismos');
-    if(!leer(clave('borrador')))guardar(clave('borrador'),datos);
-    anunciar('Nueva campaña de mecanismos cargada en un espacio propio. Sus soluciones de referencia están en la configuración de cada reto.');
-  });
-  porId('cargar-caja').addEventListener('click',()=>{
-    guardarDia();
-    guardarExperienciaConfig();
-    if(!guardar(clave('borrador'),datos)){anunciar('No se pudo conservar el borrador actual. Exporta un respaldo antes de cambiar de versión.');return;}
-    hayCambios=false;
-    const base=structuredClone(datos);
-    if(!leer(clave('borrador','caja'))&&!abiertos.has('caja'))abiertos.set('caja',{datos:ER.experiencias.campana(base),dia:1});
-    elegirEspacio('caja');
-    guardar(clave('borrador'),datos);
-    anunciar('Versión 4 creada en un espacio separado. Los otros 23 capítulos conservan tus datos.');
-  });
-  porId('cargar-transmisiones').addEventListener('click',()=>{
-    guardarDia();guardarExperienciaConfig();
-    if(!guardar(clave('borrador'),datos)){anunciar('No se pudo conservar el borrador. Exporta un respaldo antes de cambiar de versión.');return;}
-    hayCambios=false;
-    if(!leer(clave('borrador','transmisiones'))&&!abiertos.has('transmisiones'))abiertos.set('transmisiones',{datos:ER.cerradura4.campana(datos),dia:1});
-    elegirEspacio('transmisiones');guardar(clave('borrador'),datos);
-    anunciar('Versión 5 cargada en un espacio independiente. Previsualiza el día 1 para usar «Demostrar solución».');
-  });
-  porId('actualizar-dia-8').addEventListener('click', () => {
-    guardarDia();
-    datos.capitulos[7] = ER.capitulo(structuredClone(window.CAMPANA_3946.capitulos[7]));
-    dia = 8;
-    hayCambios = true;
-    hayRespaldo = false;
-    guardar(clave('dia'),dia);
-    cerrarPrueba();
-    mostrarDia();
-    anunciar('Día 8 actualizado en este borrador. Pulsa «Guardar borrador». Reinicia la partida de prueba para volver a jugarlo si ya estaba resuelto.');
-  });
-  porId('volver-borradores').addEventListener('click', () => {
-    elegirEspacio('original');
-    anunciar('Has vuelto a tus borradores.');
-  });
-  porId('copias').addEventListener('change', evento => {
-    if (nombres.has(evento.target.value)) elegirEspacio(evento.target.value);
-  });
-  porId('copiar-dia-uno').addEventListener('click', () => {
-    guardarDia();
-    const original = (abiertos.get('original')?.datos ?? leerBorrador('original')).capitulos[0];
-    datos.capitulos[0] = structuredClone(original);
-    dia = 1;
-    guardar(clave('dia'), dia);
-    hayCambios = true;
-    hayRespaldo = false;
-    cerrarPrueba();
-    mostrarDia();
-    anunciar('Tu día 1 se copió en la campaña de prueba. Guarda el borrador para conservar la copia.');
-  });
-
   porId('previsualizar').addEventListener('click', () => {
     guardarDia();
     const reto = datos.capitulos[dia - 1];
@@ -724,10 +611,10 @@
       anunciar('Revisa los avisos y marca los 24 capítulos como listos.');
       return;
     }
-    const publicado = { ...datos, partida: datos.partida === 'demo-2026' ? 'cintia-2026' : datos.partida };
+    const publicado = { ...datos, partida: 'hogwarts-andrea-2026' };
     descargar('calendario-publicado.js',
       `window.CALENDARIO_PUBLICADO = ${JSON.stringify(publicado, null, 2)};\n`, 'text/javascript');
-    anunciar('Archivo preparado. Sustituye calendario-publicado.js para instalar la versión de Cintia.');
+    anunciar('Archivo preparado. Sustituye calendario-publicado.js para publicar el calendario de Andrea.');
   });
 
   for (const [valor, etiqueta] of Object.entries(ER.tipos)) campos.tipo.add(new Option(etiqueta, valor));
