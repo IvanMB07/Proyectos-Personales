@@ -275,7 +275,7 @@ abrirCuaderno.addEventListener('click', () => {
     const releer=document.createElement('button');releer.type='button';releer.className='control-reto releer-historia';
     releer.textContent='Volver a leer la introducción';releer.addEventListener('click',verHistoria);tarjetasCuaderno.append(releer);
     const diario=document.createElement('section');diario.className='diario-historia';
-    const titulo=document.createElement('h3');titulo.textContent='La búsqueda del huevo';diario.append(titulo);
+    const titulo=document.createElement('h3');titulo.textContent='Nuestra historia';diario.append(titulo);
     const hallazgos=ER.descubrimientos(datos,avance);
     if(!hallazgos.length){const p=document.createElement('p');p.textContent='Aquí se guardarán tus descubrimientos al resolver los retos.';diario.append(p);}
     for(const item of hallazgos){

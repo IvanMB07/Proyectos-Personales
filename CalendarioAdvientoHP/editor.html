@@ -5,22 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Modo edición · Carta de Hogwarts para Andrea</title>
-  <link rel="stylesheet" href="./estilos.css?v=20261124-4">
-  <link rel="stylesheet" href="./experiencias.css?v=20261124-3">
-  <link rel="stylesheet" href="./acabado.css?v=20261124-3">
-  <link rel="stylesheet" href="./editor.css?v=20261124-3">
-  <script defer src="./escape-room.js"?v=20261124-3"></script>
-  <script defer src="./calendario-publicado.js"?v=20261124-3"></script>
-  <script defer src="./recursos-reto.js"?v=20261124-3"></script>
-  <script defer src="./campana-prueba.js"?v=20261124-3"></script>
-  <script defer src="./campana-3946.js"?v=20261124-3"></script>
-  <script defer src="./retos-avanzados.js"?v=20261124-3"></script>
-  <script defer src="./mecanismos.js"?v=20261124-3"></script>
-  <script defer src="./experiencias.js"?v=20261124-3"></script>
-  <script defer src="./cerradura-transmisiones.js"?v=20261124-3"></script>
-  <script defer src="./campana-mecanismos.js"?v=20261124-3"></script>
-  <script defer src="./vista-reto.js"?v=20261124-3"></script>
-  <script defer src="./editor.js"?v=20261124-3"></script>
+  <link rel="stylesheet" href="./estilos.css?v=20261124-5">
+  <link rel="stylesheet" href="./experiencias.css?v=20261124-5">
+  <link rel="stylesheet" href="./acabado.css?v=20261124-5">
+  <link rel="stylesheet" href="./editor.css?v=20261124-5">
+  <script defer src="./escape-room.js?v=20261124-5"></script>
+  <script defer src="./calendario-publicado.js?v=20261124-5"></script>
+  <script defer src="./recursos-reto.js?v=20261124-5"></script>
+  <script defer src="./campana-prueba.js?v=20261124-5"></script>
+  <script defer src="./campana-3946.js?v=20261124-5"></script>
+  <script defer src="./retos-avanzados.js?v=20261124-5"></script>
+  <script defer src="./mecanismos.js?v=20261124-5"></script>
+  <script defer src="./experiencias.js?v=20261124-5"></script>
+  <script defer src="./cerradura-transmisiones.js?v=20261124-5"></script>
+  <script defer src="./campana-mecanismos.js?v=20261124-5"></script>
+  <script defer src="./vista-reto.js?v=20261124-5"></script>
+  <script defer src="./editor.js?v=20261124-5"></script>
 </head>
 <body class="pagina-editor">
   <main class="editor">
@@ -52,6 +52,20 @@
             <p class="ayuda">Separa los párrafos con una línea en blanco. Esta escena es independiente de la carta de Hogwarts.</p>
             <label>Texto del botón para continuar <input name="historiaBoton"></label>
             <label>Revelación al completar la confirmación final <textarea name="revelacion" rows="2"></textarea></label>
+          </fieldset>
+          <fieldset>
+            <legend>Carta de Hogwarts</legend>
+            <p class="ayuda">Todos estos textos aparecen en la introducción principal. Separa los párrafos de la carta con una línea en blanco.</p>
+            <label>Rótulo superior <input name="cartaRotulo"></label>
+            <label>Encabezado del colegio <input name="cartaCabecera"></label>
+            <label>Fecha de la carta <input name="cartaFecha"></label>
+            <label>Destinataria <input name="cartaDestinatario"></label>
+            <label>Título de la carta <input name="cartaTitulo"></label>
+            <label>Contenido de la carta <textarea name="cartaTexto" rows="12"></textarea></label>
+            <label>Firma <textarea name="cartaFirma" rows="3"></textarea></label>
+            <label>Texto del sello <input name="cartaSello"></label>
+            <label>Botón para aceptar la invitación <input name="cartaBoton"></label>
+            <label>Botón para saltar la introducción <input name="cartaSaltar"></label>
           </fieldset>
           <label><input type="checkbox" name="introduccion"> Mostrar la carta de Hogwarts al entrar por primera vez</label>
           <label><input type="checkbox" name="final"> Activar la escena de desenlace después del reto del día 24</label>

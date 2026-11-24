@@ -140,23 +140,23 @@
     const escena=calendario.querySelector('.escena'),ancla=document.createComment('castillo del calendario');
     escena.before(ancla);let fase='cerrada',timer;
     portada.replaceChildren();portada.className='entrada-caja carta-hogwarts';
-    const rotulo=el('p','CORREO ESPECIAL · COLEGIO HOGWARTS','rotulo-caja');
+    const valor=(campo,defecto)=>typeof config[campo]==='string'&&config[campo].length?config[campo]:defecto;
+    const rotulo=el('p',valor('cartaRotulo','CORREO ESPECIAL · COLEGIO HOGWARTS'),'rotulo-caja');
     const sobre=el('article','','sobre-hogwarts');
-    const cabecera=el('p','HOGWARTS · ESCUELA DE MAGIA Y HECHICERÍA','membrete-hogwarts');
+    const cabecera=el('p',valor('cartaCabecera','HOGWARTS · ESCUELA DE MAGIA Y HECHICERÍA'),'membrete-hogwarts');
     const escudo=el('div','✦','escudo-hogwarts');escudo.setAttribute('aria-hidden','true');
-    const fecha=el('p','HOGWARTS, 1 DE DICIEMBRE DE 2026','fecha-carta');
-    const para=el('p','PARA: ANDREA','destinatario-carta');
-    const titulo=el('h1','Una invitación especial','titulo-carta');
+    const fecha=el('p',valor('cartaFecha','HOGWARTS, 1 DE DICIEMBRE DE 2026'),'fecha-carta');
+    const para=el('p',valor('cartaDestinatario','PARA: ANDREA'),'destinatario-carta');
+    const titulo=el('h1',valor('cartaTitulo','Una invitación especial'),'titulo-carta');
     const texto=el('div','','texto-carta');
-    for(const p of ['Querida Andrea:','Tenemos el placer de comunicarte que has sido convocada a Hogwarts para vivir un diciembre extraordinario.','Este año, el Cáliz de Fuego ha señalado a una cuarta campeona. Tu nombre ha aparecido donde nadie esperaba encontrarlo y, desde este momento, formas parte de una historia llena de pruebas, secretos y decisiones.','A lo largo de los próximos días descubrirás pistas, superarás desafíos y conocerás qué misterio se esconde tras esta inesperada elección.','Prepara tu varita. El castillo te espera.'])texto.append(el('p',p));
-    const firma=el('p','Atentamente,\nEl equipo de selección de Hogwarts','firma-carta');
-    const sello=el('div','H','sello-hogwarts');sello.setAttribute('aria-label','Sello de Hogwarts');
+    for(const p of valor('cartaTexto','Querida Andrea:\n\nTenemos el placer de comunicarte que has sido convocada a Hogwarts para vivir un diciembre extraordinario.\n\nEste año, el Cáliz de Fuego ha señalado a una cuarta campeona. Tu nombre ha aparecido donde nadie esperaba encontrarlo y, desde este momento, formas parte de una historia llena de pruebas, secretos y decisiones.\n\nA lo largo de los próximos días descubrirás pistas, superarás desafíos y conocerás qué misterio se esconde tras esta inesperada elección.\n\nPrepara tu varita. El castillo te espera.').split(/\n\s*\n/).filter(Boolean))texto.append(el('p',p));
+    const firma=el('p',valor('cartaFirma','Atentamente,\nEl equipo de selección de Hogwarts'),'firma-carta');
+    const sello=el('div',valor('cartaSello','H'),'sello-hogwarts');sello.setAttribute('aria-label','Sello de Hogwarts');
     sobre.append(cabecera,escudo,fecha,para,titulo,texto,firma,sello);
-    const accion=btn('Aceptar la invitación',abrir);accion.className='abrir-carta';
-    const editor=el('a','Modo edición','enlace-editor');editor.href='./editor.html';
-    const saltar=btn('Entrar directamente al castillo',()=>finalizar(true));saltar.className='saltar-introduccion';
+    const accion=btn(valor('cartaBoton','Aceptar la invitación'),abrir);accion.className='abrir-carta';
+    const saltar=btn(valor('cartaSaltar','Entrar directamente al castillo'),()=>finalizar(true));saltar.className='saltar-introduccion';
     const estado=el('p','','estado-entrada');estado.setAttribute('role','status');
-    portada.append(rotulo,sobre,accion,editor,estado,saltar);
+    portada.append(rotulo,sobre,accion,estado,saltar);
     function devolver(){escena.style.cssText='';ancla.after(escena);escena.inert=false;calendario.hidden=false;calendario.inert=false;}
     function colocar(){clearTimeout(timer);devolver();portada.hidden=false;portada.style.cssText='';calendario.hidden=true;calendario.inert=true;fase='cerrada';portada.dataset.fase=fase;accion.disabled=false;estado.textContent='';}
     function ocultar(){devolver();portada.hidden=true;portada.style.cssText='';fase='terminada';portada.dataset.fase=fase;guardar();terminar();}
