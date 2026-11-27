@@ -1,0 +1,479 @@
+
+/* Gryffindor · La Estrella de Invierno — sistema visual global */
+:root{
+ --noche:#111827;--marfil:#f5ead6;--ambar:#e7bd72;--verde:#542a32;
+ --tinta:#30251f;--granate:#641f32;--granate-profundo:#351622;
+ --rojo:#8f3542;--oro:#c69a55;--laton:#a77b43;--piedra:#68717a;
+ --pergamino:#f5e8cc;--pergamino-sombra:#e2cda7;
+ --fibra:repeating-linear-gradient(105deg,#fff07a0c 0 1px,transparent 1px 5px,#1d140a0d 5px 6px,transparent 6px 11px);
+}
+body{
+ color:var(--marfil);
+ background:radial-gradient(ellipse at 50% 12%,#63314255,transparent 42%),
+ linear-gradient(155deg,#141b2a,#211b29 58%,#101722);
+}
+button:focus-visible,a:focus-visible,summary:focus-visible{
+ outline:2px solid #f2cf8f;outline-offset:3px
+}
+#portada.carta-hogwarts{
+ background:
+ radial-gradient(circle at 14% 14%,#f7e6c6 0 1px,transparent 2px),
+ radial-gradient(circle at 82% 19%,#f7e6c6 0 1.5px,transparent 2px),
+ radial-gradient(ellipse at 50% 45%,#8d394533,transparent 52%),
+ linear-gradient(155deg,#202337,#361a2a 66%,#111925);
+}
+#portada.carta-hogwarts::before{border-color:#c49b5c55;box-shadow:inset 0 0 0 5px #c49b5c10,inset 0 0 70px #c49b5c12}
+#portada.carta-hogwarts .rotulo-caja{color:#e7c78c}
+.sobre-hogwarts{
+ color:#392820;border-color:#c7a46a;
+ background:var(--fibra),linear-gradient(145deg,#fff6e3,#f0dfbf 55%,#e6d0a8);
+ box-shadow:0 24px 60px #080b14bb,inset 0 0 0 5px #a987581c,inset 0 0 0 7px #8f6c4433,0 0 0 1px #e5c78b44
+}
+.escudo-hogwarts{background:linear-gradient(145deg,#8b3442,#421d2b);color:#f3d9a5;box-shadow:inset 0 0 0 2px #d6b36f,0 4px 12px #50391f55}
+.sello-hogwarts{background:radial-gradient(circle,#9a3e45,#4c1827);border-color:#e1bd7d;color:#f8e6c3}
+.abrir-carta{background:linear-gradient(145deg,#823747,#4c1d2b);border-color:#d4ad6d;color:#fff0d6}
+.carta-hogwarts .saltar-introduccion{color:#e0cba8}
+#calendario{padding-top:clamp(1.3rem,4vh,3rem)}
+#calendario .introduccion h1{color:#f4e5ca;text-shadow:0 3px 0 #17111c,0 8px 26px #000b}
+#calendario .introduccion em{color:#e5bd7b;text-shadow:0 0 22px #d9a85b55}
+#calendario .introduccion::before,#calendario .introduccion::after{color:#e7c078;text-shadow:0 0 18px #f4d28a88}
+#calendario .escena{
+ width:min(100%,52rem);padding:clamp(.65rem,2vw,1.35rem) clamp(.45rem,2.4vw,1.5rem) 1.55rem;
+ border:1px solid #b88d55aa;border-radius:13px;overflow:hidden;
+ background:
+ linear-gradient(180deg,#141c2b22 0%,#271b2a44 48%,#101824cc 100%),
+ url("./castillo-invierno.svg") center 48%/cover no-repeat;
+ box-shadow:0 28px 65px #02091199,0 0 0 5px #d1b77a0b,inset 0 0 45px #06131c99
+}
+#calendario .escena::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,#10172622,#11182766 72%,#101722dd)}
+#calendario .luna{background:radial-gradient(circle at 38% 26%,#fff0d0,#c9ad7b);box-shadow:0 0 28px #f3d18b66}
+#calendario .casa{filter:drop-shadow(0 22px 18px #000a)}
+#calendario .tejado{filter:drop-shadow(0 5px 5px #0009)}
+#calendario .fronton{
+ background:linear-gradient(145deg,#6e3944,#3d202f 68%,#211b29);
+ border-color:#c4a06a;
+}
+#calendario .fronton::before{background:linear-gradient(145deg,#59616b,#263342);border:2px solid #b89a6b}
+#calendario .fronton::after{background:linear-gradient(145deg,#384657,#1b2635);border:1px solid #d0b77e}
+#calendario .chimenea{background:repeating-linear-gradient(#713d42 0 .6rem,#4c2933 .6rem .67rem);border-color:#d6c6a5}
+#calendario .fachada{
+ border:5px solid #a87d49;border-top:7px solid #d0b477;border-bottom:10px solid #754d38;
+ border-radius:3px 3px 8px 8px;
+ background:
+ repeating-linear-gradient(90deg,transparent 0 5.8%,#101a2a80 5.9% 6.1%),
+ linear-gradient(135deg,#4c2937,#291d2c 58%,#1c2231);
+ box-shadow:inset 0 0 0 2px #ead6a455,inset 0 0 35px #06101caa,0 9px 0 #0b1722,0 13px 22px #0008
+}
+#calendario .fachada::before{border-color:#d5b77a66}
+#calendario .fachada::after{
+ content:"✦";position:absolute;z-index:3;left:50%;top:-2.3rem;transform:translateX(-50%);
+ width:3.3rem;height:3.3rem;display:grid;place-items:center;border:2px solid #d5b16b;border-radius:50%;
+ color:#f3d28e;font:2rem var(--serif);
+ background:radial-gradient(circle,#873746 0 40%,#321d2b 43% 55%,#bd9659 58% 62%,#1a2636 65%);
+ box-shadow:0 0 25px #f2cc7a66
+}
+#calendario .guirnalda-casa{filter:sepia(.4) saturate(1.2) drop-shadow(0 0 6px #f2cb7c99)}
+#puertas{position:relative;z-index:1;gap:clamp(.36rem,1.4vw,.78rem);padding:.5rem}
+#calendario .ventana{
+ position:relative;min-width:0;min-height:clamp(3.5rem,10vw,5.2rem);height:auto;
+ border:2px solid #bd985e;border-radius:10px 10px 4px 4px;
+ background:linear-gradient(145deg,#3b2937,#1b2333 75%);
+ box-shadow:inset 0 0 0 3px #111827,inset 0 0 0 5px #8e653f,0 5px 8px #0009;
+ clip-path:none;overflow:hidden
+}
+#calendario .ventana::before{content:"";position:absolute;inset:5px;border:1px solid #d5b77c88;border-radius:7px 7px 2px 2px;pointer-events:none}
+#calendario .ventana::after{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:1px;background:#d0b77c66;box-shadow:-1.6rem 0 #d0b77c24,1.6rem 0 #d0b77c24;pointer-events:none}
+#calendario .ventana .hueco{inset:8px;background:linear-gradient(180deg,#f3c77818,transparent 68%);border-radius:7px 7px 2px 2px}
+#calendario .ventana .numero{
+ z-index:2;min-width:2rem;height:2rem;padding:0 .25rem;display:grid;place-items:center;
+ border:1px solid #d9bd83;border-radius:3px;background:linear-gradient(145deg,#5b3540,#2a2230);
+ color:#fff0d5;font:1.15rem var(--serif);box-shadow:0 2px 5px #0009
+}
+#calendario .ventana .estado{z-index:2;color:#f0d39a}
+#calendario .ventana[data-estado='futura']{filter:saturate(.55);opacity:.82}
+#calendario .ventana[data-estado='sin-llave']{filter:grayscale(.25) brightness(.78)}
+#calendario .ventana[data-estado='destacada'],#calendario .ventana[data-estado='abierta']{
+ border-color:#f0d18b;box-shadow:inset 0 0 0 3px #111827,inset 0 0 0 5px #c49b5c,0 0 0 2px #f5d89b55,0 0 25px #e7b96899;
+ animation:brillo-gryffindor 3s ease-in-out infinite
+}
+@keyframes brillo-gryffindor{50%{filter:brightness(1.2);box-shadow:inset 0 0 0 3px #111827,inset 0 0 0 5px #e5bf7d,0 0 32px #efc57cbb}}
+#calendario .ventana[data-estado='resuelta']{border-color:#c8ad78;box-shadow:inset 0 0 0 3px #111827,inset 0 0 0 5px #a48b61,0 0 13px #d2b77b55}
+#calendario .ventana.portal{min-height:clamp(4.8rem,14vw,6.8rem);border-radius:46% 46% 7px 7px;background:linear-gradient(145deg,#6e303b,#281d2b)}
+#calendario .ventana.portal .numero{background:linear-gradient(145deg,#7c3b42,#351c2b);border-color:#e0bf7c}
+#calendario .escalones{background:linear-gradient(#c8ad7b,#72583f 42%,#1b2632 78%);box-shadow:0 12px 20px #0009}
+#calendario .abeto{filter:sepia(.22) saturate(.9)}
+#calendario .suelo{background:linear-gradient(180deg,#d9d4c7,#7b8282 25%,#26323d 70%)}
+#abrir-cuaderno{
+ display:flex;align-items:center;justify-content:center;gap:.65rem;min-width:min(13rem,80%);min-height:3.5rem;
+ margin:1.2rem auto .3rem;padding:.8rem 1.4rem;border:1px solid #c9a367;border-radius:8px;
+ background:linear-gradient(145deg,#713342,#351d2a);color:#f8e9ce;
+ box-shadow:0 7px 20px #0008,inset 0 0 0 2px #e5c9891a;font-family:var(--serif);font-size:1.05rem
+}
+#abrir-cuaderno::before{content:"✧";font-size:1.4rem;color:#f1d18c}
+#repetir-introduccion{color:#dec79f;text-underline-offset:5px}
+
+
+/* Contraste reforzado en la escena narrativa sobre fondo oscuro. */
+.historia-entrada,
+.historia-entrada .cabecera-historia,
+.historia-entrada .texto-historia,
+.historia-entrada .texto-historia p,
+.historia-entrada .texto-historia blockquote,
+.historia-entrada .contexto-historia,
+.historia-entrada .revelacion-historia{
+ color:#fff4e2;
+}
+.historia-entrada .texto-historia p,
+.historia-entrada .texto-historia blockquote{
+ color:#f7ead6;
+ text-shadow:0 1px 2px #160e18aa;
+}
+.historia-entrada .texto-historia strong,
+.historia-entrada .texto-historia em,
+.historia-entrada .texto-historia a{color:#ffdda0}
+.historia-entrada .cabecera-historia .fecha,
+.historia-entrada .contexto-historia{color:#f0d7ae}
+.historia-entrada h2{color:#ffe0a6;text-shadow:0 2px 12px #0008}
+
+/* Retos y ventanas modales: misma identidad, independientemente del tipo de prueba. */
+dialog:not(.historia-entrada){
+ color:#382b24;border:1px solid #c09b63;border-radius:13px;
+ background:var(--fibra),linear-gradient(145deg,#fff5df,#ead9b9);
+ box-shadow:0 24px 90px #000c,inset 0 0 0 5px #a9875818;
+ scrollbar-color:#9c7445 #e8d8ba
+}
+dialog:not(.historia-entrada)::backdrop{background:#0b101bdc;backdrop-filter:blur(7px)}
+dialog .barra-tarjeta{border-bottom:1px solid #a9865b55}
+dialog .fecha{color:#855b3b}
+dialog h2{color:#552636;font-size:clamp(2rem,6vw,2.8rem);line-height:1.05}
+dialog p,dialog li,dialog label,dialog figcaption{color:#49382d}
+dialog a{color:#713244}
+dialog .cerrar{color:#643044;border-color:#b99768;background:#f7ebd2}
+#contenido{color:#49382d}
+#contenido h3,#tarjetas-cuaderno h3{color:#642d3b;font-family:var(--serif);font-size:1.55rem}
+#contenido .control-reto,.control-reto{
+ border:1px solid #aa8657;border-radius:7px;background:linear-gradient(145deg,#f8edd5,#e6d2ac);
+ color:#493125;box-shadow:0 3px 0 #b49a72,inset 0 1px #fff9
+}
+#contenido .control-reto.principal,.control-reto.principal{
+ border-color:#7c3a45;background:linear-gradient(145deg,#813a48,#4d2030);
+ color:#fff0d6;box-shadow:0 4px 0 #321a27,0 7px 14px #392a1b22,inset 0 1px #ffffff38
+}
+#contenido .control-reto:disabled{filter:grayscale(.45);opacity:.55}
+#contenido input,#contenido textarea,#contenido select,#contenido .form-reto input[type="text"],#contenido .juego-especial textarea,#contenido .juego-especial select{
+ border:1px solid #b39466;border-radius:6px;background:#fff8e9;color:#392d25;accent-color:#793545
+}
+#contenido input:focus,#contenido textarea:focus,#contenido select:focus{outline:2px solid #9a6b47;outline-offset:2px}
+#contenido .apoyo-reto,#contenido .pistas-reto,#contenido .resultado-reto,#contenido .evidencia,
+#contenido .recurso-reto,#contenido .registro-navegacion,#contenido .mapa-navegacion,
+#contenido .nota-reto,#contenido .ficha-reto,#contenido .hallazgo-historia{
+ border:1px solid #c3a477;border-radius:9px;background:linear-gradient(145deg,#fff6e3,#ecddc1);
+ box-shadow:inset 0 0 0 3px #ad89561a,0 5px 14px #563c1b10;color:#49382d
+}
+#contenido .pistas-reto h3,#contenido .resultado-reto h3,#contenido .evidencia h3{color:#6c3040}
+#contenido .feedback-reto,#contenido .estado-navegacion,#contenido .progreso-navegacion{color:#693144;font-weight:650}
+#contenido .opciones-reto label,#contenido .piezas-reto li,#contenido .ficha-navegacion{
+ border:1px solid #c1a477;border-radius:7px;background:#fff6e4;color:#49382d
+}
+#contenido .opciones-reto label:has(input:checked),#contenido .ficha-seleccionada{
+ border-color:#7a3a47;background:#f0ddc8;color:#4b2630;box-shadow:inset 0 0 0 1px #7a3a47
+}
+#contenido .casilla-reto,#contenido .casilla-grande,#contenido .tablero-tuberias button,
+#contenido .cuadro-electrico button,#contenido .selector-piezas button,
+#contenido .fichas-anagrama button,#contenido .huecos-anagrama button,
+#contenido .teclado-letras button,#contenido .herramientas-nonograma button{
+ border:1px solid #b28e5d;border-radius:5px;background:linear-gradient(145deg,#fff5df,#e6d2ad);color:#493125
+}
+#contenido .casilla-grande[aria-pressed="true"],#contenido .selector-piezas [aria-pressed="true"],
+#contenido .discos-vitral button[aria-pressed="true"],#contenido .herramientas-nonograma [aria-pressed="true"]{
+ background:linear-gradient(145deg,#823c49,#4b2331);color:#fff0d6;border-color:#d2ae70
+}
+#contenido .casilla-grande[data-marca="1"]{background:#6e3443;color:#fff0d6}
+#contenido .casilla-grande[data-marca="2"]{background:#d9bd88;color:#493125}
+#contenido .ficha-reto strong,#contenido .ficha-reto small{color:#4a3029}
+#contenido .fichas-reto,#contenido .fichas-anagrama,#contenido .huecos-anagrama{gap:.5rem}
+#contenido .segmentos-reto path{stroke:#8b6a48}
+#contenido .segmentos-reto .encendido{stroke:#a43d45;filter:drop-shadow(0 0 3px #c75c51)}
+#contenido .visor-reto,#contenido .visor-ascensor,#contenido .visor-fragmentos,
+#contenido .libreta-ascensor,#contenido .papel-reflejado,#contenido .nota-reflejada{
+ border:1px solid #bd9a69;border-radius:8px;background:linear-gradient(145deg,#fff6e3,#e7d5b3);color:#49382d
+}
+#contenido .cuadro-electrico,#contenido .tablero-tuberias,#contenido .tablero-grande,
+#contenido .nonograma,#contenido .laberinto-anillos,#contenido .mecanismo{
+ border:1px solid #b89563;border-radius:9px;background:linear-gradient(145deg,#f8edd6,#e4d0aa);padding:.55rem
+}
+#contenido .bombilla-electrica .vidrio{fill:#e2d2b3;stroke:#977348}
+#contenido .cuadro-electrico .encendida .vidrio{fill:#f1c979;stroke:#a47738;filter:drop-shadow(0 0 5px #e2a947)}
+#contenido .tablero-tuberias .pieza-tubo{stroke:#795b47}
+#contenido .tablero-tuberias .agua-tubo{stroke:#8f3748}
+#contenido .tablero-tuberias .metal-tubo{stroke:#a8895d}
+#contenido .edificio-mantenimiento text{fill:#f5e5c8}
+#contenido .ficha-vitral,#contenido .disco-vitral{border-color:#ad8855}
+#contenido .ficha-vitral .disco-vitral{background:#6d3443}
+#contenido .portal-premio{background:radial-gradient(circle,#f1d18a,#873b49 52%,#291b2a 78%);border:1px solid #c49b5c}
+#contenido .resultado-reto{border-left:4px solid #8a3d4b}
+#contenido .evidencia{border-left:4px solid #bd985d}
+#contenido .foto-reto,#contenido .galeria img{border:1px solid #b28f61;border-radius:8px;box-shadow:0 7px 18px #48301f22}
+#tarjetas-cuaderno{color:#49382d}
+#cuaderno .diario-historia{padding:1rem;border:1px solid #bd9b6b;border-radius:9px;background:#fff5e0}
+#cuaderno .hallazgo-historia{background:#f7ecd5}
+#cuaderno .hallazgo-historia h4{color:#743445}
+.historia-entrada{
+ color:#f4e8d4;border-color:#c49b5c;
+ background:radial-gradient(ellipse at 50% 0%,#883d4a44,transparent 48%),linear-gradient(150deg,#242536,#401e2d 72%,#1b202d);
+ box-shadow:0 30px 100px #000c,inset 0 0 0 5px #d4b57812,inset 0 0 55px #0007
+}
+.historia-entrada h2{color:#f1d39c}
+.historia-entrada footer{background:linear-gradient(180deg,#351d2af2,#241b29)}
+.historia-entrada footer button{background:linear-gradient(145deg,#f4e3bf,#d8bb87);color:#382c20}
+.final-hogwarts{
+ color:#f7ead4;border:1px solid #c49b5c;
+ background:radial-gradient(ellipse at 50% 8%,#873c4b 0,transparent 58%),linear-gradient(145deg,#35202d,#171e2b);
+}
+.final-hogwarts .estado-final{color:#f0d39a}
+.final-hogwarts .carta-final{border-color:#c6a16c;background:var(--fibra),linear-gradient(135deg,#fff4dc,#e6d2ad);color:#3d2c24}
+.final-hogwarts .mensaje-final{border-color:#c89e62;background:#f3d7a10c}
+.final-hogwarts .pista-final{border-color:#c49b5c;color:#ffe7b8}
+.final-hogwarts .acciones-final button,.final-hogwarts>button{border-color:#c59b60;background:linear-gradient(145deg,#813b49,#4b2130);color:#fff0d6}
+@media(min-width:700px){#calendario .escena{padding-inline:1.5rem}#puertas{gap:.8rem;padding:.8rem}#calendario .ventana{min-height:5rem}}
+@media(max-width:600px){
+ #calendario{padding:1rem .55rem 1.5rem}
+ #calendario .escena{padding:.5rem .3rem 1.15rem;border-radius:10px}
+ #calendario .fachada{padding:.42rem;border-width:4px}
+ #puertas{gap:.34rem;padding:.35rem}
+ #calendario .ventana{min-height:3.35rem}
+ #calendario .ventana .numero{min-width:1.8rem;height:1.8rem;font-size:1rem}
+ #calendario .ventana.portal{min-height:4.5rem}
+ #abrir-cuaderno{min-height:3.25rem;margin-top:1rem}
+ dialog:not(.historia-entrada){width:calc(100% - .8rem);max-height:92dvh;padding:1rem}
+ dialog h2{font-size:2rem}
+ #contenido .control-reto{min-height:2.7rem}
+}
+@media(prefers-reduced-motion:reduce){
+ #calendario .ventana[data-estado='destacada'],#calendario .ventana[data-estado='abierta']{animation:none}
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   Acabado de retos · Cuaderno de investigación de Gryffindor
+   Capa exclusivamente visual: no altera reglas ni interacción.
+   ───────────────────────────────────────────────────────────── */
+dialog:not(.historia-entrada){
+ padding:clamp(1rem,3vw,1.55rem);
+ border-radius:15px;
+ background:
+   radial-gradient(ellipse at 92% 0%,#d4b77a22,transparent 34%),
+   var(--fibra),
+   linear-gradient(145deg,#fff7e6 0%,#f1e3c8 58%,#ead8b8 100%);
+}
+dialog:not(.historia-entrada) .barra-tarjeta{
+ display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+ margin:-.15rem 0 1rem;padding:0 0 .75rem;
+ border-bottom:1px solid #a7835355;
+}
+dialog:not(.historia-entrada) .barra-tarjeta .fecha{
+ display:inline-flex;align-items:center;gap:.4rem;
+ padding:.35rem .65rem;border:1px solid #b8945f88;border-radius:99px;
+ background:#fff8e9;color:#75434a;font-size:.72rem;font-weight:800;
+ letter-spacing:.13em;text-transform:uppercase;
+}
+dialog:not(.historia-entrada) h2{
+ margin:.35rem 0 1rem;color:#512535;
+ font-size:clamp(2rem,6vw,2.65rem);line-height:1.04;
+ text-wrap:balance;
+}
+dialog:not(.historia-entrada) .cerrar{
+ flex:0 0 2.8rem;width:2.8rem;height:2.8rem;border-radius:50%;
+ font-size:1.35rem;box-shadow:0 2px 5px #4c2b2018;
+}
+#contenido{display:grid;gap:1rem;line-height:1.55}
+#contenido>p:first-child{margin-top:0}
+#contenido p{line-height:1.58}
+#contenido details{
+ margin:.1rem 0;padding:.8rem .95rem;
+ border:1px solid #b9956488;border-radius:11px;
+ background:linear-gradient(145deg,#fff8e9dd,#ead9b9dd);
+ box-shadow:0 3px 10px #5b3d1c0c;
+}
+#contenido details>summary{
+ display:flex;align-items:center;gap:.55rem;
+ color:#5b2b3a;font-weight:750;line-height:1.35;
+ cursor:pointer;list-style:none;
+}
+#contenido details>summary::-webkit-details-marker{display:none}
+#contenido details>summary::before{
+ content:"✦";display:grid;place-items:center;flex:0 0 1.55rem;height:1.55rem;
+ border:1px solid #c29b61;border-radius:50%;background:#6b3040;color:#f8e6bd;
+ font-size:.75rem;
+}
+#contenido details[open]>summary{padding-bottom:.65rem;border-bottom:1px solid #b995644d}
+#contenido details>p{margin:.75rem 0 .15rem}
+#contenido .contexto-historia{
+ padding:.8rem .9rem;border-left:3px solid #9a6a43;border-radius:0 8px 8px 0;
+ background:#e4cfaa66;color:#57402f;font-style:italic;
+}
+#contenido .pregunta-reto{
+ margin:.2rem 0 .8rem;padding:.8rem .95rem;
+ border-left:4px solid #8a3c4b;border-radius:0 9px 9px 0;
+ background:linear-gradient(90deg,#7a354510,transparent);
+ color:#542737;font-size:1.04rem;font-weight:700;
+}
+#contenido .form-reto{display:grid;gap:.85rem;margin:.25rem 0}
+#contenido .form-reto>label{
+ display:grid;gap:.4rem;color:#603244;font-weight:750;
+}
+#contenido input:not([type=radio]):not([type=checkbox]),
+#contenido textarea,#contenido select{
+ width:100%;min-height:2.9rem;padding:.7rem .8rem;
+ border:1px solid #b8996b;border-radius:8px;
+ background:linear-gradient(180deg,#fffaf0,#f8edd8);
+ color:#382b24;font:inherit;
+ box-shadow:inset 0 1px 2px #4a2d190d,0 1px 0 #fff9;
+}
+#contenido textarea{min-height:6rem;resize:vertical}
+#contenido input::placeholder,#contenido textarea::placeholder{color:#8a7867}
+#contenido .control-reto{
+ min-height:2.85rem;padding:.65rem 1rem;border-radius:8px;
+ font-weight:750;letter-spacing:.01em;
+ transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+#contenido .control-reto:not(:disabled):active{transform:translateY(1px);box-shadow:0 1px 0 #b49a72}
+#contenido .control-reto.principal{
+ min-height:3.05rem;padding-inline:1.25rem;
+ background:linear-gradient(135deg,#873d4b,#592536 72%,#40202e);
+ box-shadow:0 4px 0 #351a27,0 8px 16px #56321e20,inset 0 1px #ffffff38;
+}
+#contenido .feedback-reto{
+ min-height:1.4em;margin:.1rem 0 0;padding:.15rem .1rem;
+ color:#713447;font-weight:700;
+}
+#contenido .opciones-reto{
+ display:grid;gap:.55rem;margin:0;padding:.8rem;
+ border:1px solid #c2a477;border-radius:11px;background:#f8edd8aa;
+}
+#contenido .opciones-reto legend{padding:0 .4rem;color:#673143;font-weight:800}
+#contenido .opciones-reto label{
+ display:flex;align-items:center;gap:.7rem;min-height:3rem;padding:.65rem .75rem;
+ border:1px solid #c5a77a;border-radius:9px;background:#fff8e9;
+ box-shadow:0 2px 4px #50331c0b;cursor:pointer;
+}
+#contenido .opciones-reto label:has(input:checked){
+ border-color:#783747;background:linear-gradient(120deg,#f3e1cf,#ead5bd);
+ box-shadow:inset 0 0 0 1px #783747,0 3px 9px #5b2c3a16;
+}
+#contenido .opciones-reto input{width:1.15rem;height:1.15rem;flex:0 0 auto;accent-color:#793545}
+#contenido .recurso-reto{
+ display:grid;gap:.75rem;margin:.2rem 0;padding:clamp(.8rem,2.5vw,1.1rem);
+ border:1px solid #c5a574;border-radius:12px;
+ background:
+   radial-gradient(ellipse at 50% 0%,#d7b77b26,transparent 58%),
+   linear-gradient(145deg,#fff8e9,#f0e1c4);
+ box-shadow:inset 0 0 0 3px #fff9,0 5px 15px #573b1d12;
+}
+#contenido .recurso-reto>p{margin:.15rem 0}
+#contenido .dibujo-reto{display:block;width:min(4rem,24vw);height:auto;margin:.15rem auto;color:#784452;stroke:#784452;fill:none;stroke-width:2}
+#contenido .foto-reto,#contenido .galeria img{
+ display:block;width:100%;max-height: min(42vh,24rem);object-fit:contain;
+ margin:.25rem auto;background:#302632;border-radius:10px;
+}
+#contenido .evidencia{
+ position:relative;overflow:hidden;padding:.85rem .95rem .95rem;
+ border:1px solid #c6a575;border-left:4px solid #8b3c4b;border-radius:10px;
+ background:linear-gradient(145deg,#fff8e9,#edddbf);
+}
+#contenido .evidencia>.fecha{
+ display:inline-block;margin-bottom:.3rem;padding:.2rem .5rem;
+ border-radius:99px;background:#6c3040;color:#ffedcc;
+ font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+}
+#contenido .evidencia h3{margin:.1rem 0 .45rem;font-size:1.18rem;line-height:1.2}
+#contenido .evidencia p{margin:.25rem 0}
+#contenido .resultado-reto{
+ display:grid;gap:.7rem;padding:1rem;
+ border:1px solid #b99562;border-left:5px solid #8d3c4b;border-radius:12px;
+ background:
+   radial-gradient(ellipse at 100% 0%,#d4b16a22,transparent 48%),
+   linear-gradient(145deg,#fff7e4,#ead8b7);
+ box-shadow:0 7px 20px #56391b16,inset 0 0 0 3px #fff8;
+}
+#contenido .resultado-reto>h3{
+ margin:0;color:#632d3d;font-family:var(--serif);
+ font-size:1.55rem;line-height:1.15;
+}
+#contenido .resultado-reto>p{margin:.1rem 0}
+#contenido .transicion-historia{
+ padding:.85rem .95rem;border:1px solid #c9a76e;border-radius:9px;
+ background:#fff9eb;color:#493528;line-height:1.7;
+}
+#contenido .hallazgo-historia{
+ padding:.85rem .95rem;border:1px solid #c5a271;border-radius:9px;
+ background:linear-gradient(135deg,#f8edd5,#e8d4af);
+}
+#contenido .hallazgo-historia h4{margin:0 0 .4rem;color:#713548;font-family:var(--serif);font-size:1.2rem}
+#contenido .hallazgo-historia p{margin:.2rem 0}
+#contenido .pistas-reto{border-color:#b99564;background:linear-gradient(145deg,#f7ecd5,#ead9b9)}
+#contenido .pistas-reto ol{padding-left:1.5rem}
+#contenido .pistas-reto li{padding:.25rem 0 .25rem .15rem;line-height:1.55}
+#contenido .pistas-reto .control-reto{margin-top:.55rem}
+#contenido .visor-reto{
+ display:flex;justify-content:center;align-items:center;gap:.5rem;
+ min-height:3.4rem;padding:.55rem .8rem;border:1px solid #b18b5b;border-radius:9px;
+ background:linear-gradient(180deg,#382c34,#1e2532);color:#ffe7b5;
+ font:700 1.55rem ui-monospace,monospace;letter-spacing:.25em;
+ box-shadow:inset 0 2px 8px #0008,0 2px 0 #fff8;
+}
+#contenido .teclas-reto{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+#contenido .teclas-reto .control-reto{min-height:2.8rem}
+#contenido .cuadricula-reto{max-width:100%;overflow-x:auto;padding:.35rem;border-radius:9px;background:#d9c49e66}
+#contenido .fila-reto{display:grid;grid-template-columns:repeat(var(--columnas),minmax(2rem,1fr));gap:3px}
+#contenido .casilla-reto{
+ display:grid;place-items:center;min-width:0;min-height:2.45rem;
+ border:1px solid #c1a477;border-radius:5px;background:#fff8e9;color:#4b352a;
+ font-weight:750;
+}
+#contenido .casilla-reto:focus-visible{outline:2px solid #783747;outline-offset:1px}
+#contenido .piezas-reto{display:grid;gap:.5rem;padding-left:1.7rem}
+#contenido .piezas-reto li{
+ display:grid;grid-template-columns:minmax(0,1fr) 2.7rem 2.7rem;align-items:center;gap:.35rem;
+ padding:.4rem .5rem .4rem .7rem;border:1px solid #c4a477;border-radius:8px;background:#fff8e9;
+}
+#contenido .piezas-reto li .control-reto{min-width:2.6rem;min-height:2.6rem;padding:.3rem}
+#contenido figure{margin:.15rem 0}
+#contenido figcaption{color:#6c5140;font-size:.84rem;text-align:center}
+#contenido audio{width:100%;accent-color:#783747}
+@media(max-width:600px){
+ dialog:not(.historia-entrada){padding:.85rem .8rem;border-radius:12px}
+ dialog:not(.historia-entrada) .barra-tarjeta{margin-bottom:.75rem}
+ dialog:not(.historia-entrada) h2{font-size:clamp(1.8rem,8vw,2.2rem)}
+ #contenido{gap:.75rem;font-size:.96rem}
+ #contenido details{padding:.7rem .75rem}
+ #contenido .recurso-reto{gap:.6rem;padding:.7rem}
+ #contenido .opciones-reto{padding:.6rem}
+ #contenido .casilla-reto{min-height:2.2rem;font-size:.9rem}
+ #contenido .piezas-reto li{grid-template-columns:minmax(0,1fr) 2.55rem 2.55rem}
+ #contenido .visor-reto{min-height:3.1rem;font-size:1.35rem}
+}
+@media(hover:hover){
+ #contenido .control-reto:not(:disabled):hover{filter:brightness(1.04);transform:translateY(-1px)}
+ #contenido .opciones-reto label:hover{border-color:#946346;background:#fffaf0}
+}
+@media(prefers-reduced-motion:reduce){
+ #contenido .control-reto{transition:none}
+ #contenido .control-reto:not(:disabled):active{transform:none}
+}
+
+
+/* Los fragmentos conservan el color propio de cada recuerdo.
+   El rojo de Gryffindor no debe teñir los tres canales del Pensadero. */
+#contenido .visor-fragmentos[data-color="ámbar"] .segmentos-reto .encendido{
+ stroke:#d49a32;filter:drop-shadow(0 0 4px #d49a32aa);
+}
+#contenido .visor-fragmentos[data-color="azul"] .segmentos-reto .encendido{
+ stroke:#397fc0;filter:drop-shadow(0 0 4px #397fc0aa);
+}
+#contenido .visor-fragmentos[data-color="verde"] .segmentos-reto .encendido{
+ stroke:#398b61;filter:drop-shadow(0 0 4px #398b61aa);
+}
+#contenido .visor-fragmentos .segmentos-reto path:not(.encendido){
+ stroke:#8b806e;opacity:.34;
+}
