@@ -349,9 +349,9 @@
     },
     {
       "titulo": "El mapa que solo aparece al andar",
-      "instrucciones": "La tira de runas 5 → 9 → 3 señala el mapa de tránsito del castillo. Empieza en la segunda casilla de la última fila y conserva esa letra. Sigue las instrucciones de movimiento; norte sube, sur baja, este va a la derecha y oeste a la izquierda.\n\nAnota solo la letra de la casilla donde termines cada movimiento. Las casillas intermedias no cuentan.",
-      "pregunta": "",
-      "apoyo": "",
+      "instrucciones": "La tira de runas 5 → 9 → 3 identifica este mapa de tránsito; no tienes que introducir esos números. La cuadrícula tiene 8 filas y 8 columnas. Empieza en la casilla de la fila 8, columna 2 (segunda casilla de la última fila) y anota su letra: O.\n\nDespués sigue los once movimientos en el orden indicado. Norte = subir; sur = bajar; este = derecha; oeste = izquierda. Cada número indica cuántas casillas debes avanzar en esa dirección.\n\nTras cada movimiento, anota únicamente la letra de la casilla donde termines. No anotes las casillas intermedias. Al final tendrás 12 letras: la inicial más una por cada movimiento. Únelas, en orden, para descubrir el lugar al que conduce el mapa.",
+      "pregunta": "¿Qué lugar forma la letra inicial y las once letras de llegada?",
+      "apoyo": "Salida: fila 8, columna 2. Conserva su letra antes de empezar. Recuerda: cada movimiento aporta una letra, no cada casilla que atraviesas.",
       "imagen": "",
       "alt": "",
       "audio": "",
@@ -367,7 +367,7 @@
       "evidenciaDatos": "",
       "configuracion": "{\n  \"filas\": [\n    \"D V R Y F M A A\",\n    \"Q X E L S Z G N\",\n    \"D R R Y E M T A\",\n    \"Q X E O S Z T N\",\n    \"D K R Y F M T A\",\n    \"Q B E L S Z G N\",\n    \"D K R R F M I A\",\n    \"Q O E L S Z O N\"\n  ],\n  \"inicio\": [\n    8,\n    2\n  ],\n  \"movimientos\": [\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Norte\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      5\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Sur\",\n      1\n    ]\n  ]\n}",
       "normalizacion": "",
-      "contexto": "La tinta del mapa solo se activa cuando se sigue la ruta exacta. Las letras de las casillas forman el nombre del lugar al que debes dirigirte.",
+      "contexto": "La tira 5 → 9 → 3 te ha llevado hasta un mapa de tránsito oculto. Las letras solo se revelan a quien sigue el recorrido exacto. La casilla de salida también forma parte del mensaje.",
       "transicion": "El recorrido deletrea OBSERVATORIO. La siguiente pista está en la torre donde Hogwarts estudia las estrellas.",
       "descubrimientoTitulo": "",
       "descubrimientoTexto": "",
@@ -380,9 +380,9 @@
       "correcta": -1,
       "orden": [],
       "pistas": [
-        "Anota la casilla de salida y después una sola letra por cada orden.",
-        "No leas las casillas por las que pasas: conserva únicamente el punto final de cada movimiento.",
-        "El destino es OBSERVATORIO."
+        "La salida está en la última fila, segunda columna. Esa primera letra también cuenta.",
+        "Haz cada movimiento desde tu posición actual y anota solo la letra de la casilla donde terminas. Son once movimientos después de la salida.",
+        "Las doce letras, incluida la inicial, forman OBSERVATORIO."
       ],
       "dependencias": [
         "evidencia-9"
