@@ -45,6 +45,7 @@ assert.match(datos.capitulos[23].transicion, /{{REMITENTE}}/);
 assert.match(datos.capitulos[2].descubrimientoTitulo, /lámina/i);
 assert.match(datos.capitulos[2].descubrimientoTexto, /siete segmentos/);
 assert.match(datos.capitulos[23].premio, /La Estrella de Invierno vuelve a brillar/);
+assert.match(fs.readFileSync(path.join(root, 'vista-reto.js'), 'utf8'), /if \(reto\.premio\) resultado\.append/);
 
 // Los datos personales se mantienen como marcadores hasta que el juego se inicia.
 assert(ER.erroresPersonalizacion(datos).some(e => /nombre para la firma/.test(e)));
