@@ -461,3 +461,19 @@ dialog:not(.historia-entrada) .cerrar{
  #contenido .control-reto{transition:none}
  #contenido .control-reto:not(:disabled):active{transform:none}
 }
+
+
+/* Los fragmentos conservan el color propio de cada recuerdo.
+   El rojo de Gryffindor no debe teñir los tres canales del Pensadero. */
+#contenido .visor-fragmentos[data-color="ámbar"] .segmentos-reto .encendido{
+ stroke:#d49a32;filter:drop-shadow(0 0 4px #d49a32aa);
+}
+#contenido .visor-fragmentos[data-color="azul"] .segmentos-reto .encendido{
+ stroke:#397fc0;filter:drop-shadow(0 0 4px #397fc0aa);
+}
+#contenido .visor-fragmentos[data-color="verde"] .segmentos-reto .encendido{
+ stroke:#398b61;filter:drop-shadow(0 0 4px #398b61aa);
+}
+#contenido .visor-fragmentos .segmentos-reto path:not(.encendido){
+ stroke:#8b806e;opacity:.34;
+}
