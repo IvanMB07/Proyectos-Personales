@@ -50,12 +50,12 @@
     }
   }
   function mostrarPersonalizacion(){
-    for(const campo of ['destinataria','remitente','fechaEspecial','recuerdoCompartido','lugarRegalo']){
+    for(const campo of ['destinataria','remitente','fechaEspecial','recuerdoCompartido']){
       camposPersonalizacion.namedItem(campo).value=datos.personalizacion?.[campo]??'';
     }
   }
   function guardarPersonalizacion(){
-    datos.personalizacion=Object.fromEntries(['destinataria','remitente','fechaEspecial','recuerdoCompartido','lugarRegalo']
+    datos.personalizacion=Object.fromEntries(['destinataria','remitente','fechaEspecial','recuerdoCompartido']
       .map(campo=>[campo,camposPersonalizacion.namedItem(campo).value.trim()]));
   }
   formularioPersonalizacion.addEventListener('input',()=>{
