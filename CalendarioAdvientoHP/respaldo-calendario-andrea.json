@@ -235,7 +235,7 @@
     {
       "titulo": "El registro de las cuatro reliquias",
       "instrucciones": "El reloj ha activado un visor de archivo. Sus cuatro cifras están incompletas: algunos segmentos funcionan y otros aparecen marcados como averiados.\n\nConsulta la lámina de runas numéricas que encontraste en el grimorio. Reconstruye las cuatro cifras para abrir el registro.",
-      "pregunta": "",
+      "pregunta": "¿Qué código de cuatro cifras forman los visores al reconstruir los segmentos averiados?",
       "apoyo": "",
       "imagen": "",
       "alt": "",
