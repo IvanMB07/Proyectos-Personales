@@ -60,14 +60,21 @@
       partida: typeof datos.partida === 'string' && /^[a-zA-Z0-9-]{1,80}$/.test(datos.partida)
         ? datos.partida : 'demo-2026',
       capitulos: datos.capitulos.map(capitulo),
+      personalizacion: {
+        destinataria: texto(datos.personalizacion?.destinataria) || 'Andrea',
+        remitente: texto(datos.personalizacion?.remitente),
+        fechaEspecial: texto(datos.personalizacion?.fechaEspecial),
+        recuerdoCompartido: texto(datos.personalizacion?.recuerdoCompartido),
+        lugarRegalo: texto(datos.personalizacion?.lugarRegalo)
+      },
       experiencia: {
         cartaRotulo: texto(datos.experiencia?.cartaRotulo) || 'CORREO ESPECIAL · COLEGIO HOGWARTS',
         cartaCabecera: texto(datos.experiencia?.cartaCabecera) || 'HOGWARTS · ESCUELA DE MAGIA Y HECHICERÍA',
         cartaFecha: texto(datos.experiencia?.cartaFecha) || 'HOGWARTS, 1 DE DICIEMBRE DE 2026',
         cartaDestinatario: texto(datos.experiencia?.cartaDestinatario) || 'PARA: ANDREA',
         cartaTitulo: texto(datos.experiencia?.cartaTitulo) || 'Una invitación especial',
-        cartaTexto: texto(datos.experiencia?.cartaTexto) || 'Querida Andrea:\n\nTenemos el placer de comunicarte que has sido convocada a Hogwarts para vivir un diciembre extraordinario.\n\nEste año, el Cáliz de Fuego ha señalado a una cuarta campeona. Tu nombre ha aparecido donde nadie esperaba encontrarlo y, desde este momento, formas parte de una historia llena de pruebas, secretos y decisiones.\n\nA lo largo de los próximos días descubrirás pistas, superarás desafíos y conocerás qué misterio se esconde tras esta inesperada elección.\n\nPrepara tu varita. El castillo te espera.',
-        cartaFirma: texto(datos.experiencia?.cartaFirma) || 'Atentamente,\nEl equipo de selección de Hogwarts',
+        cartaTexto: texto(datos.experiencia?.cartaTexto) || 'Querida {{DESTINATARIA}}:\n\nLa Estrella de Invierno ha perdido su luz y el Libro de las Veinticuatro Noches se ha abierto con tu nombre. Hogwarts necesita tu ayuda para recuperar los cuatro sellos que mantienen vivo su antiguo encantamiento navideño.\n\nCada día encontrarás un nuevo desafío. Conserva las evidencias: juntas revelarán el camino hasta la cámara secreta.\n\nEl castillo cuenta contigo. Y alguien, fuera de sus muros, ha preparado una sorpresa que solo tú podrás descubrir.',
+        cartaFirma: texto(datos.experiencia?.cartaFirma) || 'Atentamente,\nMinerva McGonagall\nDirectora de Hogwarts',
         cartaSello: texto(datos.experiencia?.cartaSello) || 'H',
         cartaBoton: texto(datos.experiencia?.cartaBoton) || 'Aceptar la invitación',
         cartaSaltar: texto(datos.experiencia?.cartaSaltar) || 'Entrar directamente al castillo',
@@ -85,6 +92,61 @@
         permitirNombre: datos.experiencia?.permitirNombre === true
       }
     };
+  }
+
+  function fechaPersonalizada(iso) {
+    if (typeof iso !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return null;
+    const [anio, mes, dia] = iso.split('-').map(Number);
+    const fecha = new Date(anio, mes - 1, dia);
+    if (fecha.getFullYear() !== anio || fecha.getMonth() !== mes - 1 || fecha.getDate() !== dia) return null;
+    const dd = String(dia).padStart(2, '0');
+    const mm = String(mes).padStart(2, '0');
+    const aa = String(anio).slice(-2);
+    return {
+      codigo: dd + mm + aa,
+      dia: dd, mes: mm, anio: aa,
+      legible: new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(fecha)
+    };
+  }
+
+  // Los marcadores permiten editar los datos personales sin tocar la cuadrícula ni el código.
+  function personalizar(entrada) {
+    const datos = JSON.parse(JSON.stringify(entrada));
+    const p = datos.personalizacion ?? {};
+    const fecha = fechaPersonalizada(p.fechaEspecial);
+    const reemplazos = {
+      '{{DESTINATARIA}}': texto(p.destinataria).trim() || '[NOMBRE DE LA PROTAGONISTA]',
+      '{{REMITENTE}}': texto(p.remitente).trim() || '[TU NOMBRE]',
+      '{{FECHA_ESPECIAL}}': fecha?.legible ?? '[FECHA PERSONAL POR COMPLETAR]',
+      '{{FECHA_ESPECIAL_CODIGO}}': fecha?.codigo ?? '000000',
+      '{{DIA1}}': fecha?.codigo[0] ?? '0', '{{DIA2}}': fecha?.codigo[1] ?? '0',
+      '{{MES1}}': fecha?.codigo[2] ?? '0', '{{MES2}}': fecha?.codigo[3] ?? '0',
+      '{{ANIO1}}': fecha?.codigo[4] ?? '0', '{{ANIO2}}': fecha?.codigo[5] ?? '0',
+      '{{RECUERDO_COMPARTIDO}}': texto(p.recuerdoCompartido).trim() || 'todos los momentos que hemos ido guardando juntos',
+      '{{LUGAR_REGALO}}': texto(p.lugarRegalo).trim() || '[LUGAR DEL REGALO]'
+    };
+    function recorrer(valor) {
+      if (typeof valor === 'string') {
+        return Object.entries(reemplazos).reduce((resultado, [marcador, sustitucion]) =>
+          resultado.split(marcador).join(sustitucion), valor);
+      }
+      if (Array.isArray(valor)) return valor.map(recorrer);
+      if (valor && typeof valor === 'object') {
+        return Object.fromEntries(Object.entries(valor).map(([clave, contenido]) => [clave, recorrer(contenido)]));
+      }
+      return valor;
+    }
+    return recorrer(datos);
+  }
+
+  function erroresPersonalizacion(datos) {
+    const p = datos?.personalizacion ?? {};
+    const avisos = [];
+    if (!texto(p.destinataria).trim()) avisos.push('Escribe el nombre de la protagonista.');
+    if (!texto(p.remitente).trim()) avisos.push('Escribe tu nombre para la firma de la carta.');
+    if (!fechaPersonalizada(p.fechaEspecial)) avisos.push('Introduce una fecha personal válida; se convertirá automáticamente al código de seis cifras del día 4.');
+    if (!texto(p.lugarRegalo).trim()) avisos.push('Indica dónde encontrará el regalo al terminar la aventura.');
+    return avisos;
   }
 
   // Una tarjeta por día. Su ID depende del día que la otorga y conserva el vínculo al editarla.
@@ -217,7 +279,7 @@
   }
 
   window.EscapeRoom = {
-    dias, tipos, capitulo, calendario, idEvidencia, evidencias, rutaMultimedia, errores,
+    dias, tipos, capitulo, calendario, personalizar, erroresPersonalizacion, idEvidencia, evidencias, rutaMultimedia, errores,
     progreso, estado, descubrimientos, acertada, fechaPuerta, local, hoy: () => relojMadrid.format(new Date())
   };
 }();

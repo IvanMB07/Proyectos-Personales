@@ -24,15 +24,6 @@
   }
   function configValida(c){return [c?.inicio,c?.objetivos].every(a=>Array.isArray(a)&&a.length===3&&a.every(n=>Number.isInteger(n)&&n>=0&&n<6));}
   function alineada(c,s){return configValida(c)&&Array.isArray(s?.posiciones)&&s.posiciones.length===3&&s.posiciones.every((v,i)=>Number.isInteger(v)&&v===c.objetivos[i]);}
-  function campana(base){
-    const nueva=ER.calendario(structuredClone(base));nueva.partida='caja-adviento-v4';nueva.experiencia.final=true;
-    nueva.capitulos[0]=ER.capitulo({listo:true,tipo:'cerradura',titulo:'La cerradura de las tres ruedas',
-      instrucciones:'Alinea las tres muescas con el pestillo. Algunas ruedas arrastran a otras.',
-      configuracion:JSON.stringify({inicio:[3,0,3],objetivos:[0,0,0]},null,2),
-      pistas:['La rueda exterior arrastra a la central. La central arrastra a la interior.','Empieza por la rueda exterior y termina por la interior.','Puedes retroceder. Cada pulso cuenta como un giro.'],
-      acierto:'La casa despierta. Has ganado la llave del día 2.'});
-    return nueva;
-  }
   function cerradura(padre,reto,opciones){
     const c=JSON.parse(reto.configuracion),guardado=opciones.interaccion;
     let s=configValida({inicio:guardado?.actual?.posiciones,objetivos:c.objetivos})?structuredClone(guardado.actual):{posiciones:[...c.inicio],giros:[...c.inicio],abierta:false};
@@ -90,50 +81,26 @@
   M.errores=(tipo,c)=>tipo==='cerradura'?(configValida(c)?[]:['configura tres posiciones entre 0 y 5 para el inicio y el objetivo']):anterior.errores(tipo,c);
   M.mostrar=(padre,reto,opciones)=>reto.tipo==='cerradura'?cerradura(padre,reto,opciones):anterior.mostrar(padre,reto,opciones);
 
-  function estadoFinal(s){return {etapa:Math.max(0,Math.min(6,Number.isInteger(s?.etapa)?s.etapa:0)),confirmado:s?.confirmado===true,nombre:typeof s?.nombre==='string'?s.nombre.slice(0,40):''};}
+  function estadoFinal(s){return {etapa:Math.max(0,Math.min(3,Number.isInteger(s?.etapa)?s.etapa:0))};}
   function final(padre,config,guardado,guardar){
-    let s=estadoFinal(guardado),etapa=s.etapa,timer,revalidando=false;
-    const panel=el('section','','habitante'),pantalla=el('div','','pantalla-habitante'),acciones=el('div','','acciones-habitante');
-    pantalla.setAttribute('aria-label','Pantalla del habitante de la casa');
-    const anuncio=el('p','','estado-habitante');anuncio.setAttribute('role','status');
-    const caja=el('div','','caja-fuerte-habitante');
-    caja.append(pantalla,el('div','','hoja-caja hoja-izquierda'),el('div','','hoja-caja hoja-derecha'));
-    const repetir=btn('Volver a ver la escena',()=>{etapa=0;dibujar();});
-    panel.append(el('h3','El habitante de la casa'),caja,anuncio,acciones,repetir);padre.append(panel);
-    function persistir(){s.etapa=Math.max(s.etapa,etapa);guardar?.({...s});}
-    function ir(n){etapa=n;persistir();dibujar();}
-    function despues(n,ms){timer=setTimeout(()=>{if(panel.isConnected)ir(n);},reducido()?160:ms);}
-    function criatura(){
-      const figura=el('div','','criatura-pixel');figura.setAttribute('role','img');figura.setAttribute('aria-label','Una pequeña criatura con orejas y ojos curiosos');
-      // Arte original en una cuadrícula de 16 × 16. Las celdas mantienen bordes nítidos.
-      const mapa=['0003300000330000','0034430003443000','0034443334443000','0344444444444300','0344444444444300','3441144441144430','3441144441144430','3444445544444430','0344444444444300','0034444444443000','0003333333330000','0003344004433000'];
-      const colores={3:'#304a41',4:'#a9dc9c',1:'#162e2b',5:'#f3bc90'};
-      mapa.forEach((fila,y)=>[...fila].forEach((v,x)=>{if(v==='0')return;const p=el('i');p.style.cssText=`left:${x*6.25}%;top:${y*8.333}%;background:${colores[v]}`;figura.append(p);}));return figura;
-    }
+    let s=estadoFinal(guardado),etapa=s.etapa;
+    const panel=el('section','','final-hogwarts'),cabecera=el('p','HOGWARTS · NOCHEBUENA','rotulo-final');
+    const ilustracion=el('div','','escena-estrella');
+    ilustracion.setAttribute('role','img');ilustracion.setAttribute('aria-label','La Estrella de Invierno vuelve a brillar sobre Hogwarts');
+    ilustracion.innerHTML='<svg viewBox="0 0 360 220" aria-hidden="true"><defs><radialGradient id="halo-invierno"><stop stop-color="#fff7c6" stop-opacity=".95"/><stop offset=".25" stop-color="#efcf85" stop-opacity=".45"/><stop offset="1" stop-color="#efcf85" stop-opacity="0"/></radialGradient><linearGradient id="estrella-invierno" x2="0" y2="1"><stop stop-color="#fff5c2"/><stop offset=".55" stop-color="#e5bd72"/><stop offset="1" stop-color="#a77a3e"/></linearGradient></defs><circle cx="180" cy="91" r="104" fill="url(#halo-invierno)"/><path d="M180 20 195 70 246 48 219 94 268 119 213 122 211 178 180 136 149 178 147 122 92 119 141 94 114 48 165 70Z" fill="url(#estrella-invierno)" stroke="#fff0b5" stroke-width="3"/><circle cx="180" cy="99" r="13" fill="#fff8d8"/><path d="M128 190h104l-12 18h-80z" fill="#53615e" stroke="#c7a574"/><path d="M145 187v-28h70v28M158 159v-13h44v13" fill="#354b4b" stroke="#c7a574"/><path d="M40 188 53 157 66 188m228 0 13-31 13 31" fill="none" stroke="#8ba09a" stroke-width="5"/><path d="M42 196h276" stroke="#c7a574" stroke-width="2"/></svg>';
+    const contenido=el('div','','contenido-final'),acciones=el('div','','acciones-final'),estado=el('p','','estado-final');estado.setAttribute('role','status');
+    const repetir=btn('Volver a contemplar la Estrella',()=>{etapa=0;guardarEtapa();dibujar();});
+    panel.append(cabecera,ilustracion,estado,contenido,acciones,repetir);padre.append(panel);
+    function guardarEtapa(){s.etapa=etapa;guardar?.({...s});}
+    function avanzar(){etapa=Math.min(3,etapa+1);guardarEtapa();dibujar();}
     function dibujar(){
-      clearTimeout(timer);pantalla.replaceChildren();acciones.replaceChildren();pantalla.dataset.etapa=String(etapa);panel.dataset.etapa=String(etapa);
-      anuncio.textContent='';
-      if(etapa===0){pantalla.append(el('span','•','piloto-apagado'));acciones.append(btn('Encender pantalla',()=>ir(1)));anuncio.textContent='Las dos hojas se abren. Hay una pequeña pantalla apagada.';}
-      if(etapa===1){pantalla.append(el('span','INICIANDO…','arranque-pixel'));anuncio.textContent='La pantalla se enciende.';despues(2,800);}
-      if(etapa===2){pantalla.append(el('div','','huevo-pixel'));anuncio.textContent='Un huevo se mueve y empieza a agrietarse.';acciones.append(btn('Ver nacimiento',()=>ir(3)));despues(3,2200);}
-      if(etapa===3){pantalla.append(criatura(),el('span','✉','nota-cayendo'));anuncio.textContent='La criatura mira alrededor, se acerca al borde y deja caer una nota.';acciones.append(btn('Recoger nota',()=>ir(4)));despues(4,2200);}
-      if(etapa>=4){pantalla.append(criatura());if(s.nombre)pantalla.append(el('span',s.nombre,'nombre-pixel'));}
-      if(etapa===4){const nota=btn('✉ Leer la nota',()=>ir(5));nota.classList.add('nota-habitante');acciones.append(nota);anuncio.textContent='La nota te está esperando.';}
-      if(etapa>=5){const nota=el('article','','nota-habitante');nota.append(el('p',config.nota),el('p',config.pista));acciones.append(nota);}
-      if(etapa===5)acciones.append(btn('Ya tengo el paquete',()=>ir(6)));
-      if(etapa===6&&(!s.confirmado||revalidando)){
-        const form=el('form'),label=el('label','Código que hay dentro del paquete'),input=el('input'),error=el('p');input.name='codigo-paquete';input.autocomplete='off';input.required=true;label.append(input);error.setAttribute('role','status');
-        const enviar=el('button','Confirmar paquete','control-reto');enviar.type='submit';form.append(label,enviar,error);
-        form.addEventListener('submit',e=>{e.preventDefault();const normal=v=>v.normalize('NFD').replace(/\p{M}/gu,'').trim().toLocaleUpperCase('es');if(normal(input.value)!==normal(config.codigo)){error.textContent='Ese código no coincide. Mira dentro del paquete.';return;}s.confirmado=true;revalidando=false;persistir();dibujar();});acciones.append(form);
-      }
-      if(etapa===6&&s.confirmado&&!revalidando){
-        if(config.revelacion)acciones.append(el('p',config.revelacion,'revelacion-historia'));
-        acciones.append(el('p',config.mensaje,'mision-final'));
-        if(config.permitirNombre){const form=el('form'),label=el('label','Nombre de tu criatura (opcional)'),input=el('input'),aviso=el('p');input.name='nombre-criatura';input.maxLength=40;input.value=s.nombre;label.append(input);aviso.setAttribute('role','status');const guardarNombre=el('button','Guardar nombre','control-reto');guardarNombre.type='submit';form.append(label,guardarNombre,aviso);form.addEventListener('submit',e=>{e.preventDefault();s.nombre=input.value.trim();persistir();pantalla.querySelector('.nombre-pixel')?.remove();if(s.nombre)pantalla.append(el('span',s.nombre,'nombre-pixel'));aviso.textContent=s.nombre?'Nombre guardado: '+s.nombre:'Nombre borrado.';});acciones.append(form);}
-        acciones.append(btn('Introducir el código de nuevo',()=>{revalidando=true;dibujar();}));
-      }
+      contenido.replaceChildren();acciones.replaceChildren();panel.dataset.etapa=String(etapa);
+      if(etapa===0){estado.textContent='Los cuatro sellos están reunidos. Solo falta devolver su luz a la Estrella de Invierno.';acciones.append(btn('Devolver la luz a Hogwarts',avanzar));}
+      if(etapa===1){estado.textContent='La Estrella vuelve a encenderse sobre el Gran Comedor. Las luces del castillo responden una a una.';contenido.append(el('p',config.revelacion||'La magia de Hogwarts ha vuelto a brillar.'));acciones.append(btn('Leer la última carta',avanzar));}
+      if(etapa===2){estado.textContent='Entre las páginas del Libro de las Veinticuatro Noches aparece una carta dirigida a ti.';if(config.nota)contenido.append(el('article',config.nota,'carta-final'));if(config.mensaje)contenido.append(el('p',config.mensaje,'mensaje-final'));acciones.append(btn('Descubrir la última pista',avanzar));}
+      if(etapa===3){estado.textContent='La aventura termina aquí; tu regalo te espera fuera de Hogwarts.';if(config.pista)contenido.append(el('p',config.pista,'pista-final'));}
     }
-    dibujar();return ()=>clearTimeout(timer);
+    dibujar();return ()=>{};
   }
 
   function introduccion(portada,calendario,config,{vista=false,guardar=()=>{},terminar=()=>{}}={}){
@@ -149,7 +116,7 @@
     const para=el('p',valor('cartaDestinatario','PARA: ANDREA'),'destinatario-carta');
     const titulo=el('h1',valor('cartaTitulo','Una invitación especial'),'titulo-carta');
     const texto=el('div','','texto-carta');
-    for(const p of valor('cartaTexto','Querida Andrea:\n\nTenemos el placer de comunicarte que has sido convocada a Hogwarts para vivir un diciembre extraordinario.\n\nEste año, el Cáliz de Fuego ha señalado a una cuarta campeona. Tu nombre ha aparecido donde nadie esperaba encontrarlo y, desde este momento, formas parte de una historia llena de pruebas, secretos y decisiones.\n\nA lo largo de los próximos días descubrirás pistas, superarás desafíos y conocerás qué misterio se esconde tras esta inesperada elección.\n\nPrepara tu varita. El castillo te espera.').split(/\n\s*\n/).filter(Boolean))texto.append(el('p',p));
+    for(const p of valor('cartaTexto','Querida Andrea:\n\nLa Estrella de Invierno ha perdido su luz y el Libro de las Veinticuatro Noches se ha abierto con tu nombre. Hogwarts necesita tu ayuda para recuperar los cuatro sellos que mantienen vivo su antiguo encantamiento navideño.\n\nCada día encontrarás un desafío. Conserva las evidencias: juntas revelarán el camino hasta la cámara secreta.\n\nEl castillo cuenta contigo. Y alguien, fuera de sus muros, ha preparado una sorpresa que solo tú podrás descubrir.').split(/\n\s*\n/).filter(Boolean))texto.append(el('p',p));
     const firma=el('p',valor('cartaFirma','Atentamente,\nEl equipo de selección de Hogwarts'),'firma-carta');
     const sello=el('div',valor('cartaSello','H'),'sello-hogwarts');sello.setAttribute('aria-label','Sello de Hogwarts');
     sobre.append(cabecera,escudo,fecha,para,titulo,texto,firma,sello);
@@ -183,18 +150,18 @@
     const dialogo=el('dialog','','historia-entrada');
     dialogo.setAttribute('aria-labelledby','titulo-historia');
     const cabecera=el('header','','cabecera-historia');
-    cabecera.append(el('p','ARCHIVO DE LA CASA · DICIEMBRE','sello-historia'));
+    cabecera.append(el('p','HOGWARTS · ARCHIVO DE INVIERNO','sello-historia'));
     const dibujo=el('div','','pedestal-historia');
-    dibujo.setAttribute('role','img');dibujo.setAttribute('aria-label','Un pedestal vacío, con la huella ovalada que dejó el huevo y una nota al lado');
-    dibujo.innerHTML='<svg viewBox="0 0 360 128" aria-hidden="true"><defs><linearGradient id="piedra-historia" x2="0" y2="1"><stop stop-color="#776e60"/><stop offset="1" stop-color="#313e40"/></linearGradient></defs><path d="M110 58h140l-13 61H123z" fill="url(#piedra-historia)" stroke="#c7a574"/><ellipse cx="180" cy="58" rx="73" ry="24" fill="#384747" stroke="#c7a574"/><ellipse cx="180" cy="56" rx="23" ry="15" fill="#18282d" stroke="#efd6a1" stroke-dasharray="3 4"/><path d="M273 71l43-8 8 37-43 8z" fill="#ecd5a9"/><path d="M283 78l22-4m-20 11 22-4m-20 11 15-3" stroke="#866341"/><path d="M71 31v10m-5-5h10m211-13v8m-4-4h8" stroke="#f0c78e"/></svg>';
+    dibujo.setAttribute('role','img');dibujo.setAttribute('aria-label','Una estrella dorada encendida sobre un pedestal de piedra en Hogwarts');
+    dibujo.innerHTML='<svg viewBox="0 0 360 128" aria-hidden="true"><defs><radialGradient id="halo-archivo"><stop stop-color="#fff4c2" stop-opacity=".9"/><stop offset="1" stop-color="#edc779" stop-opacity="0"/></radialGradient><linearGradient id="piedra-archivo" x2="0" y2="1"><stop stop-color="#776e60"/><stop offset="1" stop-color="#313e40"/></linearGradient></defs><circle cx="180" cy="44" r="57" fill="url(#halo-archivo)"/><path d="M180 4 191 34 222 27 202 50 223 73 191 65 180 96 169 65 137 73 158 50 138 27 169 34Z" fill="#edcc83" stroke="#fff0b7" stroke-width="2"/><path d="M110 81h140l-13 42H123z" fill="url(#piedra-archivo)" stroke="#c7a574"/><path d="M71 31v10m-5-5h10m211-13v8m-4-4h8" stroke="#f0c78e"/></svg>';
     const titulo=el('h2',config.historiaTitulo);titulo.id='titulo-historia';titulo.tabIndex=-1;
     const nota=el('div','','texto-historia');
     for(const parrafo of config.historiaTexto.split(/\n\s*\n/).filter(Boolean))nota.append(el(parrafo.startsWith('«')?'blockquote':'p',parrafo));
-    const pie=el('footer'),empezar=btn(config.historiaBoton||'Examinar la casa',()=>{guardar();dialogo.close();});
+    const pie=el('footer'),empezar=btn(config.historiaBoton||'Comenzar la aventura',()=>{guardar();dialogo.close();});
     pie.append(empezar);dialogo.append(cabecera,dibujo,titulo,nota,pie);document.body.append(dialogo);
     dialogo.addEventListener('close',()=>{dialogo.remove();terminar();},{once:true});
     dialogo.showModal();dialogo.scrollTop=0;titulo.focus({preventScroll:true});
     return {limpiar:()=>{dialogo.remove();}};
   }
-  ER.experiencias={girar,ruta,alineada,configValida,campana,final,estadoFinal,introduccion,historia};
+  ER.experiencias={girar,ruta,alineada,configValida,final,estadoFinal,introduccion,historia};
 }();

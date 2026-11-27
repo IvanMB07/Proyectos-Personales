@@ -5,7 +5,7 @@
   const porId = id => document.getElementById(id);
   // El editor también funciona en la web; los cambios se guardan en este navegador.
 
-  const prefijo = 'adviento-editor-2026-';
+  const prefijo = 'hp-estrella-invierno-editor-2026-';
   const claveEspacio = prefijo + 'espacio';
   const claveCopias = prefijo + 'copias';
   const formulario = porId('formulario-editor');
@@ -33,18 +33,40 @@
   let ultimaExperiencia='dia1';
   porId('reducir-movimiento-pruebas').addEventListener('change',e=>document.documentElement.classList.toggle('movimiento-reducido',e.target.checked));
   const camposExperiencia=porId('formulario-experiencias').elements;
+  const formularioPersonalizacion=porId('formulario-personalizacion');
+  const camposPersonalizacion=formularioPersonalizacion.elements;
   function mostrarExperienciaConfig(){
     for(const [campo,valor]of Object.entries(datos.experiencia)){
       const control=camposExperiencia.namedItem(campo);
+      if(!control)continue;
       if(control.type==='checkbox')control.checked=valor;else control.value=valor;
     }
   }
   function guardarExperienciaConfig(){
     for(const campo of Object.keys(datos.experiencia)){
       const control=camposExperiencia.namedItem(campo);
+      if(!control)continue;
       datos.experiencia[campo]=control.type==='checkbox'?control.checked:control.value;
     }
   }
+  function mostrarPersonalizacion(){
+    for(const campo of ['destinataria','remitente','fechaEspecial','recuerdoCompartido','lugarRegalo']){
+      camposPersonalizacion.namedItem(campo).value=datos.personalizacion?.[campo]??'';
+    }
+  }
+  function guardarPersonalizacion(){
+    datos.personalizacion=Object.fromEntries(['destinataria','remitente','fechaEspecial','recuerdoCompartido','lugarRegalo']
+      .map(campo=>[campo,camposPersonalizacion.namedItem(campo).value.trim()]));
+  }
+  formularioPersonalizacion.addEventListener('input',()=>{
+    guardarPersonalizacion();hayCambios=true;hayRespaldo=false;
+    const avisos=ER.erroresPersonalizacion(datos);
+    anunciar(avisos.length?avisos[0]:'Datos personales actualizados. Guarda el borrador para conservarlos.');
+  });
+  formularioPersonalizacion.addEventListener('submit',evento=>{
+    evento.preventDefault();guardarPersonalizacion();formulario.requestSubmit();
+    anunciar('Datos personales guardados en este navegador.');
+  });
   porId('formulario-experiencias').addEventListener('input',()=>{guardarExperienciaConfig();hayCambios=true;hayRespaldo=false;anunciar('Configuración pendiente de guardar.');});
   porId('formulario-experiencias').addEventListener('submit',e=>{e.preventDefault();guardarExperienciaConfig();formulario.requestSubmit();});
   function probarExperiencia(tipo,reiniciar=false){
@@ -54,23 +76,24 @@
     const pruebas=leer(clave('escenas-previas'))??{};
     if(tipo==='dia1'&&pruebas[id]?.configuracion!==datos.capitulos[0].configuracion)delete pruebas[id];
     if(reiniciar)delete pruebas[id];
-    const estado=pruebas[id]??{resuelto:tipo==='final'&&inicio!=='antes',desenlace:{etapa:inicio==='paquete'?6:0}};
+    const estado=pruebas[id]??{resuelto:tipo==='final'&&inicio!=='antes',desenlace:{etapa:inicio==='antes'?0:inicio==='despues'?1:2}};
     pruebas[id]=estado;
     if(tipo==='dia1')estado.configuracion=datos.capitulos[0].configuracion;
     const persistir=()=>guardar(clave('escenas-previas'),pruebas);
     if(tipo==='introduccion'){
-      sesionPrueba={datos:structuredClone(datos),fecha:'2026-12-24',avance:ER.progreso(),temporal:true,movimientoReducido:porId('reducir-movimiento-pruebas').checked};
+      sesionPrueba={datos:ER.personalizar(datos),fecha:'2026-12-24',avance:ER.progreso(),temporal:true,movimientoReducido:porId('reducir-movimiento-pruebas').checked};
       marco.src='./index.html?prueba&introduccion';marco.hidden=false;marco.scrollIntoView({block:'start'});
       anunciar('Prueba independiente de la introducción. Usa Saltar o abre el cierre.');return;
     }
-    const numero=tipo==='dia1'?1:24,reto=datos.capitulos[numero-1],padre=porId('contenido-vista');
+    const datosVista=ER.personalizar(datos);
+    const numero=tipo==='dia1'?1:24,reto=datosVista.capitulos[numero-1],padre=porId('contenido-vista');
     porId('dia-vista').textContent='Prueba independiente · día '+numero;
     porId('titulo-vista').textContent=reto.titulo;
     function dibujar(){
       ER.vista.renderizar(padre,reto,{
         esEditor:true,
-        ganadas:ER.evidencias(datos),resuelto:estado.resuelto,interaccion:estado.interaccion,
-        experiencia:datos.experiencia,desenlace:estado.desenlace,
+        ganadas:ER.evidencias(datosVista),resuelto:estado.resuelto,interaccion:estado.interaccion,
+        experiencia:datosVista.experiencia,desenlace:estado.desenlace,
         guardarDesenlace:s=>{estado.desenlace=s;persistir();},
         guardarInteraccion:s=>{estado.interaccion=s;persistir();},
         comprobar:respuesta=>{if(!ER.acertada(reto,respuesta))return false;estado.resuelto=true;persistir();dibujar();padre.querySelector('.resultado-reto')?.focus({preventScroll:true});return true;},
@@ -96,17 +119,8 @@
       try { return ER.calendario(guardado); } catch { /* Se inicia un espacio limpio. */ }
     }
     if (id !== 'original') throw new Error('No se encontró el respaldo seleccionado.');
-    return ER.calendario({
-      esquema: 1,
-      partida: 'hogwarts-andrea-2026',
-      capitulos: Array.from({length:24},()=>({})),
-      experiencia: {
-        historiaActiva: false, historiaTitulo: '', historiaTexto: '',
-        historiaBoton: 'Comenzar la investigación', revelacion: '',
-        introduccion: true, final: true, nota: '', pista: '',
-        codigo: 'HOGWARTS', mensaje: '', permitirNombre: false
-      }
-    });
+    if(window.CALENDARIO_PUBLICADO?.capitulos?.length===24) return ER.calendario(window.CALENDARIO_PUBLICADO);
+    throw new Error('No se ha encontrado el calendario base de Hogwarts. Comprueba calendario-publicado.js.');
   }
 
   function guardar(clave, valor) {
@@ -147,11 +161,8 @@
 
     porId('espacio-activo').textContent = nombres.get(id);
     mostrarExperienciaConfig();
+    mostrarPersonalizacion();
     porId('volver-borradores').hidden = id === 'original';
-    const original = (abiertos.get('original')?.datos ?? leerBorrador('original')).capitulos[0];
-    const demo = ER.capitulo(window.CALENDARIO_PUBLICADO.capitulos[0]);
-    porId('copiar-dia-uno').hidden = !['campana', 'campana3946','mecanismos'].includes(id) || !(original.titulo || original.imagen)
-      || JSON.stringify(original) === JSON.stringify(demo);
     const selector = porId('copias');
     selector.replaceChildren(new Option('Elige un respaldo', ''),
       ...copias.map(copia => new Option(copia.nombre, copia.id)));
@@ -475,11 +486,12 @@
 
   porId('previsualizar').addEventListener('click', () => {
     guardarDia();
-    const reto = datos.capitulos[dia - 1];
+    const datosVista = ER.personalizar(datos);
+    const reto = datosVista.capitulos[dia - 1];
     porId('dia-vista').textContent = `Vista previa · ${dia} de diciembre`;
     porId('titulo-vista').textContent = reto.titulo || 'Capítulo sin título';
     const pruebaVista = porId('contenido-vista');
-    const ganadas = ER.evidencias(datos).filter(evidencia => evidencia.dia < dia);
+    const ganadas = ER.evidencias(datosVista).filter(evidencia => evidencia.dia < dia);
     const estadoPrevio = leer(clave('previas')) ?? {};
     if (reto.dependencias.length && ganadas.some(item => reto.dependencias.includes(item.id))) {
       porId('dia-vista').textContent += ' · evidencias de ejemplo';
@@ -497,7 +509,7 @@
         esEditor:true,
         ganadas,
         interaccion:estadoPrevio[dia],
-        experiencia:datos.experiencia,
+        experiencia:datosVista.experiencia,
         guardarInteraccion:estado=>{
           estadoPrevio[dia]=estado;
           guardar(clave('previas'),estadoPrevio);
@@ -509,10 +521,10 @@
             ganadas,
             resuelto:true,
             interaccion:estadoPrevio[dia],
-            experiencia:datos.experiencia,
+            experiencia:datosVista.experiencia,
             desenlace:leer(clave('final-previa')),
             guardarDesenlace:estado=>guardar(clave('final-previa'),estado),
-            evidenciaNueva:ER.evidencias(datos).find(evidencia=>evidencia.dia===dia),
+            evidenciaNueva:ER.evidencias(datosVista).find(evidencia=>evidencia.dia===dia),
             volverAJugar:reiniciarVista
           });
           pruebaVista.querySelector('.resultado-reto').focus();
@@ -541,7 +553,7 @@
     guardarDia();
     prueba.fecha = fecha.value;
     guardar(clave('prueba'), prueba);
-    sesionPrueba = { datos: structuredClone(datos), fecha: prueba.fecha };
+    sesionPrueba = { datos: ER.personalizar(datos), fecha: prueba.fecha };
     marco.src = './index.html?prueba';
     marco.hidden = false;
     marco.scrollIntoView({ block: 'nearest' });
@@ -597,19 +609,20 @@
   porId('importar-texto').addEventListener('click',()=>importarCopia(porId('texto-respaldo').value,'respaldo en texto'));
 
   porId('preparar').addEventListener('click', () => {
-    guardarDia();
-    const avisos = actualizarVistaEditor();
+    guardarDia();guardarExperienciaConfig();guardarPersonalizacion();
+    const avisos = [...actualizarVistaEditor(), ...ER.erroresPersonalizacion(datos)];
     if (avisos.length) {
+      rellenarAvisos(porId('avisos-publicacion'), avisos);
       const revision = porId('revision-publicacion');
       revision.open = true;
       revision.querySelector('summary').focus();
-      anunciar('Revisa los avisos y marca los 24 capítulos como listos.');
+      anunciar('Hay datos pendientes. Completa la personalización y revisa los capítulos antes de publicar.');
       return;
     }
-    const publicado = { ...datos, partida: 'hogwarts-andrea-2026' };
+    const publicado = ER.calendario({ ...datos, partida: 'andrea-hogwarts-2026' });
     descargar('calendario-publicado.js',
       `window.CALENDARIO_PUBLICADO = ${JSON.stringify(publicado, null, 2)};\n`, 'text/javascript');
-    anunciar('Archivo preparado. Sustituye calendario-publicado.js para publicar el calendario de Andrea.');
+    anunciar('Archivo preparado. Sustituye calendario-publicado.js en el repositorio; la web aplicará los datos personales al abrirse.');
   });
 
   for (const [valor, etiqueta] of Object.entries(ER.tipos)) campos.tipo.add(new Option(etiqueta, valor));

@@ -14,7 +14,7 @@ const enPrueba = window.parent !== window
   && new URLSearchParams(location.search).has('prueba');
 const origenLocal = location.protocol === 'file:' ? '*' : location.origin;
 
-let datos = ER.calendario(window.CALENDARIO_PUBLICADO);
+let datos = ER.personalizar(ER.calendario(window.CALENDARIO_PUBLICADO));
 const claveProgreso = `adviento-escape-2026-${datos.partida}`;
 let avance = enPrueba ? ER.progreso() : leerProgreso();
 let fechaSimulada;
@@ -290,12 +290,7 @@ abrirCuaderno.addEventListener('click', () => {
   if(evidencias.length){const titulo=document.createElement('h3');titulo.textContent='Evidencias de los mecanismos';tarjetasCuaderno.append(titulo);}
   ER.vista.tarjetas(evidencias, tarjetasCuaderno);
   if (!evidencias.length&&!datos.experiencia.historiaActiva) tarjetasCuaderno.textContent = 'Aquí aparecerán las evidencias que consigas al resolver retos.';
-  if(avance.desenlace.confirmado&&avance.desenlace.nombre){
-    const recuerdo=document.createElement('article');recuerdo.className='evidencia';
-    const titulo=document.createElement('h3');titulo.textContent='El habitante de la casa';
-    const nombre=document.createElement('p');nombre.textContent=avance.desenlace.nombre;
-    recuerdo.append(titulo,nombre);tarjetasCuaderno.append(recuerdo);
-  }
+
   cuaderno.showModal();
   document.documentElement.classList.add('modal-abierto');
   cuaderno.scrollTop = 0;

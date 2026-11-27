@@ -72,7 +72,6 @@
       configuracion:JSON.stringify(c,null,2),pistas:['Observa qué rueda solo puedes mover con la transmisión A.','La rueda exterior puede quedar alineada mientras sigues ajustando las otras.','Orientación calculada desde el estado actual.'],
       acierto:'La casa despierta. Has ganado la llave del día 2.'});
   }
-  function campana(base){const nueva=ER.calendario(structuredClone(base));nueva.partida='caja-adviento-v5';nueva.capitulos[0]=capitulo();return nueva;}
   function describir(paso){
     if(paso.tipo==='transmision')return 'Cambiar a Transmisión '+paso.transmision+' (0 giros)';
     if(paso.tipo==='abrir')return 'Accionar el pestillo';
@@ -175,5 +174,5 @@
   M.completa=(tipo,c,s)=>tipo==='cerradura'&&c.version===2?alineada(c,s)&&transmisiones.includes(s?.transmision)&&s.abierta===true:anterior.completa(tipo,c,s);
   M.errores=(tipo,c)=>tipo==='cerradura'&&c.version===2?(!valida(c)?[revision(c).error]:!referenciaValida(c)?['recalcula la solución de referencia para estas posiciones']:[]):anterior.errores(tipo,c);
   M.mostrar=(padre,reto,opciones)=>reto.tipo==='cerradura'&&JSON.parse(reto.configuracion).version===2?mostrar(padre,reto,opciones):anterior.mostrar(padre,reto,opciones);
-  ER.cerradura4={conexiones,mod,inicial,girar,aplicar,ruta,revision,alineada,valida,referenciaValida,capitulo,campana,pista,giros};
+  ER.cerradura4={conexiones,mod,inicial,girar,aplicar,ruta,revision,alineada,valida,referenciaValida,capitulo,pista,giros};
 }();

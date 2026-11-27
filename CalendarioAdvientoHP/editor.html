@@ -4,57 +4,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Modo edición · Carta de Hogwarts para Andrea</title>
-  <link rel="stylesheet" href="./estilos.css?v=20261124-5">
-  <link rel="stylesheet" href="./experiencias.css?v=20261124-5">
-  <link rel="stylesheet" href="./acabado.css?v=20261124-5">
-  <link rel="stylesheet" href="./editor.css?v=20261124-5">
-  <script defer src="./escape-room.js?v=20261124-5"></script>
-  <script defer src="./calendario-publicado.js?v=20261124-5"></script>
-  <script defer src="./recursos-reto.js?v=20261124-5"></script>
-  <script defer src="./campana-prueba.js?v=20261124-5"></script>
-  <script defer src="./campana-3946.js?v=20261124-5"></script>
-  <script defer src="./retos-avanzados.js?v=20261124-5"></script>
-  <script defer src="./mecanismos.js?v=20261124-5"></script>
-  <script defer src="./experiencias.js?v=20261124-5"></script>
-  <script defer src="./cerradura-transmisiones.js?v=20261124-5"></script>
-  <script defer src="./campana-mecanismos.js?v=20261124-5"></script>
-  <script defer src="./vista-reto.js?v=20261124-5"></script>
-  <script defer src="./editor.js?v=20261124-5"></script>
+  <title>Editor de la Estrella de Invierno · Hogwarts</title>
+  <link rel="stylesheet" href="./estilos.css?v=20261127-2">
+  <link rel="stylesheet" href="./experiencias.css?v=20261127-2">
+  <link rel="stylesheet" href="./acabado.css?v=20261127-2">
+  <link rel="stylesheet" href="./editor.css?v=20261127-2">
+  <script defer src="./escape-room.js?v=20261127-2"></script>
+  <script defer src="./calendario-publicado.js?v=20261127-2"></script>
+  <script defer src="./recursos-reto.js?v=20261127-2"></script>
+  <script defer src="./retos-avanzados.js?v=20261127-2"></script>
+  <script defer src="./mecanismos.js?v=20261127-2"></script>
+  <script defer src="./experiencias.js?v=20261127-2"></script>
+  <script defer src="./cerradura-transmisiones.js?v=20261127-2"></script>
+  <script defer src="./vista-reto.js?v=20261127-2"></script>
+  <script defer src="./editor.js?v=20261127-2"></script>
 </head>
 <body class="pagina-editor">
   <main class="editor">
     <header class="cabecera-editor">
       <p class="fecha">HOGWARTS · ARCHIVO DEL CALENDARIO</p>
       <h1>Modo edición</h1>
-      <p>Desarrolla la historia y los 24 desafíos del calendario de Andrea. Los cambios se guardan en este navegador; puedes exportar respaldos en cualquier momento.</p>
+      <p>Personaliza la aventura de Andrea, revisa los 24 capítulos y prepara la versión que publicarás en GitHub Pages. No necesitas editar archivos de código.</p>
     </header>
     <p id="solo-local" hidden>Abre el archivo editor.html desde la carpeta del calendario en tu equipo.</p>
     <div id="editor-local" hidden>
+      <section class="panel-editor panel-personalizacion" id="personalizacion-editor">
+        <h2>1. Datos personales del regalo</h2>
+        <p>Completa estos datos una sola vez. La fecha se convertirá automáticamente en el código del pergamino del día 4; no tendrás que modificar su cuadrícula ni sus respuestas.</p>
+        <form id="formulario-personalizacion">
+          <div class="columnas">
+            <label>Nombre de la protagonista <input name="destinataria" value="Andrea" autocomplete="off" required></label>
+            <label>Tu nombre (firma de la carta) <input name="remitente" placeholder="Escribe tu nombre" autocomplete="name" required></label>
+          </div>
+          <div class="columnas">
+            <label>Fecha personal importante <input name="fechaEspecial" type="date" required></label>
+            <label>Lugar donde estará el regalo <input name="lugarRegalo" placeholder="Ej.: dentro del armario, bajo el árbol…" required></label>
+          </div>
+          <label>Recuerdo compartido (opcional) <textarea name="recuerdoCompartido" rows="2" placeholder="Una frase breve sobre un recuerdo que tenga significado para ambos"></textarea></label>
+          <p class="ayuda">La fecha aparecerá escrita en la historia y se codificará como DDMMAA. Utiliza una fecha real que tenga significado para vosotros. El recuerdo puede dejarse vacío: se mostrará un texto neutro hasta que lo completes.</p>
+          <div class="acciones-editor">
+            <button class="control-reto principal" type="submit">Guardar datos personales</button>
+          </div>
+        </form>
+      </section>
       <section class="panel-editor">
         <h2 id="espacio-activo">Mis borradores</h2>
         <div class="acciones-editor">
           <p class="ayuda">Este es el espacio de trabajo del calendario de Andrea. Importa un respaldo si quieres recuperar avances anteriores.</p>
           <button class="control-reto" type="button" id="volver-borradores" hidden>Volver a mis borradores</button>
-          <button class="control-reto" type="button" id="copiar-dia-uno" hidden>Usar una copia de mi día 1</button>
         </div>
         <label id="selector-copias" hidden>Respaldos importados <select id="copias"></select></label>
       </section>
       <section class="panel-editor" id="experiencias-editor">
-        <h2>Historia y desenlace</h2>
-        <p>Configura los textos de la introducción y del desenlace. Estos ajustes pertenecen al borrador abierto y no modifican por sí solos la versión pública.</p>
+        <h2>2. Carta y desenlace</h2>
+        <p>Los textos ya forman parte de la historia. Puedes retocarlos desde aquí; los campos personales se sustituyen automáticamente al previsualizar y publicar.</p>
         <form id="formulario-experiencias">
           <fieldset>
-            <legend>Historia complementaria (opcional)</legend>
+            <legend>Historia de apertura</legend>
             <label><input type="checkbox" name="historiaActiva"> Mostrar una escena narrativa adicional al entrar por primera vez</label>
             <label>Título de la historia <input name="historiaTitulo"></label>
             <label>Texto de la historia <textarea name="historiaTexto" rows="9"></textarea></label>
-            <p class="ayuda">Separa los párrafos con una línea en blanco. Esta escena es independiente de la carta de Hogwarts.</p>
+            <p class="ayuda">Separa los párrafos con una línea en blanco. Esta escena complementa la carta y explica el misterio de la Estrella de Invierno.</p>
             <label>Texto del botón para continuar <input name="historiaBoton"></label>
             <label>Revelación al completar la confirmación final <textarea name="revelacion" rows="2"></textarea></label>
           </fieldset>
           <fieldset>
-            <legend>Carta de Hogwarts</legend>
+            <legend>Carta de la profesora McGonagall</legend>
             <p class="ayuda">Todos estos textos aparecen en la introducción principal. Separa los párrafos de la carta con una línea en blanco.</p>
             <label>Rótulo superior <input name="cartaRotulo"></label>
             <label>Encabezado del colegio <input name="cartaCabecera"></label>
@@ -70,16 +85,14 @@
           <label><input type="checkbox" name="introduccion"> Mostrar la carta de Hogwarts al entrar por primera vez</label>
           <label><input type="checkbox" name="final"> Activar la escena de desenlace después del reto del día 24</label>
           <label>Texto de la nota del desenlace <textarea name="nota" rows="2"></textarea></label>
-          <label>Pista para encontrar el elemento final <textarea name="pista" rows="2"></textarea></label>
-          <label>Código para desbloquear el desenlace <input name="codigo" required></label>
-          <label>Mensaje después de desbloquear el desenlace <input name="mensaje"></label>
-          <label><input type="checkbox" name="permitirNombre"> Permitir asignar un nombre al personaje del desenlace</label>
+          <label>Última pista del regalo <textarea name="pista" rows="2"></textarea></label>
+          <label>Mensaje final de Navidad <textarea name="mensaje" rows="4"></textarea></label>
           <button class="control-reto" type="submit">Guardar configuración y borrador</button>
         </form>
         <div class="acciones-editor">
           <button class="control-reto" type="button" id="probar-introduccion">Probar carta de Hogwarts</button>
           <button class="control-reto" type="button" id="probar-dia-1">Probar día 1</button>
-          <label>Momento de inicio del desenlace <select id="inicio-final"><option value="antes">Antes de introducir el código</option><option value="despues">Justo después de acertar el código</option><option value="paquete">Al confirmar el elemento final</option></select></label>
+          <label>Vista del desenlace <select id="inicio-final"><option value="antes">Antes de restaurar la Estrella</option><option value="despues">Estrella restaurada</option><option value="paquete">Carta personal</option></select></label>
           <button class="control-reto" type="button" id="probar-final">Probar desenlace del día 24</button>
           <button class="control-reto" type="button" id="reiniciar-experiencia">Reiniciar previsualización</button>
           <label><input type="checkbox" id="reducir-movimiento-pruebas"> Reducir movimiento en las pruebas</label>
@@ -180,13 +193,13 @@
       </section>
 
       <section class="panel-editor">
-        <h2>Respaldo y publicación</h2>
-        <p>El respaldo guarda textos y rutas. Lleva contigo la carpeta de archivos multimedia.</p>
+        <h2>4. Respaldo y publicación</h2>
+        <p>El borrador se guarda en el almacenamiento de este navegador. Exporta un respaldo para tener una copia. Al preparar la versión se descargará <code>calendario-publicado.js</code>; súbelo al repositorio sustituyendo el archivo anterior. El editor no modifica GitHub automáticamente.</p>
         <div class="acciones-editor">
           <button class="control-reto" type="button" id="exportar">Exportar respaldo</button>
           <button class="control-reto" type="button" id="importar">Importar respaldo como copia</button>
           <input id="archivo-respaldo" type="file" accept=".json,application/json" hidden>
-          <button class="control-reto principal" type="button" id="preparar">Preparar versión para Cintia</button>
+          <button class="control-reto principal" type="button" id="preparar">Preparar versión para Andrea</button>
         </div>
         <details class="detalle-editor" id="revision-publicacion">
           <summary>Revisar capítulos y dependencias</summary>

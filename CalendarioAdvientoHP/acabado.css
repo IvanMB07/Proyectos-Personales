@@ -37,9 +37,9 @@ html { scrollbar-gutter:auto; }
 .tapa-exterior::before { left:23px; top:23px; border-right:0; border-bottom:0; }.tapa-exterior::after { right:23px; bottom:23px; border-left:0; border-top:0; }
 .ornamento-caja { position:absolute; inset:23% 22%; border:1px solid #ad92524d; border-radius:50% 50% 40% 40%; }
 .ornamento-caja::before { content:'✧'; display:block; margin-top:-.8rem; color:#bca16b; text-align:center; background:#1d3b2c; width:2rem; margin-inline:auto; }
-.placa-cintia { position:relative; z-index:1; display:grid; place-items:center; gap:3px; padding:.65rem 2rem .85rem; border:1px solid #b6975b; border-radius:2px; color:#ead9af; background:linear-gradient(135deg,#5d4c30,#353522 55%,#6d5837); box-shadow:0 4px 9px #0005,inset 0 0 0 3px #1a251d; }
+.placa-hogwarts { position:relative; z-index:1; display:grid; place-items:center; gap:3px; padding:.65rem 2rem .85rem; border:1px solid #b6975b; border-radius:2px; color:#ead9af; background:linear-gradient(135deg,#5d4c30,#353522 55%,#6d5837); box-shadow:0 4px 9px #0005,inset 0 0 0 3px #1a251d; }
 .placa-para { font-size:.48rem; letter-spacing:.28em; }
-.tapa-exterior .placa-cintia h1 { margin:0; font:400 clamp(1.6rem,7vw,2.1rem)/1 var(--serif); letter-spacing:.025em; color:#f2dfaf; }
+.tapa-exterior .placa-hogwarts h1 { margin:0; font:400 clamp(1.6rem,7vw,2.1rem)/1 var(--serif); letter-spacing:.025em; color:#f2dfaf; }
 .tapa-interior { transform:rotateX(180deg) translateZ(5px); background:repeating-linear-gradient(0deg,#e4ce9105 0 1px,transparent 1px 4px),linear-gradient(130deg,#274333,#11291f); box-shadow:inset 0 0 0 8px #463321,inset 0 0 0 9px #b49154,inset 0 0 25px #0009; display:grid; place-items:center; }
 .sello-interior { padding:1rem; border:1px solid #b4965b60; border-radius:50%; color:#b6a075; font:1.1rem var(--serif); letter-spacing:.13em; }
 .canto-tapa { position:absolute; top:100%; left:0; right:0; height:8px; transform-origin:top; transform:rotateX(-90deg); background:linear-gradient(#ad8750,#4b3422 60%); border:1px solid #916a3e; }
@@ -277,3 +277,21 @@ body {
 .sello-hogwarts{position:absolute;right:1.45rem;bottom:-1.15rem;width:2.7rem;height:2.7rem;display:grid;place-items:center;border-radius:50%;border:2px solid #e1a18b;color:#f4d4bd;background:radial-gradient(circle,#9d392e,#67251f);font:1.65rem var(--serif);box-shadow:0 3px 8px #2a160f66}
 .abrir-carta{min-height:48px;padding:.7rem 1.35rem;border:1px solid #d3b77e;border-radius:3px;color:#f8edda;background:linear-gradient(135deg,#3d5b4c,#203b35);box-shadow:0 5px 15px #02081266;font-weight:600}.enlace-editor{color:#d8c79f;font-size:.78rem;text-underline-offset:4px}.carta-hogwarts .saltar-introduccion{position:static;color:#b9c5ce;font-size:.72rem}.carta-hogwarts .estado-entrada{position:static;color:#e4d3ad}
 @media(min-width:700px){.sobre-hogwarts{padding:1.8rem 2.5rem 2.2rem}.texto-carta{font-size:1.08rem}}
+
+
+/* Identidad visual de la campaña: piedra, invierno y luz de la Estrella. */
+#calendario .introduccion { text-align:center; }
+#calendario .introduccion h1 { letter-spacing:.01em; }
+#calendario .introduccion em { display:inline-block; margin-top:.18em; font-size:.6em; letter-spacing:.015em; }
+#calendario .fachada {
+  background:repeating-linear-gradient(90deg,transparent 0 23px,#06132270 24px 25px),
+    linear-gradient(110deg,#47545d,#253545 72%,#1b2b3c);
+  border-color:#907a59;
+  box-shadow:inset 0 5px 8px #070f1a99,inset 0 0 0 4px #d4bb8340,5px 4px 0 #121b27,6px 4px 0 #89734e;
+}
+#calendario .tejado .fronton { background:linear-gradient(145deg,#36495c,#1a293a); border-color:#a68c62; }
+#calendario .ventana { border-color:#9d8a68; background:linear-gradient(145deg,#263a4b,#172638); }
+#calendario .ventana .numero { background:#17283b; border-color:#b69a68; }
+#calendario .ventana[data-estado='destacada'],#calendario .ventana[data-estado='abierta'] { box-shadow:0 0 18px #efd08b88,0 4px 7px #050b14,inset 0 0 0 2px #b99a63; }
+#calendario .guirnalda-casa { filter:hue-rotate(20deg) saturate(.72); }
+#abrir-cuaderno { letter-spacing:.025em; }
