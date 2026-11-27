@@ -44,6 +44,8 @@ assert.match(datos.experiencia.cartaTexto, /Minerva McGonagall/);
 assert.match(datos.capitulos[23].transicion, /{{REMITENTE}}/);
 assert.match(datos.capitulos[2].descubrimientoTitulo, /lámina/i);
 assert.match(datos.capitulos[2].descubrimientoTexto, /siete segmentos/);
+assert.equal(datos.capitulos[9].pregunta, '¿Qué lugar forma la letra inicial y las once letras de llegada?');
+assert.match(datos.capitulos[9].instrucciones, /La casilla de salida también forma parte/);
 assert.match(datos.capitulos[23].premio, /La Estrella de Invierno vuelve a brillar/);
 assert.match(fs.readFileSync(path.join(root, 'vista-reto.js'), 'utf8'), /if \(reto\.premio\) resultado\.append/);
 assert.doesNotMatch(fs.readFileSync(path.join(root, 'recursos-reto.js'), 'utf8'), /M\.digitos/,
