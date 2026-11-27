@@ -100,8 +100,8 @@ window.CALENDARIO_PUBLICADO = {
       "normalizacion": "",
       "contexto": "En el escritorio hay un hueco vacío y una nota: «El libro que buscas enseña a leer lo que la magia deja a medias».",
       "transicion": "El título es GRIMORIO. Entre sus páginas encuentras una lámina de referencia: los visores antiguos de Hogwarts forman cada cifra con siete segmentos. Guárdala en el cuaderno; hará falta para reparar el archivo.",
-      "descubrimientoTitulo": "La lámina del grimorio",
-      "descubrimientoTexto": "Entre las páginas del GRIMORIO encuentras una lámina de referencia que explica cómo se construyen las cifras con siete segmentos. No es una página cualquiera: alguien la dejó aquí para que puedas interpretar los visores averiados que aparecerán más adelante. Consérvala en tu cuaderno; será imprescindible para continuar la investigación.",
+      "descubrimientoTitulo": "",
+      "descubrimientoTexto": "",
       "tipo": "anagrama",
       "listo": true,
       "respuestas": [
@@ -135,7 +135,7 @@ window.CALENDARIO_PUBLICADO = {
       "transcripcion": "",
       "evidenciaDibujo": "",
       "evidenciaDatos": "",
-      "configuracion": "{\n  \"filas\": [\n    \"{{DIA1}} A {{DIA2}} B C D E F\",\n    \"{{MES1}} G H I J K L M\",\n    \"{{MES2}} N O P Q R S T\",\n    \"{{ANIO1}} U V W {{ANIO2}} X Y Z\"\n  ],\n  \"agujeros\": [\n    \"10100000\",\n    \"10000000\",\n    \"10000000\",\n    \"10001000\"\n  ]\n}",
+      "configuracion": "{\n  \"filas\": [\n    \"{{DIA1}} 6 {{DIA2}} 4 7 2 1 7\",\n    \"5 {{MES1}} 6 0 8 1 1 3\",\n    \"1 3 8 7 2 5 {{MES2}} 0\",\n    \"{{ANIO1}} 1 7 8 {{ANIO2}} 3 2 7\"\n  ],\n  \"agujeros\": [\n    \"10100000\",\n    \"10000000\",\n    \"10000000\",\n    \"10001000\"\n  ]\n}",
       "normalizacion": "",
       "contexto": "La lámina del grimorio explica cómo leer registros incompletos. La plantilla parece hecha para revelar una fecha concreta, no una contraseña cualquiera.",
       "transicion": "El pergamino revela {{FECHA_ESPECIAL}}. Junto a ella aparece una frase: «Hay recuerdos que no pertenecen a ningún archivo, pero merecen ser protegidos». Esa fecha tiene un significado fuera de Hogwarts. La persona que preparó el libro conoce una parte de tu historia.",
@@ -235,7 +235,7 @@ window.CALENDARIO_PUBLICADO = {
     {
       "titulo": "El registro de las cuatro reliquias",
       "instrucciones": "El reloj ha activado un visor de archivo. Sus cuatro cifras están incompletas: algunos segmentos funcionan y otros aparecen marcados como averiados.\n\nConsulta la lámina de runas numéricas que encontraste en el grimorio. Reconstruye las cuatro cifras para abrir el registro.",
-      "pregunta": "¿Qué código de cuatro cifras forman los visores al reconstruir los segmentos averiados?",
+      "pregunta": "",
       "apoyo": "",
       "imagen": "",
       "alt": "",
@@ -349,9 +349,9 @@ window.CALENDARIO_PUBLICADO = {
     },
     {
       "titulo": "El mapa que solo aparece al andar",
-      "instrucciones": "El registro contiene nueve fichas de navegación. La tira de runas del día anterior —5 → 9 → 3— indica cuáles debes consultar y en qué orden. Abre las fichas que quieras, pero selecciona primero la 5, después la 9 y finalmente la 3.\n\nCuando hayas elegido la secuencia correcta, aparecerá el mapa. Empieza en la casilla iluminada y sigue cada movimiento de los fragmentos. En cada paso, pulsa la casilla donde terminas; el mapa recogerá su letra. Las casillas intermedias no cuentan.",
-      "pregunta": "¿Qué lugar forman las letras recogidas durante el recorrido?",
-      "apoyo": "La secuencia del día 9 es la clave: fragmento 5, fragmento 9 y fragmento 3. La casilla inicial también aporta una letra.",
+      "instrucciones": "La tira de runas 5 → 9 → 3 señala el mapa de tránsito del castillo. Empieza en la segunda casilla de la última fila y conserva esa letra. Sigue las instrucciones de movimiento; norte sube, sur baja, este va a la derecha y oeste a la izquierda.\n\nAnota solo la letra de la casilla donde termines cada movimiento. Las casillas intermedias no cuentan.",
+      "pregunta": "",
+      "apoyo": "",
       "imagen": "",
       "alt": "",
       "audio": "",
@@ -365,12 +365,12 @@ window.CALENDARIO_PUBLICADO = {
       "transcripcion": "",
       "evidenciaDibujo": "",
       "evidenciaDatos": "",
-      "configuracion": "{\n  \"filas\": [\n    \"D V R Y F M A A\",\n    \"Q X E L S Z G N\",\n    \"D R R Y E M T A\",\n    \"Q X E O S Z T N\",\n    \"D K R Y F M T A\",\n    \"Q B E L S Z G N\",\n    \"D K R R F M I A\",\n    \"Q O E L S Z O N\"\n  ],\n  \"inicio\": [\n    8,\n    2\n  ],\n  \"movimientos\": [\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Norte\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      5\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Sur\",\n      1\n    ]\n  ],\n  \"fragmentos\": {\n    \"1\": [\n      [\n        \"Sur\",\n        2\n      ],\n      [\n        \"Oeste\",\n        1\n      ]\n    ],\n    \"2\": [\n      [\n        \"Este\",\n        2\n      ],\n      [\n        \"Norte\",\n        1\n      ]\n    ],\n    \"3\": [\n      [\n        \"Sur\",\n        3\n      ],\n      [\n        \"Este\",\n        3\n      ],\n      [\n        \"Sur\",\n        1\n      ]\n    ],\n    \"4\": [\n      [\n        \"Oeste\",\n        2\n      ],\n      [\n        \"Norte\",\n        1\n      ]\n    ],\n    \"5\": [\n      [\n        \"Norte\",\n        2\n      ],\n      [\n        \"Este\",\n        3\n      ],\n      [\n        \"Norte\",\n        3\n      ],\n      [\n        \"Oeste\",\n        3\n      ]\n    ],\n    \"6\": [\n      [\n        \"Sur\",\n        1\n      ],\n      [\n        \"Este\",\n        1\n      ]\n    ],\n    \"7\": [\n      [\n        \"Norte\",\n        1\n      ],\n      [\n        \"Oeste\",\n        2\n      ]\n    ],\n    \"8\": [\n      [\n        \"Este\",\n        1\n      ],\n      [\n        \"Sur\",\n        2\n      ]\n    ],\n    \"9\": [\n      [\n        \"Norte\",\n        2\n      ],\n      [\n        \"Este\",\n        5\n      ],\n      [\n        \"Sur\",\n        3\n      ],\n      [\n        \"Oeste\",\n        3\n      ]\n    ]\n  },\n  \"ordenFragmentos\": [\n    5,\n    9,\n    3\n  ]\n}",
+      "configuracion": "{\n  \"filas\": [\n    \"D V R Y F M A A\",\n    \"Q X E L S Z G N\",\n    \"D R R Y E M T A\",\n    \"Q X E O S Z T N\",\n    \"D K R Y F M T A\",\n    \"Q B E L S Z G N\",\n    \"D K R R F M I A\",\n    \"Q O E L S Z O N\"\n  ],\n  \"inicio\": [\n    8,\n    2\n  ],\n  \"movimientos\": [\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Norte\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      5\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Sur\",\n      1\n    ]\n  ]\n}",
       "normalizacion": "",
-      "contexto": "Nueve fichas reposan sobre el atril. La secuencia 5 → 9 → 3 no es un código que debas repetir: es el orden en que debes consultar los fragmentos del registro.",
+      "contexto": "La tinta del mapa solo se activa cuando se sigue la ruta exacta. Las letras de las casillas forman el nombre del lugar al que debes dirigirte.",
       "transicion": "El recorrido deletrea OBSERVATORIO. La siguiente pista está en la torre donde Hogwarts estudia las estrellas.",
       "descubrimientoTitulo": "",
-      "descubrimientoTexto": "El mapa se ilumina bajo tus dedos. Las letras forman OBSERVATORIO. La ruta conduce a la torre donde Hogwarts estudia las estrellas.",
+      "descubrimientoTexto": "",
       "tipo": "recorrido",
       "listo": true,
       "respuestas": [
@@ -380,9 +380,9 @@ window.CALENDARIO_PUBLICADO = {
       "correcta": -1,
       "orden": [],
       "pistas": [
-        "Consulta la evidencia del día 9: los números indican tres fichas y su orden.",
-        "La ruta comienza en la fila 8, columna 2. Selecciona únicamente la casilla de llegada de cada movimiento.",
-        "La palabra final es OBSERVATORIO."
+        "Anota la casilla de salida y después una sola letra por cada orden.",
+        "No leas las casillas por las que pasas: conserva únicamente el punto final de cada movimiento.",
+        "El destino es OBSERVATORIO."
       ],
       "dependencias": [
         "evidencia-9"
@@ -941,6 +941,12 @@ window.CALENDARIO_PUBLICADO = {
       ]
     }
   ],
+  "personalizacion": {
+    "destinataria": "Andrea",
+    "remitente": "Ivan",
+    "fechaEspecial": "2023-07-16",
+    "recuerdoCompartido": "la visita a la exposición de Harry Potter en Madrid: un plan que surgió casi por casualidad y que terminó convirtiéndose en uno de esos días en los que lo pasamos genial juntos."
+  },
   "experiencia": {
     "cartaRotulo": "CORREO ESPECIAL · COLEGIO HOGWARTS",
     "cartaCabecera": "ESCUELA DE MAGIA Y HECHICERÍA",
@@ -959,16 +965,10 @@ window.CALENDARIO_PUBLICADO = {
     "revelacion": "La magia de Hogwarts solo ha sido el escenario. Lo importante es la persona que pensó en ti y la historia que seguís escribiendo fuera del castillo.",
     "introduccion": true,
     "final": true,
-    "nota": "Querida {{DESTINATARIA}}:\n\nHas devuelto la luz a la Estrella de Invierno. Pero el último capítulo no lo escribió ningún profesor: lo escribió alguien que quería prepararte algo distinto.\n\nLa fecha que encontraste en el pergamino es {{FECHA_ESPECIAL}}. No apareció por casualidad.\n\nY el recuerdo que acompaña a esta carta es: {{RECUERDO_COMPARTIDO}}.",
+    "nota": "Querida {{DESTINATARIA}}:\n\nHas devuelto la luz a la Estrella de Invierno. Pero el último capítulo no lo escribió ningún profesor: lo escribió alguien que quería prepararte algo distinto.\n\nLa fecha que encontraste en el pergamino es {{FECHA_ESPECIAL}}. Supongo que sabrás el motivo.\n\nQuizá te recuerde un poco a {{RECUERDO_COMPARTIDO}}.",
     "pista": "",
     "codigo": "9346",
-    "mensaje": "Feliz Navidad, {{DESTINATARIA}}.\n\nHe querido convertir este diciembre en una pequeña aventura para ti. Has recorrido Hogwarts, has resuelto cada pista y has reconstruido una historia que, en realidad, habla de nosotros.\n\nGracias por todos los momentos que ya forman parte de nuestro recuerdo y por los que todavía nos quedan por vivir.\n\nCon cariño, {{REMITENTE}}.",
+    "mensaje": "Feliz Navidad, corazón :)\n\nHe querido convertir este diciembre en una aventura por Hogwarts aprovechando que vas a estar emocionada por el estreno de la serie. Espero que te lo hayas pasado genial y no te hayas atascado mucho en algún reto.\n\nte quiero, {{REMITENTE}}.",
     "permitirNombre": false
-  },
-  "personalizacion": {
-    "destinataria": "Andrea",
-    "remitente": "",
-    "fechaEspecial": "",
-    "recuerdoCompartido": "La visita a la exposición de Harry Potter en Madrid: un plan que surgió casi por casualidad y que terminó convirtiéndose en uno de esos días en los que lo pasamos genial juntos."
   }
 };
