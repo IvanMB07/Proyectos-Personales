@@ -231,6 +231,11 @@ function leerPlantilla(config) {
 assert(ER.acertada(datos.capitulos[18], ['Espejo', 'Campana', 'Luna', 'Estrella']));
 assert(ER.acertada(datos.capitulos[22], ['Reloj', 'Pluma', 'Copa', 'Estrella']));
 assert(ER.acertada(datos.capitulos[8], '593'));
+{
+ const cfg=JSON.parse(datos.capitulos[9].configuracion);
+ assert.deepEqual(cfg.ordenFragmentos,[5,9,3]);
+ assert.equal(cfg.ordenFragmentos.flatMap(n=>cfg.fragmentos[String(n)]).length,11);
+}
 assert(ER.especiales.acertada(datos.capitulos[12], [...new Set('LA MAGIA ESTA EN LOS DETALLES'.replaceAll(' ', ''))]));
 assert(ER.acertada(datos.capitulos[21], '964'));
 
