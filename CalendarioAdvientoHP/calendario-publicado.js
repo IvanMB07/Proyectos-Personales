@@ -906,7 +906,7 @@ window.CALENDARIO_PUBLICADO = {
       "alt": "",
       "audio": "",
       "acierto": "La cámara se ha abierto. Has recuperado la Estrella de Invierno.",
-      "premio": "Busca el regalo en {{LUGAR_REGALO}}.",
+      "premio": "",
       "evidenciaTitulo": "",
       "evidenciaTexto": "",
       "combinacion": "9346",
@@ -918,7 +918,7 @@ window.CALENDARIO_PUBLICADO = {
       "configuracion": "",
       "normalizacion": "",
       "contexto": "En el centro de la estancia hay un cofre de plata. Cuatro símbolos rodean su cerradura. El mecanismo espera la combinación completa.",
-      "transicion": "El cofre se abre y la Estrella de Invierno recupera su luz. No era un tesoro robado ni una prueba del Torneo: era una invitación preparada para que llegaras hasta aquí.\n\nDentro hay una última carta, escrita por {{REMITENTE}}. La aventura de Hogwarts termina, pero el regalo que contiene pertenece a vuestra historia: {{RECUERDO_COMPARTIDO}}.\n\nFeliz Navidad, {{DESTINATARIA}}. Tu siguiente sorpresa te espera en {{LUGAR_REGALO}}.",
+      "transicion": "El cofre se abre y la Estrella de Invierno recupera su luz. No era un tesoro robado: era una invitación preparada para que llegaras hasta aquí.\n\nDentro hay una última carta, escrita por {{REMITENTE}}. La aventura de Hogwarts termina, pero lo que has vivido en estos días queda unido a vuestra historia: {{RECUERDO_COMPARTIDO}}.\n\nFeliz Navidad, {{DESTINATARIA}}. Has devuelto la luz a Hogwarts y has demostrado que la magia también se encuentra en los recuerdos que construimos juntos.",
       "descubrimientoTitulo": "La carta que estaba esperando",
       "descubrimientoTexto": "La última página lleva una firma que ya conoces fuera de Hogwarts. {{REMITENTE}} no te eligió por una profecía ni por un torneo: preparó este recorrido para regalarte una historia en la que tú fueras la protagonista. La Estrella de Invierno solo necesitaba que alguien reuniera cuatro cosas sencillas: lo que se escribe, el tiempo compartido, lo que se ofrece y la luz que queda cuando todo lo demás se apaga.",
       "tipo": "combinacion",
@@ -960,7 +960,7 @@ window.CALENDARIO_PUBLICADO = {
     "introduccion": true,
     "final": true,
     "nota": "Querida {{DESTINATARIA}}:\n\nHas devuelto la luz a la Estrella de Invierno. Pero el último capítulo no lo escribió ningún profesor: lo escribió alguien que quería prepararte algo distinto.\n\nLa fecha que encontraste en el pergamino es {{FECHA_ESPECIAL}}. No apareció por casualidad.\n\nY el recuerdo que acompaña a esta carta es: {{RECUERDO_COMPARTIDO}}.",
-    "pista": "Tu regalo te espera en {{LUGAR_REGALO}}.",
+    "pista": "",
     "codigo": "9346",
     "mensaje": "Feliz Navidad, {{DESTINATARIA}}.\n\nHe querido convertir este diciembre en una pequeña aventura para ti. Has recorrido Hogwarts, has resuelto cada pista y has reconstruido una historia que, en realidad, habla de nosotros.\n\nGracias por todos los momentos que ya forman parte de nuestro recuerdo y por los que todavía nos quedan por vivir.\n\nCon cariño, {{REMITENTE}}.",
     "permitirNombre": false
@@ -970,6 +970,5 @@ window.CALENDARIO_PUBLICADO = {
     "remitente": "",
     "fechaEspecial": "",
     "recuerdoCompartido": "",
-    "lugarRegalo": ""
   }
 };
