@@ -445,11 +445,30 @@
         ficha.append(diagnostico);panel.append(ficha);
       });
       const etiqueta=el('label','Código de cuatro cifras');
-      const entrada=el('input');entrada.type='text';entrada.inputMode='numeric';entrada.maxLength=4;entrada.value=s.codigo??'';
-      entrada.addEventListener('input',()=>{s.codigo=entrada.value;persistir();});etiqueta.append(entrada);
-      pantalla.append(panel,etiqueta);
-      controles.append(boton('Comprobar código',()=>{
-        if(!M.completa(tipo,c,s)){aviso.textContent='El código todavía no coincide.';return;}
+      const entrada=el('input');
+      entrada.type='text';
+      entrada.inputMode='numeric';
+      entrada.autocomplete='off';
+      entrada.maxLength=4;
+      entrada.placeholder='Escribe las cuatro cifras';
+      entrada.setAttribute('aria-label','Código de cuatro cifras del registro');
+      entrada.value=s.codigo??'';
+      entrada.addEventListener('input',()=>{
+        entrada.value=entrada.value.replace(/\\D/g,'').slice(0,4);
+        s.codigo=entrada.value;persistir();
+        aviso.textContent='';
+      });
+      entrada.addEventListener('keydown',evento=>{
+        if(evento.key==='Enter'){
+          evento.preventDefault();
+          if(!M.completa(tipo,c,s)){aviso.textContent='El código todavía no coincide.';return;}
+          completar();
+        }
+      });
+      etiqueta.append(entrada);
+      pantalla.append(panel,el('p','Reconstruye cada visor con la lámina de siete segmentos y escribe aquí el código completo.'),etiqueta);
+      controles.append(boton('Validar registro',()=>{
+        if(!M.completa(tipo,c,s)){aviso.textContent='El código todavía no coincide. Comprueba los cuatro visores y vuelve a intentarlo.';entrada.focus();return;}
         completar();
       }));
     }else if(tipo==='anillos'){
