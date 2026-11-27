@@ -349,9 +349,9 @@
     },
     {
       "titulo": "El mapa que solo aparece al andar",
-      "instrucciones": "La tira de runas 5 → 9 → 3 identifica este mapa de tránsito; no tienes que introducir esos números. La cuadrícula tiene 8 filas y 8 columnas. Empieza en la casilla de la fila 8, columna 2 (segunda casilla de la última fila) y anota su letra: O.\n\nDespués sigue los once movimientos en el orden indicado. Norte = subir; sur = bajar; este = derecha; oeste = izquierda. Cada número indica cuántas casillas debes avanzar en esa dirección.\n\nTras cada movimiento, anota únicamente la letra de la casilla donde termines. No anotes las casillas intermedias. Al final tendrás 12 letras: la inicial más una por cada movimiento. Únelas, en orden, para descubrir el lugar al que conduce el mapa.",
-      "pregunta": "¿Qué lugar forma la letra inicial y las once letras de llegada?",
-      "apoyo": "Salida: fila 8, columna 2. Conserva su letra antes de empezar. Recuerda: cada movimiento aporta una letra, no cada casilla que atraviesas.",
+      "instrucciones": "El registro contiene nueve fichas de navegación. La tira de runas del día anterior —5 → 9 → 3— indica cuáles debes consultar y en qué orden. Abre las fichas que quieras, pero selecciona primero la 5, después la 9 y finalmente la 3.\n\nCuando hayas elegido la secuencia correcta, aparecerá el mapa. Empieza en la casilla iluminada y sigue cada movimiento de los fragmentos. En cada paso, pulsa la casilla donde terminas; el mapa recogerá su letra. Las casillas intermedias no cuentan.",
+      "pregunta": "¿Qué lugar forman las letras recogidas durante el recorrido?",
+      "apoyo": "La secuencia del día 9 es la clave: fragmento 5, fragmento 9 y fragmento 3. La casilla inicial también aporta una letra.",
       "imagen": "",
       "alt": "",
       "audio": "",
@@ -365,12 +365,12 @@
       "transcripcion": "",
       "evidenciaDibujo": "",
       "evidenciaDatos": "",
-      "configuracion": "{\n  \"filas\": [\n    \"D V R Y F M A A\",\n    \"Q X E L S Z G N\",\n    \"D R R Y E M T A\",\n    \"Q X E O S Z T N\",\n    \"D K R Y F M T A\",\n    \"Q B E L S Z G N\",\n    \"D K R R F M I A\",\n    \"Q O E L S Z O N\"\n  ],\n  \"inicio\": [\n    8,\n    2\n  ],\n  \"movimientos\": [\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Norte\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      5\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Sur\",\n      1\n    ]\n  ]\n}",
+      "configuracion": "{\n  \"filas\": [\n    \"D V R Y F M A A\",\n    \"Q X E L S Z G N\",\n    \"D R R Y E M T A\",\n    \"Q X E O S Z T N\",\n    \"D K R Y F M T A\",\n    \"Q B E L S Z G N\",\n    \"D K R R F M I A\",\n    \"Q O E L S Z O N\"\n  ],\n  \"inicio\": [\n    8,\n    2\n  ],\n  \"movimientos\": [\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Norte\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Norte\",\n      2\n    ],\n    [\n      \"Este\",\n      5\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Oeste\",\n      3\n    ],\n    [\n      \"Sur\",\n      3\n    ],\n    [\n      \"Este\",\n      3\n    ],\n    [\n      \"Sur\",\n      1\n    ]\n  ],\n  \"fragmentos\": {\n    \"1\": [\n      [\n        \"Sur\",\n        2\n      ],\n      [\n        \"Oeste\",\n        1\n      ]\n    ],\n    \"2\": [\n      [\n        \"Este\",\n        2\n      ],\n      [\n        \"Norte\",\n        1\n      ]\n    ],\n    \"3\": [\n      [\n        \"Sur\",\n        3\n      ],\n      [\n        \"Este\",\n        3\n      ],\n      [\n        \"Sur\",\n        1\n      ]\n    ],\n    \"4\": [\n      [\n        \"Oeste\",\n        2\n      ],\n      [\n        \"Norte\",\n        1\n      ]\n    ],\n    \"5\": [\n      [\n        \"Norte\",\n        2\n      ],\n      [\n        \"Este\",\n        3\n      ],\n      [\n        \"Norte\",\n        3\n      ],\n      [\n        \"Oeste\",\n        3\n      ]\n    ],\n    \"6\": [\n      [\n        \"Sur\",\n        1\n      ],\n      [\n        \"Este\",\n        1\n      ]\n    ],\n    \"7\": [\n      [\n        \"Norte\",\n        1\n      ],\n      [\n        \"Oeste\",\n        2\n      ]\n    ],\n    \"8\": [\n      [\n        \"Este\",\n        1\n      ],\n      [\n        \"Sur\",\n        2\n      ]\n    ],\n    \"9\": [\n      [\n        \"Norte\",\n        2\n      ],\n      [\n        \"Este\",\n        5\n      ],\n      [\n        \"Sur\",\n        3\n      ],\n      [\n        \"Oeste\",\n        3\n      ]\n    ]\n  },\n  \"ordenFragmentos\": [\n    5,\n    9,\n    3\n  ]\n}",
       "normalizacion": "",
-      "contexto": "La tira 5 → 9 → 3 te ha llevado hasta un mapa de tránsito oculto. Las letras solo se revelan a quien sigue el recorrido exacto. La casilla de salida también forma parte del mensaje.",
+      "contexto": "Nueve fichas reposan sobre el atril. La secuencia 5 → 9 → 3 no es un código que debas repetir: es el orden en que debes consultar los fragmentos del registro.",
       "transicion": "El recorrido deletrea OBSERVATORIO. La siguiente pista está en la torre donde Hogwarts estudia las estrellas.",
       "descubrimientoTitulo": "",
-      "descubrimientoTexto": "",
+      "descubrimientoTexto": "El mapa se ilumina bajo tus dedos. Las letras forman OBSERVATORIO. La ruta conduce a la torre donde Hogwarts estudia las estrellas.",
       "tipo": "recorrido",
       "listo": true,
       "respuestas": [
@@ -380,9 +380,9 @@
       "correcta": -1,
       "orden": [],
       "pistas": [
-        "La salida está en la última fila, segunda columna. Esa primera letra también cuenta.",
-        "Haz cada movimiento desde tu posición actual y anota solo la letra de la casilla donde terminas. Son once movimientos después de la salida.",
-        "Las doce letras, incluida la inicial, forman OBSERVATORIO."
+        "Consulta la evidencia del día 9: los números indican tres fichas y su orden.",
+        "La ruta comienza en la fila 8, columna 2. Selecciona únicamente la casilla de llegada de cada movimiento.",
+        "La palabra final es OBSERVATORIO."
       ],
       "dependencias": [
         "evidencia-9"
