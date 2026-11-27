@@ -112,6 +112,29 @@ button:focus-visible,a:focus-visible,summary:focus-visible{
 #abrir-cuaderno::before{content:"✧";font-size:1.4rem;color:#f1d18c}
 #repetir-introduccion{color:#dec79f;text-underline-offset:5px}
 
+
+/* Contraste reforzado en la escena narrativa sobre fondo oscuro. */
+.historia-entrada,
+.historia-entrada .cabecera-historia,
+.historia-entrada .texto-historia,
+.historia-entrada .texto-historia p,
+.historia-entrada .texto-historia blockquote,
+.historia-entrada .contexto-historia,
+.historia-entrada .revelacion-historia{
+ color:#fff4e2;
+}
+.historia-entrada .texto-historia p,
+.historia-entrada .texto-historia blockquote{
+ color:#f7ead6;
+ text-shadow:0 1px 2px #160e18aa;
+}
+.historia-entrada .texto-historia strong,
+.historia-entrada .texto-historia em,
+.historia-entrada .texto-historia a{color:#ffdda0}
+.historia-entrada .cabecera-historia .fecha,
+.historia-entrada .contexto-historia{color:#f0d7ae}
+.historia-entrada h2{color:#ffe0a6;text-shadow:0 2px 12px #0008}
+
 /* Retos y ventanas modales: misma identidad, independientemente del tipo de prueba. */
 dialog:not(.historia-entrada){
  color:#382b24;border:1px solid #c09b63;border-radius:13px;
