@@ -969,6 +969,6 @@ window.CALENDARIO_PUBLICADO = {
     "destinataria": "Andrea",
     "remitente": "",
     "fechaEspecial": "",
-    "recuerdoCompartido": "",
+    "recuerdoCompartido": "La visita a la exposición de Harry Potter en Madrid: un plan que surgió casi por casualidad y que terminó convirtiéndose en uno de esos días en los que lo pasamos genial juntos.",
   }
 };
