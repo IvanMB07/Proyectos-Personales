@@ -118,6 +118,7 @@ for (const dia of [6, 12]) {
   assert(cifras.every(v => v.length === 1));
   assert.equal(cifras.map(v => v[0]).join(''), c.solucion);
   assert.equal(c.solucion, '8052');
+  assert.match(datos.capitulos[6].pregunta, /cuatro cifras/);
 }
 
 // Día 8 y día 21: los paneles eléctricos tienen una única solución dentro del límite.
