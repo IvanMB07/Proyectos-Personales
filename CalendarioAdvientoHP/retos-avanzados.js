@@ -602,8 +602,6 @@
         }
         dibujarNavegacion();
       } else {
-        const itinerario=el('ol','','itinerario');c.movimientos.forEach(([d,p])=>itinerario.append(el('li',d+', '+p+' '+(p===1?'casilla.':'casillas.'))));
-        bloque.append(itinerario,el('p','Puedes marcar las casillas donde terminas. Desliza el tablero para ver las ocho columnas.'));
         const campo=responder(),marcadas=Array.isArray(estado.marcadas)?estado.marcadas.filter(p=>Number.isInteger(p)&&p>=0&&p<144):[],filas=lineas(c.filas);
         const tabla=matriz(bloque,filas,(y,x)=>{const id=y*filas[0].length+x,pos=marcadas.indexOf(id);if(pos>=0)marcadas.splice(pos,1);else marcadas.push(id);estado.marcadas=marcadas;campo.value=marcadas.map(id=>filas[Math.floor(id/filas[0].length)][id%filas[0].length]).join('');estado.respuesta=campo.value;guardar();actualizar();});
         function actualizar(){for(const b of tabla.children){const id=Number(b.dataset.fila)*filas[0].length+Number(b.dataset.columna);b.setAttribute('aria-pressed',String(marcadas.includes(id)));}}actualizar();
