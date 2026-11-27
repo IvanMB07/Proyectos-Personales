@@ -551,27 +551,63 @@
       scroll.append(tabla);bloque.append(reglas,herramientas,scroll,deshacer,reiniciar);
       actualizar();respuesta=()=>marcas;
     } else if (reto.tipo === 'recorrido') {
-      const itinerario = el('ol','','itinerario');
-      c.movimientos.forEach(([direccion,pasos])=>itinerario.append(el('li',`${direccion}, ${pasos} ${pasos===1 ? 'casilla' : 'casillas'}.`)));
-      bloque.append(itinerario,el('p','Puedes marcar las casillas donde terminas. Desliza el tablero para ver las ocho columnas.'));
-      const campo=responder();
-      const marcadas=Array.isArray(estado.marcadas) ? estado.marcadas.filter(p=>Number.isInteger(p)&&p>=0&&p<144) : [];
-      const filas=lineas(c.filas);
-      const tabla=matriz(bloque,filas,(y,x,b)=>{
-        const id=y*filas[0].length+x;
-        const posicion=marcadas.indexOf(id);
-        if(posicion>=0) marcadas.splice(posicion,1); else marcadas.push(id);
-        estado.marcadas=marcadas;
-        campo.value=marcadas.map(id=>filas[Math.floor(id/filas[0].length)][id%filas[0].length]).join('');
-        estado.respuesta=campo.value; guardar(); actualizar();
-      });
-      function actualizar(){
-        for(const b of tabla.children){
-          const id=Number(b.dataset.fila)*filas[0].length+Number(b.dataset.columna);
-          b.setAttribute('aria-pressed',String(marcadas.includes(id)));
+      if (c.fragmentos && c.ordenFragmentos) {
+        const orden=c.ordenFragmentos, fragmentos=c.fragmentos;
+        const seleccionados=Array.isArray(estado.fragmentosSeleccionados)?estado.fragmentosSeleccionados.slice(0,orden.length):[];
+        const panel=el('section','','registro-navegacion');
+        panel.append(el('h3','Registro de navegación'),el('p','Consulta las nueve fichas. La secuencia de runas del día anterior indica cuáles debes elegir y en qué orden.'));
+        const fichas=el('div','','fichas-navegacion'), estadoFichas=el('p','','estado-navegacion'), aviso=el('p','','aviso-navegacion');
+        panel.append(fichas,estadoFichas,aviso);bloque.append(panel);
+        function dibujarNavegacion(){
+          fichas.replaceChildren();
+          for(let n=1;n<=9;n++){
+            const f=boton('✧ Fragmento '+n,()=>{
+              if(seleccionados.length>=orden.length||seleccionados.includes(n))return;
+              if(n!==orden[seleccionados.length]){estado.aviso='Esta ficha no corresponde a la siguiente runa. Consulta la secuencia del día anterior.';guardar();dibujarNavegacion();return;}
+              seleccionados.push(n);estado.fragmentosSeleccionados=seleccionados;estado.aviso='Fragmento '+n+' añadido al registro.';guardar();dibujarNavegacion();
+            });
+            f.classList.add('ficha-navegacion');if(seleccionados.includes(n)){f.classList.add('ficha-seleccionada');f.disabled=true;}fichas.append(f);
+          }
+          estadoFichas.textContent=seleccionados.length===3?'Registro completo: 5 → 9 → 3':'Fragmentos seleccionados: '+seleccionados.join(' → ');
+          aviso.textContent=estado.aviso||'';
+          let detalle=panel.querySelector('.detalle-fragmentos');
+          if(seleccionados.length===3&&!detalle){
+            detalle=el('div','','detalle-fragmentos');
+            for(const n of orden){const card=el('article','','detalle-fragmento');card.append(el('h4','Fragmento '+n));fragmentos[String(n)].forEach(([dir,p],i)=>card.append(el('p',(i+1)+'. '+dir+' · '+p+' '+(p===1?'casilla':'casillas'))));detalle.append(card);}
+            panel.append(detalle);mostrarMapa();
+          }
         }
+        function mostrarMapa(){
+          const mapa=el('section','','mapa-navegacion');mapa.append(el('h3','Sigue el recorrido'));
+          const filas=lineas(c.filas),ruta=[];let py=c.inicio[0]-1,px=c.inicio[1]-1;
+          ruta.push({y:py,x:px,letra:filas[py][px]});
+          const delta={Norte:[-1,0],Sur:[1,0],Este:[0,1],Oeste:[0,-1]};
+          orden.forEach(n=>fragmentos[String(n)].forEach(([dir,p])=>{const [dy,dx]=delta[dir];py+=dy*p;px+=dx*p;ruta.push({y:py,x:px,letra:filas[py][px]});}));
+          let paso=Number.isInteger(estado.pasoRuta)?Math.min(estado.pasoRuta,ruta.length-1):0;
+          const letras=el('div','','letras-navegacion'), instruccion=el('p','','instruccion-navegacion'), progreso=el('p','','progreso-navegacion');
+          const tabla=matriz(mapa,filas,(yy,xx)=>{
+            if(paso>=ruta.length-1)return;
+            const dest=ruta[paso+1];
+            if(yy!==dest.y||xx!==dest.x){instruccion.textContent='Esa no es la casilla de llegada. Revisa la dirección y el número de casillas.';return;}
+            paso++;estado.pasoRuta=paso;estado.respuesta=ruta.slice(0,paso+1).map(p=>p.letra).join('');guardar();actualizar();
+          });
+          function actualizar(){
+            for(const b of tabla.children){const yy=Number(b.dataset.fila),xx=Number(b.dataset.columna),idx=ruta.findIndex(p=>p.y===yy&&p.x===xx&&ruta.indexOf(p)<=paso);b.classList.toggle('casilla-ruta-activa',idx>=0);b.disabled=paso>=ruta.length-1;}
+            letras.textContent=ruta.slice(0,paso+1).map(p=>p.letra).join(' · ');
+            progreso.textContent='Movimiento '+paso+' de '+(ruta.length-1);
+            if(paso<ruta.length-1){const m=paso<4?fragmentos['5'][paso]:paso<8?fragmentos['9'][paso-4]:fragmentos['3'][paso-8];instruccion.textContent='Siguiente movimiento: '+m[0]+' · '+m[1]+' '+(m[1]===1?'casilla':'casillas')+'. Pulsa la casilla donde termines.';}
+            else instruccion.textContent='¡Ruta completada! Has descubierto OBSERVATORIO.';
+          }
+          mapa.append(instruccion,progreso,tabla,el('h4','Letras encontradas'),letras);panel.append(mapa);actualizar();
+        }
+        dibujarNavegacion();
+      } else {
+        const itinerario=el('ol','','itinerario');c.movimientos.forEach(([d,p])=>itinerario.append(el('li',d+', '+p+' '+(p===1?'casilla.':'casillas.'))));
+        bloque.append(itinerario,el('p','Puedes marcar las casillas donde terminas. Desliza el tablero para ver las ocho columnas.'));
+        const campo=responder(),marcadas=Array.isArray(estado.marcadas)?estado.marcadas.filter(p=>Number.isInteger(p)&&p>=0&&p<144):[],filas=lineas(c.filas);
+        const tabla=matriz(bloque,filas,(y,x)=>{const id=y*filas[0].length+x,pos=marcadas.indexOf(id);if(pos>=0)marcadas.splice(pos,1);else marcadas.push(id);estado.marcadas=marcadas;campo.value=marcadas.map(id=>filas[Math.floor(id/filas[0].length)][id%filas[0].length]).join('');estado.respuesta=campo.value;guardar();actualizar();});
+        function actualizar(){for(const b of tabla.children){const id=Number(b.dataset.fila)*filas[0].length+Number(b.dataset.columna);b.setAttribute('aria-pressed',String(marcadas.includes(id)));}}actualizar();
       }
-      actualizar();
     } else if (reto.tipo === 'perforado') {
       const filas=lineas(c.filas);
       const selector=el('div','','selector-piezas');
