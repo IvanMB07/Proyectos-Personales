@@ -64,8 +64,7 @@
         destinataria: texto(datos.personalizacion?.destinataria) || 'Andrea',
         remitente: texto(datos.personalizacion?.remitente),
         fechaEspecial: texto(datos.personalizacion?.fechaEspecial),
-        recuerdoCompartido: texto(datos.personalizacion?.recuerdoCompartido),
-        lugarRegalo: texto(datos.personalizacion?.lugarRegalo)
+        recuerdoCompartido: texto(datos.personalizacion?.recuerdoCompartido)
       },
       experiencia: {
         cartaRotulo: texto(datos.experiencia?.cartaRotulo) || 'CORREO ESPECIAL · COLEGIO HOGWARTS',
@@ -122,8 +121,7 @@
       '{{DIA1}}': fecha?.codigo[0] ?? '0', '{{DIA2}}': fecha?.codigo[1] ?? '0',
       '{{MES1}}': fecha?.codigo[2] ?? '0', '{{MES2}}': fecha?.codigo[3] ?? '0',
       '{{ANIO1}}': fecha?.codigo[4] ?? '0', '{{ANIO2}}': fecha?.codigo[5] ?? '0',
-      '{{RECUERDO_COMPARTIDO}}': texto(p.recuerdoCompartido).trim() || 'todos los momentos que hemos ido guardando juntos',
-      '{{LUGAR_REGALO}}': texto(p.lugarRegalo).trim() || '[LUGAR DEL REGALO]'
+      '{{RECUERDO_COMPARTIDO}}': texto(p.recuerdoCompartido).trim() || 'todos los momentos que hemos ido guardando juntos'
     };
     function recorrer(valor) {
       if (typeof valor === 'string') {
@@ -145,7 +143,7 @@
     if (!texto(p.destinataria).trim()) avisos.push('Escribe el nombre de la protagonista.');
     if (!texto(p.remitente).trim()) avisos.push('Escribe tu nombre para la firma de la carta.');
     if (!fechaPersonalizada(p.fechaEspecial)) avisos.push('Introduce una fecha personal válida; se convertirá automáticamente al código de seis cifras del día 4.');
-    if (!texto(p.lugarRegalo).trim()) avisos.push('Indica dónde encontrará el regalo al terminar la aventura.');
+
     return avisos;
   }
 
