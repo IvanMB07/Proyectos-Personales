@@ -601,6 +601,7 @@
           mapa.append(instruccion,progreso,tabla,el('h4','Letras encontradas'),letras);panel.append(mapa);actualizar();
         }
         dibujarNavegacion();
+        if(seleccionados.length===3) mostrarMapa();
       } else {
         const itinerario=el('ol','','itinerario');c.movimientos.forEach(([d,p])=>itinerario.append(el('li',d+', '+p+' '+(p===1?'casilla.':'casillas.'))));
         bloque.append(itinerario,el('p','Puedes marcar las casillas donde terminas. Desliza el tablero para ver las ocho columnas.'));
