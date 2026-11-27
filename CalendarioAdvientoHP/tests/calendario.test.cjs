@@ -50,7 +50,6 @@ const personalizacion = {
   remitente: 'Iván',
   fechaEspecial: '2023-07-16',
   recuerdoCompartido: 'Nuestro primer viaje a la costa',
-  lugarRegalo: 'dentro del armario del dormitorio'
 };
 const aventura = ER.personalizar({ ...datos, personalizacion });
 assert.deepEqual(ER.erroresPersonalizacion({ ...datos, personalizacion }), []);
@@ -58,7 +57,8 @@ assert.deepEqual(aventura.capitulos[3].respuestas, ['160723'], 'La fecha genera 
 assert.match(aventura.capitulos[3].transicion, /16 de julio de 2023/);
 assert.match(aventura.capitulos[23].transicion, /Iván/);
 assert.match(aventura.capitulos[23].transicion, /Nuestro primer viaje a la costa/);
-assert.match(aventura.capitulos[23].transicion, /dentro del armario del dormitorio/);
+assert(!aventura.capitulos[23].transicion.includes('{{LUGAR_REGALO}}'));
+assert.equal(aventura.personalizacion.lugarRegalo, undefined);
 assert.match(aventura.experiencia.cartaTexto, /Andrea/);
 assert.equal(datos.capitulos[3].respuestas[0], '{{FECHA_ESPECIAL_CODIGO}}', 'El borrador conserva el marcador editable.');
 assert.deepEqual(ER.personalizar({ ...datos, personalizacion: { ...personalizacion, fechaEspecial: '2023-02-30' } }).capitulos[3].respuestas, ['000000']);
@@ -272,6 +272,8 @@ assert.match(index, /calendario-publicado\.js/);
 assert.match(editor, /id="formulario-personalizacion"/);
 assert.match(editor, /editor\.js/);
 assert.match(editor, /Preparar versión para Andrea/);
+assert.doesNotMatch(editor, /lugarRegalo|Lugar donde estará el regalo|Última pista del regalo/);
+assert.doesNotMatch(editorJs, /lugarRegalo/);
 assert.match(editorJs, /calendario-publicado\.js/);
 assert.match(editorJs, /hp-estrella-invierno-editor-2026-/);
 assert.match(editorJs, /ER\.calendario\(\{ \.\.\.datos/ , 'La publicación conserva marcadores y datos de personalización editables.');
