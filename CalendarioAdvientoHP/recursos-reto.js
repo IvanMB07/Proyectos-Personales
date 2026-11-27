@@ -215,7 +215,8 @@
         d: 'M18 57h28', e: 'M15 36v18', f: 'M15 13v18', g: 'M18 33h28'
       };
       const referencia = nodo('div', '', 'cifras-referencia');
-      M.digitos.forEach((activos, numero) => {
+      const digitos = ['abcdef','bc','abdeg','abcdg','bcfg','acdfg','acdefg','abc','abcdefg','abcdfg'];
+      digitos.forEach((activos, numero) => {
         const figura = nodo('figure');
         const dibujo = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         dibujo.setAttribute('viewBox', '0 0 64 68');
